@@ -1,0 +1,20 @@
+.pydevproject
+.pida-metadata
+.pida-metadata/python/*
+.pida-metadata/*
+.project
+dina.logs
+db.devdb
+.DS_Store
+syntax: glob
+.cache/
+*.pyc
+*~
+.settings/*
+*Thumbs.db
+*.swp
+*.kpf
+*.log
+*.e4p
+*.wpr
+data/*
