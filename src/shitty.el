@@ -16,6 +16,27 @@
 
 (setq shit-mode 0)
 (setq DEBUG 1)
+(setq ROOTPATH nil)
+(setq LIBPATH nil)
+
+(defun init-shit () "Inittialize Shit IDE environment"
+  (log "initializing SHIT . . .")
+  (setq cur-path-list (split-string load-file-name "/"))
+  (nbutlast cur-path-list)
+  (setq ROOTPATH (concat (mapconcat 'identity cur-path-list "/") "/"))
+  (setq LIBPATH (concat ROOTPATH "lib/"))
+  (log (format "Running on %s" ROOTPATH))
+  (log (format "lib : %s" LIBPATH))
+)
+
+(defun load-lib (ADDR) "load the shit library on the ADDR path"
+  (interactive)
+  (let (tmp)
+    (setq tmp (concat LIBPATH ADDR))
+    (load tmp)
+    )
+  )
+
 
 (defun log (ARG) "print a log on message buffer."
   (if (= DEBUG 1) (message "[SHIT] DEBUG >>> %s" ARG))
@@ -29,12 +50,8 @@
       (progn
 	(setq shit-mode 1)
 	(log "Starting shit mode . . .")
-	(setq cur-path-list (split-string load-file-name "/"))
-	(nbutlast cur-path-list)
-	(setq curpath (mapconcat 'identity cur-path-list "/"))
-	(log curpath)
-	(add-to-list 'load-path curpath)
-	
+	(init-shit)
+	(load-lib "menu.el")
 	)
       )
   )

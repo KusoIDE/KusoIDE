@@ -10,6 +10,8 @@ syntax: glob
 .cache/
 *.pyc
 *~
+\#*
+\.\#*
 .settings/*
 *Thumbs.db
 *.swp
