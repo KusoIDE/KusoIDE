@@ -38,6 +38,14 @@
 )
 
 
+(defun pymenu () "draw python project menu"
+  ;; Python submenu
+  (define-key global-map [Ctrl-x p p d] 'django-proj)
+  (define-key global-map [menu-bar file new-proj pyproj djproj] '("Django project" . django-proj))
+
+  (define-key global-map [Ctrl-x p p g] 'generic-py)
+  (define-key global-map [menu-bar file new-proj pyproj pygeneric] '("Generic project" . generic-py))
+)
 
 
 (defun init-menu () "Initializing Shit IDE menu"
