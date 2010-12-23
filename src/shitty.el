@@ -14,13 +14,29 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(setq shit-mode 0)
+(setq DEBUG 1)
 
-(defun shitty-mode (active)
-  "A peace of shit configuration that tune emacs to be easier to develop with it."
-  (interactive "n")
-  (if (= active 1)
-      ;; if 
+(defun log (ARG) "print a log on message buffer."
+  (if (= DEBUG 1) (message "[SHIT] DEBUG >>> %s" ARG))
+)
+
+
+(defun start-shit ()
+  "A peace of shit configuration that tune emacs to be an IDE."
+  (interactive)
+  (if (/= shit-mode 1)
       (progn
-	()
+	(setq shit-mode 1)
+	(log "Starting shit mode . . .")
+	(setq cur-path-list (split-string load-file-name "/"))
+	(nbutlast cur-path-list)
+	(setq curpath (mapconcat 'identity cur-path-list "/"))
+	(log curpath)
+	(add-to-list 'load-path curpath)
+	
 	)
-    )
+      )
+  )
+
+(start-shit)
