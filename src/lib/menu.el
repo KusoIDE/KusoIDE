@@ -47,6 +47,15 @@
   (define-key global-map [menu-bar file new-proj pyproj pygeneric] '("Generic project" . generic-py))
 )
 
+(defun elmenu () "draw elisp project menu"
+  ;; Elisp menu
+  (define-key global-map [Ctrl-x p e s] 'shit-plugin)
+  (define-key global-map [menu-bar file new-proj elproj splug] '("Shit plugin" . shit-plugin))
+
+  (define-key global-map [Ctrl-x p e g] 'elgeneric)
+  (define-key global-map [menu-bar file new-proj elproj elgeneric] '("Generic project" . elgeneric))
+)
+
 
 (defun init-menu () "Initializing Shit IDE menu"
   (log "Initinalizing Menus . . .")
@@ -63,6 +72,7 @@
  
   (cmenu)
   (pymenu)
+  (elmenu)
 )
 
 (init-menu)
