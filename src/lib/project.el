@@ -26,10 +26,10 @@
 (defun new-project () "New project basic function"
   (setq project-name (read-string "Project Name: "))
   ;; Shit IDE use unix-project-name for dealing with project OS activity stuffs 
-  setq unix-project-name (replace-regexp-in-string "\ " "_" project-name)
+  (setq unix-project-name (replace-regexp-in-string "\ " "_" project-name))
   ;; if specified directory does not exists, shit will make it
-  (setq project-path (read-directory-name "Project Path: "))
-  (if (not (file-exists-p (project-path)))
+  (setq project-path (read-directory-name "Project Path: " nil nil nil project-name))
+  (if (not (file-exists-p project-path))
     (progn
       (mkdir project-path)
       (log "Project directory created")
