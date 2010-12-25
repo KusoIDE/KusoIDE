@@ -2,12 +2,8 @@
 .pida-metadata
 .pida-metadata/python/*
 .pida-metadata/*
-.project
-dina.logs
-db.devdb
 .DS_Store
 syntax: glob
-.cache/
 *.pyc
 *~
 \#*

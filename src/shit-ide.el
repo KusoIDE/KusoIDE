@@ -27,7 +27,6 @@
 )
 
 (defun load-dir (path) "Load entire directory"
-  (log (format ">>> PATH: %s" path))
   (setq load-elc (concat path "*.elc"))
   (setq load-el (concat path "*.el"))
   (setq filelist (file-expand-wildcards load-elc))
