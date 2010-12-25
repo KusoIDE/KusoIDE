@@ -18,15 +18,35 @@
 (setq DEBUG 1)
 (setq ROOTPATH nil)
 (setq LIBPATH nil)
+(setq PLUGINPATH nil)
+
+
+(defun strip-el-ext (STR) "strinp the lastest elist extension suffix"
+  (setq ext (replace-regexp-in-string "\.el$" "" STR))
+  (setq ext (replace-regexp-in-string "\.elc$" "" ext))
+)
+
+(defun load-dir (path) "Load entire directory"
+  (log (format ">>> PATH: %s" path))
+  (setq load-elc (concat path "*.elc"))
+  (setq load-el (concat path "*.el"))
+  (setq filelist (file-expand-wildcards load-elc))
+  (setq tmp (file-expand-wildcards load-el))
+  (setq filelist (append filelist tmp))
+  (setq filelist (mapcar 'strip-el-ext filelist))
+  (mapcar 'load filelist)
+)
 
 (defun init-shit () "Inittialize Shit IDE environment"
   (log "initializing SHIT . . .")
   (setq cur-path-list (split-string load-file-name "/"))
   (nbutlast cur-path-list)
   (setq ROOTPATH (concat (mapconcat 'identity cur-path-list "/") "/"))
+  (setq PLUGINPATH (concat ROOTPATH "plugins/"))
   (setq LIBPATH (concat ROOTPATH "lib/"))
   (log (format "Running on %s" ROOTPATH))
   (log (format "lib : %s" LIBPATH))
+  (log (format "plugins : %s" PLUGINPATH))
 )
 
 (defun load-lib (ADDR) "load the shit library on the ADDR path"
@@ -51,7 +71,9 @@
 	(setq shit-mode 1)
 	(log "Starting shit mode . . .")
 	(init-shit)
-	(load-lib "menu.el")
+	(load-dir LIBPATH)
+	(load-dir PLUGINPATH)
+	;;(load-lib "menu.el")
 	)
       )
   )
