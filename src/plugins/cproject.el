@@ -30,17 +30,16 @@
 
   (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
 
-  (define-key global-map [Ctrl-x p c p ] 'generic-cpp)
+  (define-key global-map (kbd "\C-x n \C-c") 'generic-cpp)
   (define-key global-map [menu-bar file new-proj cproj cppgeneric] '("Generic project (C++)" . generic-cpp))
 
 
-  (define-key global-map [Ctrl-x p c g] 'generic-c)
+  (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
   )
 
 (defun c-new-project () "Create a new C/C++ project"
   (new-project)
-  (log project-name)
 )
 
 (defun generic-c () "Create a generic type C project"
