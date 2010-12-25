@@ -1,4 +1,4 @@
-;;   Shitty - My personal emacs IDE configuration
+;;   Shit - My personal emacs IDE configuration
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify

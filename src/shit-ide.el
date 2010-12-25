@@ -1,4 +1,4 @@
-;;   Shitty - My personal emacs IDE configuration
+;;   Shit - My personal emacs IDE configuration
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 (setq ROOTPATH nil)
 (setq LIBPATH nil)
 (setq PLUGINPATH nil)
-
+(setq TEMPLATESPATH nil)
 
 (defun strip-el-ext (STR) "strinp the lastest elist extension suffix"
   (setq ext (replace-regexp-in-string "\.el$" "" STR))
@@ -42,10 +42,13 @@
   (nbutlast cur-path-list)
   (setq ROOTPATH (concat (mapconcat 'identity cur-path-list "/") "/"))
   (setq PLUGINPATH (concat ROOTPATH "plugins/"))
+  (setq TEMPLATESPATH (concat ROOTPATH "templates/"))
   (setq LIBPATH (concat ROOTPATH "lib/"))
   (log (format "Running on %s" ROOTPATH))
   (log (format "lib : %s" LIBPATH))
   (log (format "plugins : %s" PLUGINPATH))
+  (log (format "templates : %s" TEMPLATESPATH))
+  
 )
 
 (defun load-lib (ADDR) "load the shit library on the ADDR path"
