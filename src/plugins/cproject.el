@@ -44,5 +44,7 @@
 )
 
 (defun generic-c () "Create a generic type C project"
+  (interactive)
   (c-new-project)
 )
+(init-menus)

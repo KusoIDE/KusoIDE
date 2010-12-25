@@ -14,29 +14,6 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defun cmenu () "draw c project menu"
-  ;; C/C++ submenus
-  (define-key global-map [Ctrl-x p c k ] 'kmodule)
-  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
-  
-  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
-
-  (define-key global-map [Ctrl-x p c n ] 'make-cpp)
-  (define-key global-map [menu-bar file new-proj cproj cpp-make] '("Make project (C++)" . make-cpp))
-  
-  (define-key global-map [Ctrl-x p c m ] 'make-c)
-  (define-key global-map [menu-bar file new-proj cproj c-make] '("Make project (C)" . make-c))
-
-  (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
-
-  (define-key global-map [Ctrl-x p c p ] 'generic-cpp)
-  (define-key global-map [menu-bar file new-proj cproj cppgeneric] '("Generic project (C++)" . generic-cpp))
-
-
-  (define-key global-map [Ctrl-x p c g] 'generic-c)
-  (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
-)
-
 
 (defun pymenu () "draw python project menu"
   ;; Python submenu
@@ -69,8 +46,7 @@
   (define-key-after global-map [menu-bar file new-proj jproj] (cons "Java" (make-sparse-keymap "j-proj")) 'elproj)
   (define-key-after global-map [menu-bar file new-proj jsproj] (cons "JS" (make-sparse-keymap "js-proj")) 'jproj)
   (define-key-after global-map [menu-bar file new-proj phpproj] (cons "PHP" (make-sparse-keymap "php-proj")) 'pyproj)
- 
-  (cmenu)
+
   (pymenu)
   (elmenu)
 )

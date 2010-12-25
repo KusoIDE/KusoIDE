@@ -32,6 +32,8 @@
   (setq filelist (file-expand-wildcards load-elc))
   (setq tmp (file-expand-wildcards load-el))
   (setq filelist (append filelist tmp))
+  (log (format "%s libraries found" filelist))
+  ;; TODO: delete unkown filetypes from filelist 
   (setq filelist (mapcar 'strip-el-ext filelist))
   (mapcar 'load filelist)
 )
