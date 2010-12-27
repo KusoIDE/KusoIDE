@@ -16,16 +16,38 @@
 
 ;; IO library
 
-(defun io/read (FILE)
-  "Read the contents of a file into a buffer and return the content.
-already opend buffer died after reading content."
+
+(defun io/read-buf (FILE)
+  "Read the file content of FILE into a buffer and return 
+the buffer it self."
   (if (file-readable-p FILE)
-      (let (x data)
-	(setq x (find-file FILE))
-	(setq data (buffer-string))
-	(kill-buffer x)
-	(identity data)
+      (let (read-buffer)
+	(setq read-buffer (find-file FILE))
 	)
+    (error "Can't read '%s' file.")
     )
   )
 
+
+(defun io/read (FILE)
+  "Read the contents of FILE into a buffer and return the content.
+already opend buffer died after reading content."
+  (let (buf data)
+    (setq buf (io/read-buf FILE))
+    (setq data (buffer-string))
+    (kill-buffer buf)
+    (identity data)
+    )
+  )
+
+(defun io/write (FILE STRING)
+  "Write the STRING into FILE if file was writable."
+  (if (file-writable-p FILE)
+      (with-temp-buffer 
+	(insert STR)
+	(write-region (point-min)
+		      (point-max)
+		      FILE)
+	)
+    )
+  )

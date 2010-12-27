@@ -66,7 +66,6 @@
   (if (= DEBUG 1) (message "[SHIT] DEBUG >>> %s" ARG))
 )
 
-
 (defun start-shit ()
   "A peace of shit configuration that tune emacs to be an IDE."
   (interactive)
