@@ -1,1 +1,4 @@
-* remove unkown filetypes from filelist in load-dir
+* Remove unkown filetypes from filelist in load-dir
+* Add some option for user to choose between liceenses
+* Review license templates
+* build the debian folder nad required files for deb packages
