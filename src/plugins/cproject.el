@@ -48,14 +48,10 @@
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
-  (setq current-template-file (concat TEMPLATESPATH "c/generic_c/main.c.tmpl"))
-
-  (if project-license
-      (let (license-data license-file)
-	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
-	(setq license-data (io/read license-file))
-	
-	)
+  (let (current-template-file license-data)
+    (setq current-template-file (concat TEMPLATESPATH "c/generic_c/main.c.tmpl"))
+    (setq license-data (insert-license))
+    (log license-data)
     )
 )
 (init-menus)

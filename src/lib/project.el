@@ -46,12 +46,31 @@
 	(setq project-author nil)
 	(setq project-home-page nil)
 	(setq project-author-email nil)
+	(setq project-desc nil)
 	)
     (progn
       (setq project-author (read-string "Project Author: "))
       (setq project-author-email (read-string "Project Author Email: "))
       (setq project-home-page (read-string "Home Page: "))
+      (setq project-desc (read-string "Description: "))
       )
     )
 
+)
+
+
+(defun insert-license ()
+"Return the prepared license string."
+  (if project-license
+      (let (license-data license-file)
+	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
+	(setq license-data (io/read license-file))
+	(setq license-data (replace-regexp-in-string "::project::" project-name license-data))
+	(setq license-data (replace-regexp-in-string "::desc::" project-desc license-data))
+	(setq license-data (replace-regexp-in-string "::author::" project-author license-data))
+	(setq license-data (replace-regexp-in-string "::email::" project-author-email license-data))
+	(setq license-data (replace-regexp-in-string "::year::" (format-time-string "%Y") license-data))
+	(identity license-data)
+	)
+    )
 )
