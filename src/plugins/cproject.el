@@ -54,7 +54,7 @@
       (let (license-data license-file)
 	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
 	(setq license-data (io/read license-file))
-	(log license-data)
+	
 	)
     )
 )

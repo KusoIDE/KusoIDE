@@ -25,6 +25,8 @@
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.
 (defun new-project () "New project basic function"
+
+  ;; Project name
   (setq project-name (read-string "Project Name: "))
   ;; Shit IDE use unix-project-name for dealing with project OS activity stuffs 
   (setq unix-project-name (downcase (replace-regexp-in-string " " "_" project-name)))
@@ -39,8 +41,17 @@
   ;; TODO: find a way to ask a multi choices question
   (setq project-license (read-string "Project License: "))
   (if (not (member project-license known-licenses))
-      (setq project-license nil)
+      (progn
+	(setq project-license nil)
+	(setq project-author nil)
+	(setq project-home-page nil)
+	(setq project-author-email nil)
+	)
+    (progn
+      (setq project-author (read-string "Project Author: "))
+      (setq project-author-email (read-string "Project Author Email: "))
+      (setq project-home-page (read-string "Home Page: "))
+      )
     )
-  (setq project-author (read-string "Project Author: "))
-  (setq project-home-page (read-string "Home Page: "))
+
 )
