@@ -20,7 +20,7 @@
 ;; I do not like users who use non-free licenses
 ;; TODO: gather a complete list of free software licenses
 ;; TODO: build a hash variable from licenses
-(setq known-licenses '(gpl bsd cc))
+(setq known-licenses '("gpl" "bsd" "cc"))
 
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.

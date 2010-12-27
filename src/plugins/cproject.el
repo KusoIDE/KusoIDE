@@ -49,7 +49,8 @@
   (interactive)
   (c-new-project)
   (setq current-template-file (concat TEMPLATESPATH "c/generic_c/main.c.tmpl"))
-  (if (project-license)
+
+  (if project-license
       (let (license-data license-file)
 	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
 	(setq license-data (io/read license-file))

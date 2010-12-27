@@ -2,3 +2,4 @@
 * Add some option for user to choose between liceenses
 * Review license templates
 * build the debian folder nad required files for deb packages
+* escape project name for a unix name
