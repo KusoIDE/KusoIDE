@@ -19,16 +19,17 @@
 ;; Known licenses - Only free softwares license 
 ;; I do not like users who use non-free licenses
 ;; TODO: gather a complete list of free software licenses
-
+;; TODO: build a hash variable from licenses
 (setq known-licenses '(gpl bsd cc))
+
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.
 (defun new-project () "New project basic function"
   (setq project-name (read-string "Project Name: "))
   ;; Shit IDE use unix-project-name for dealing with project OS activity stuffs 
-  (setq unix-project-name (replace-regexp-in-string "\ " "_" project-name))
+  (setq unix-project-name (downcase (replace-regexp-in-string " " "_" project-name)))
   ;; if specified directory does not exists, shit will make it
-  (setq project-path (read-directory-name "Project Path: " nil nil nil project-name))
+  (setq project-path (read-directory-name "Project Path: " nil nil nil unix-project-name))
   (if (not (file-exists-p project-path))
     (progn
       (mkdir project-path)
@@ -38,7 +39,7 @@
   ;; TODO: find a way to ask a multi choices question
   (setq project-license (read-string "Project License: "))
   (if (not (member project-license known-licenses))
-      (setq project-license "other")
+      (setq project-license nil)
     )
   (setq project-author (read-string "Project Author: "))
   (setq project-home-page (read-string "Home Page: "))

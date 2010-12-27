@@ -21,7 +21,7 @@
   (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
   (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
-
+  
   (define-key global-map [Ctrl-x p c n ] 'make-cpp)
   (define-key global-map [menu-bar file new-proj cproj cpp-make] '("Make project (C++)" . make-cpp))
   
@@ -38,6 +38,9 @@
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
   )
 
+;; Thsi function exists because maybe SHIT needs more information
+;; about new project in the feature the new-prject function did not
+;; cover
 (defun c-new-project () "Create a new C/C++ project"
   (new-project)
 )
@@ -45,5 +48,13 @@
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
+  (setq current-template-file (concat TEMPLATESPATH "c/generic_c/main.c.tmpl"))
+  (if (project-license)
+      (let (license-data license-file)
+	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
+	(setq license-data (io/read license-file))
+	(log license-data)
+	)
+    )
 )
 (init-menus)
