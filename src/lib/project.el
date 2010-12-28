@@ -28,10 +28,12 @@
 
   ;; Project name
   (setq project-name (read-string "Project Name: "))
+  (if (string= project-name "") (error "Project name must not be emty"))
   ;; Shit IDE use unix-project-name for dealing with project OS activity stuffs 
   (setq unix-project-name (downcase (replace-regexp-in-string " " "_" project-name)))
   ;; if specified directory does not exists, shit will make it
   (setq project-path (read-directory-name "Project Path: " nil nil nil unix-project-name))
+  (log project-path)
   (if (not (file-exists-p project-path))
     (progn
       (mkdir project-path)
@@ -101,6 +103,21 @@
     ;; add the license header
     (setq license-data (insert-license))
     (setq data (replace-regexp-in-string "::license::" license-data data))
+    )
+)
+
+(defun project/write-dest-file (FILE DATA)
+  "Write the rendered DATA to its destenation file in project source tree.
+destenation file address created from template FILE name.
+ FILE : (string) Address of corresponding template 
+ DATA : (string) Rendered data"
+
+  (let (curfile destfile)
+    (setq curfile (split-string FILE "/"))
+    (nbutlast curfile)
+    (setq curfile (replace-regexp-in-string "__project__" unix-project-name curfile)) 
+    (setq curfile (replace-regexp-in-string "\.tmpl" "" curfile)) 
+    (setq destfile (concat project-path curfile))
     )
 )
   
