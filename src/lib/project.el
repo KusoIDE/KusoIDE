@@ -59,17 +59,31 @@
 )
 
 
+
+(defun project/render (data)
+  "Render the data with known context variables and return rendered daa"
+  (setq data (replace-regexp-in-string "::project::" project-name data))
+  (setq data (replace-regexp-in-string "::desc::" project-desc data))
+  (setq data (replace-regexp-in-string "::author::" project-author data))
+  (setq data (replace-regexp-in-string "::email::" project-author-email data))
+  (setq data (replace-regexp-in-string "::year::" (format-time-string "%Y") data))
+)
+
+
 (defun insert-license ()
 "Return the prepared license string."
   (if project-license
       (let (license-data license-file)
 	(setq license-file (concat TEMPLATESPATH (concat "licenses/" (concat project-license ".tmpl"))))
+	;; loading template file
 	(setq license-data (io/read license-file))
-	(setq license-data (replace-regexp-in-string "::project::" project-name license-data))
-	(setq license-data (replace-regexp-in-string "::desc::" project-desc license-data))
-	(setq license-data (replace-regexp-in-string "::author::" project-author license-data))
-	(setq license-data (replace-regexp-in-string "::email::" project-author-email license-data))
-	(setq license-data (replace-regexp-in-string "::year::" (format-time-string "%Y") license-data))
+	;; Rendering template
+;;	(setq license-data (replace-regexp-in-string "::project::" project-name license-data))
+;;	(setq license-data (replace-regexp-in-string "::desc::" project-desc license-data))
+;;	(setq license-data (replace-regexp-in-string "::author::" project-author license-data))
+;;	(setq license-data (replace-regexp-in-string "::email::" project-author-email license-data))
+;;	(setq license-data (replace-regexp-in-string "::year::" (format-time-string "%Y") license-data))
+	(setq license-data (project/render license-data))
 	(identity license-data)
 	)
     (let (license-data)
@@ -77,3 +91,16 @@
       )
     )
 )
+
+
+(defun project/render-template (template)
+  "Render the template and return the rendered template string"
+  (let (data license-data)
+    (setq data (io/read template))
+    (setq data (project/render data))
+    ;; add the license header
+    (setq license-data (insert-license))
+    (setq data (replace-regexp-in-string "::license::" license-data data))
+    )
+)
+  
