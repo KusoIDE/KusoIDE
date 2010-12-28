@@ -33,7 +33,7 @@
   (setq unix-project-name (downcase (replace-regexp-in-string " " "_" project-name)))
   ;; if specified directory does not exists, shit will make it
   (setq project-path (read-directory-name "Project Path: " nil nil nil unix-project-name))
-  (log project-path)
+
   (if (not (file-exists-p project-path))
     (progn
       (mkdir project-path)
@@ -114,10 +114,11 @@ destenation file address created from template FILE name.
 
   (let (curfile destfile)
     (setq curfile (split-string FILE "/"))
-    (nbutlast curfile)
+    (setq curfile (car (last curfile)))
     (setq curfile (replace-regexp-in-string "__project__" unix-project-name curfile)) 
     (setq curfile (replace-regexp-in-string "\.tmpl" "" curfile)) 
     (setq destfile (concat project-path curfile))
+    (log destfile)
     )
 )
   

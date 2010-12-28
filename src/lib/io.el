@@ -51,3 +51,8 @@ already opend buffer died after reading content."
 	)
     )
   )
+
+(defun io/join-path (a b)
+"safe join a and b addresses."
+
+)
