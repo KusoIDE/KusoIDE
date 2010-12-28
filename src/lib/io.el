@@ -44,15 +44,10 @@ already opend buffer died after reading content."
   "Write the STRING into FILE if file was writable."
   (if (file-writable-p FILE)
       (with-temp-buffer 
-	(insert STR)
+	(insert STRING)
 	(write-region (point-min)
 		      (point-max)
 		      FILE)
 	)
     )
   )
-
-(defun io/join-path (a b)
-"safe join a and b addresses."
-
-)

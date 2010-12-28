@@ -109,11 +109,12 @@ destenation file address created from template FILE name.
 
   (let (curfile destfile)
     (setq curfile (split-string FILE "/"))
+
     (setq curfile (car (last curfile)))
     (setq curfile (replace-regexp-in-string "__project__" unix-project-name curfile)) 
     (setq curfile (replace-regexp-in-string "\.tmpl" "" curfile)) 
-    (setq destfile (concat project-path curfile))
-    (log destfile)
+    ;; safe path join (path generated here)
+    (setq destfile (expand-file-name curfile project-path))
+    (io/write destfile DATA)
     )
 )
-  
