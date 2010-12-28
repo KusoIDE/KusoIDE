@@ -16,6 +16,15 @@
 
 ;; project.el - Shit providen API for projects
 
+;; Some of the context variable that template render
+;; enginge will render are:
+;; ::license:: -- already rendered license info
+;; ::author:: -- Author name
+;; ::email:: -- author email
+;; ::project:: -- project proper name
+;; ::unixname:: -- project unix name (escaped for shell)
+;; ::desc:: -- project description
+
 ;; Known licenses - Only free softwares license 
 ;; I do not like users who use non-free licenses
 ;; TODO: gather a complete list of free software licenses
