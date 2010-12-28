@@ -48,6 +48,7 @@
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
+  (project/copying-license-copy)
   (let (template-file-regexp license-data filelist cur template-data)
     (setq template-file-regexp (concat TEMPLATESPATH "c/generic_c/*.tmpl"))
     (setq filelist (file-expand-wildcards template-file-regexp))
