@@ -72,5 +72,8 @@
 	(setq license-data (replace-regexp-in-string "::year::" (format-time-string "%Y") license-data))
 	(identity license-data)
 	)
+    (let (license-data)
+      (setq license-data "Put you GOD DAMN, FUCKing license here")
+      )
     )
 )

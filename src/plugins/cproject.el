@@ -48,10 +48,12 @@
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
-  (let (current-template-file license-data)
+  (let (current-template-file license-data filelist)
     (setq current-template-file (concat TEMPLATESPATH "c/generic_c/main.c.tmpl"))
+    (setq filelist (file-expand-wildcards load-elc))
+    ;; add the license header
     (setq license-data (insert-license))
-    (log license-data)
+    
     )
 )
 (init-menus)

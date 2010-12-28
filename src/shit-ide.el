@@ -22,11 +22,14 @@
 (setq TEMPLATESPATH nil)
 
 (defun strip-el-ext (STR) "strinp the lastest elist extension suffix"
+  (let (ext)
   (setq ext (replace-regexp-in-string "\.el$" "" STR))
   (setq ext (replace-regexp-in-string "\.elc$" "" ext))
+  )
 )
 
 (defun load-dir (path) "Load entire directory"
+  (let (load-elc load-el filelist tmp)
   (setq load-elc (concat path "*.elc"))
   (setq load-el (concat path "*.el"))
   (setq filelist (file-expand-wildcards load-elc))
@@ -36,10 +39,12 @@
   ;; TODO: delete unkown filetypes from filelist 
   (setq filelist (mapcar 'strip-el-ext filelist))
   (mapcar 'load filelist)
+  )
 )
 
 (defun init-shit () "Inittialize Shit IDE environment"
   (log "initializing SHIT . . .")
+  (let (cur-path-list)
   (setq cur-path-list (split-string load-file-name "/"))
   (nbutlast cur-path-list)
   (setq ROOTPATH (concat (mapconcat 'identity cur-path-list "/") "/"))
@@ -50,6 +55,7 @@
   (log (format "lib : %s" LIBPATH))
   (log (format "plugins : %s" PLUGINPATH))
   (log (format "templates : %s" TEMPLATESPATH))
+  )
   
 )
 
