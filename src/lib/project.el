@@ -84,10 +84,14 @@
 (defun project/copying-license-copy ()
   "Copy COPYING file into source tree of project."
   (if project-license
-      (let (copying)
+      (let (copying dest)
 	(setq copying (concat TEMPLATESPATH (concat "licenses/" (format "/%s/COPYING" project-license))))
-	(copy-file copying (expand-file-name project-path "COPYING"))
-	(log "'COPYING' file copied.")
+	(setq dest (expand-file-name project-path "COPYING"))
+	(if (not (file-exists-p dest))
+	    (progn
+	      (copy-file copying )
+	      (log "'COPYING' file copied.")
+	      )
 	)
     )
 )
