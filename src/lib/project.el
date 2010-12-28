@@ -80,11 +80,6 @@
 	;; loading template file
 	(setq license-data (io/read license-file))
 	;; Rendering template
-;;	(setq license-data (replace-regexp-in-string "::project::" project-name license-data))
-;;	(setq license-data (replace-regexp-in-string "::desc::" project-desc license-data))
-;;	(setq license-data (replace-regexp-in-string "::author::" project-author license-data))
-;;	(setq license-data (replace-regexp-in-string "::email::" project-author-email license-data))
-;;	(setq license-data (replace-regexp-in-string "::year::" (format-time-string "%Y") license-data))
 	(setq license-data (project/render license-data))
 	(identity license-data)
 	)
