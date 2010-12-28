@@ -55,6 +55,7 @@
       (setq cur (pop filelist))
       (setq template-data (project/render-template cur))
       (setq template-data (replace-regexp-in-string "::unixname::" unix-project-name  template-data))
+      (setq template-data (replace-regexp-in-string "::UNIXNAME::" unix-project-name  template-data))
       (project/write-dest-file cur template-data)
       )
     )
