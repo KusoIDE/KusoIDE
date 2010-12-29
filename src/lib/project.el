@@ -96,6 +96,7 @@
     )
 )
 
+
 (defun insert-license ()
 "Return the prepared license string."
   (if project-license

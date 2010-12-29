@@ -45,6 +45,23 @@
   (new-project)
 )
 
+
+(defun compile ()
+  "Run the make command and return the putput"
+  (interactive)
+  (let (output)
+    (setq output (shell-command-to-string "make"))
+    (message output)
+    )
+)
+
+
+(defun init-key-bindings ()
+  "Initialize the required key bindings for C/C++ project."
+  (define-key c-mode (kbd "\C-c \C-c") 'compile)
+)
+
+
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
@@ -60,5 +77,10 @@
       (project/write-dest-file cur template-data)
       )
     )
+  (cd project-path)
+  (init-key-bindings)
+  (find-file (concat unix-project-name ".c"))
 )
+
+
 (init-menus)

@@ -4,5 +4,6 @@
 * Build the debian folder nad required files for deb packages
 * Escape project name for a unix name "shell-quote-argument"
 * Add a config file for user to put his/her configuration there
+* Disable EDE and other unused menu
 * Allow templates file to store in subdirectories so new project can
    have subdirectories
