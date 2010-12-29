@@ -29,7 +29,7 @@
 ;; I do not like users who use non-free licenses
 ;; TODO: gather a complete list of free software licenses
 ;; TODO: build a hash variable from licenses
-(setq known-licenses '("gpl" "bsd" "cc"))
+(setq known-licenses '("gpl"))
 
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.
@@ -70,7 +70,6 @@
 )
 
 
-
 (defun project/render (data)
   "Render the data with known context variables and return rendered daa"
   (setq data (replace-regexp-in-string "::project::" project-name data))
@@ -92,10 +91,10 @@
 	      (copy-file copying )
 	      (log "'COPYING' file copied.")
 	      )
+	  )
 	)
     )
 )
-
 
 (defun insert-license ()
 "Return the prepared license string."
