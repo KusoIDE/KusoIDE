@@ -58,7 +58,7 @@
 
 (defun init-key-bindings ()
   "Initialize the required key bindings for C/C++ project."
-  (define-key c-mode (kbd "\C-c \C-c") 'compile)
+  (define-key global-map (kbd "\C-c \C-c") 'compile)
 )
 
 
@@ -80,6 +80,7 @@
   (cd project-path)
   (init-key-bindings)
   (find-file (concat unix-project-name ".c"))
+  (message major-mode)
 )
 
 
