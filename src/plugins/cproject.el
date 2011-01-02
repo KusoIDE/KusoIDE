@@ -56,6 +56,8 @@ binding for Shit IDE C projects section."
 ;; Functions
 ;; ---------------------------------------------------------------------
 (defun init-menus () "Draw required menu for C mode"
+  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
+
   (define-key global-map (kbd "\C-x n k") 'kmodule)
   (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
@@ -76,7 +78,6 @@ binding for Shit IDE C projects section."
   (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
   )
-
 ;; Thsi function exists because maybe SHIT needs more information
 ;; about new project in the feature the new-prject function did not
 ;; cover
@@ -115,6 +116,17 @@ binding for Shit IDE C projects section."
   (message major-mode)
 )
 
+(defun init-main-menu ()
+  "Initialize the C plugin menu under Shit menus."
+  (interactive)
+
+)
+
+(defun initial-keymap ()
+  "Set the key binding for C project."
+  (define-key shit-cpluging-map (kbd "\C-c \C-c") 'compile)
+)
+
 ;; Initializing c menus at the load time
 (init-menus)
 
@@ -134,7 +146,7 @@ This mode provide C language plugin for Shit IDE."
       (let () 
 	;; before initiazing mode
 	(run-hooks shit-cplug-preinit-hook)
-	(define-key shit-cpluging-map (kbd "\C-c \C-c") 'compile)
+	(initial-keymap)
 	;; after mode was initialized
 	(run-hooks shit-cplug-postinit-hook)
 	)
