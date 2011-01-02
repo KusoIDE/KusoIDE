@@ -14,12 +14,39 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq DEBUG 1)
-(setq ROOTPATH nil)
-(setq LIBPATH nil)
-(setq PLUGINPATH nil)
-(setq TEMPLATESPATH nil)
 
+;; --------------------------------------------------------------------
+;; Global variables
+;; --------------------------------------------------------------------
+
+;; Turning on debuggin for development
+(defvar DEBUG 1
+ "Shit IDE will produce more output in the debug mode (DEBUG = 1). log 
+function outputs will appear in *Messages* buffer."
+ )
+
+(defvar ROOTPATH nil
+  "This variable refer to absolute path to Shit IDE source tree."
+)
+
+(defvar LIBPATH nil
+  "This variable refer to 'lib' directory of Shit IDE that contains the
+internal libraries for ShitIDE."
+)
+
+(defvar PLUGINPATH nil
+  "This variable refer to 'plugin' directory of ShitIDE that contains
+Shit plugins."
+)
+
+(defvar  TEMPLATESPATH nil
+  "This variable refer to 'template' directory of ShitIDE where plugins
+store their code templates."
+)
+
+;; -------------------------------------------------------------------
+;; Functions
+;; -------------------------------------------------------------------
 (defun strip-el-ext (STR) "strinp the lastest elist extension suffix"
   (let (ext)
   (setq ext (replace-regexp-in-string "\.el$" "" STR))
@@ -94,3 +121,4 @@ function."
   )
 
 (start-shit)
+

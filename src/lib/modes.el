@@ -17,6 +17,25 @@ fff;;   Shit - My personal emacs IDE configuration
 ;; This file will define the most popular modes for ShitIDE
 
 ;; ---------------------------------------------------------------------
+;; Hooks
+;; ---------------------------------------------------------------------
+(defvar shit-preinit-mode-hook '()
+  "This hook runs before initializing the 'shit-mode' minor mode."
+  )
+
+(defvar shit-postinit-mode-hook '()
+  "This hook runs after 'shit-mode' minor mode initialized."
+  )
+
+(defvar shit-prerm-mode-hook '()
+  "This hook runs before deactivating 'shit-mode' minor mode."
+  )
+
+(defvar shit-postrm-mode-hook '()
+  "This hook runs after 'shit-mode' minor mode deactivated."
+  )
+
+;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
 (defvar shit-map (make-sparse-keymap)
@@ -57,6 +76,21 @@ This mode provide a basic configuration for an IDE."
   :group 'shit-group
 
   (if (not shit-mode)
-      (menu/init-menu)
+      ;; shit-mode is not loaded
+      (let () 
+	;; before initiazing mode
+	(run-hooks shit-preinit-mode-hook)
+	
+	;; after mode was initialized
+	(run-hooks shit-postinit-mode-hook)
+	)
+    ;; shit-mode already loaded
+    (let ()
+      ;; before deactivating mode
+      (run-hooks shit-prerm-mode-hook)
+
+      ;; after deactivating mode
+      (run-hooks shit-postrm-mode-hook)
+      )
+    )
   )
-)
