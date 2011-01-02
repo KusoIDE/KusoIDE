@@ -48,4 +48,8 @@
 ;;  (define-key-after global-map [menu-bar file new-proj phpproj] (cons "PHP" (make-sparse-keymap "php-proj")) 'pyproj)
 )
 
-;; TODO: build a menu destructor
+(defun menu/destruct-menu ()
+  "Remove Shit provided menu form emacs menus"
+  (global-unset-key [menu-bar file new-proj])
+  
+  )
