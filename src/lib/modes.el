@@ -89,6 +89,7 @@ This mode provide a basic configuration for an IDE."
 	;; before initiazing mode
 	(run-hooks shit-preinit-mode-hook)
 	(define-key shit-map (kbd "\C-c \C-c") 'tmplog)
+	(menu/init-menu)
 	;; after mode was initialized
 	(run-hooks shit-postinit-mode-hook)
 	)

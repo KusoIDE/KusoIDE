@@ -114,7 +114,6 @@ function."
     (init-shit)
     (load-dir LIBPATH)
     (load-dir PLUGINPATH)
-    ;;(load-lib "menu.el")
     )
   )
 
