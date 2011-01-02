@@ -35,7 +35,6 @@
 
 
 (defun menu/init-menu () "Initializing Shit IDE menu"
-  (log "Initinalizing Menus . . .")
   ;; New Project Menu
   (define-key-after global-map [menu-bar file new-proj] (cons "New Project" (make-sparse-keymap "new project")) 'new-file)
   
@@ -46,6 +45,7 @@
 ;;  (define-key-after global-map [menu-bar file new-proj jproj] (cons "Java" (make-sparse-keymap "j-proj")) 'elproj)
 ;;  (define-key-after global-map [menu-bar file new-proj jsproj] (cons "JS" (make-sparse-keymap "js-proj")) 'jproj)
 ;;  (define-key-after global-map [menu-bar file new-proj phpproj] (cons "PHP" (make-sparse-keymap "php-proj")) 'pyproj)
+  (message "Menus Initinalized")
 )
 
 (defun menu/destruct-menu ()

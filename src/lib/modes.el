@@ -95,7 +95,7 @@ This mode provide a basic configuration for an IDE."
     (let ()
       ;; before deactivating mode
       (run-hooks shit-prerm-mode-hook)
-      (setq shit-mode nil)
+
       ;; return everything to normal
       (if (not tool-bar-mode) (tool-bar-mode))
       (if (not scroll-bar-mode) (scroll-bar-mode))

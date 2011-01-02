@@ -104,7 +104,6 @@ function."
   (warn "[SHIT] WARNING >>> %s ARG")
   )
 
-
 (defun start-shit ()
   "A peace of shit configuration that tune emacs to be an IDE."
   (interactive)
