@@ -74,13 +74,12 @@ and keymap for their actions."
 (define-minor-mode shit-mode
   "Toggle Shit mode.
 This mode provide a basic configuration for an IDE."
-  :init-value nil
   :lighter " Shit"
   :keymap shit-map
   :global t 
   :group 'shit-group
 
-  (if (not shit-mode)
+  (if shit-mode
       ;; shit-mode is not loaded
       (let () 
 	;; before initiazing mode
@@ -96,7 +95,7 @@ This mode provide a basic configuration for an IDE."
     (let ()
       ;; before deactivating mode
       (run-hooks shit-prerm-mode-hook)
-      
+      (setq shit-mode nil)
       ;; return everything to normal
       (if (not tool-bar-mode) (tool-bar-mode))
       (if (not scroll-bar-mode) (scroll-bar-mode))
