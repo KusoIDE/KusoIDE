@@ -67,10 +67,7 @@ and keymap for their actions."
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
-(defun tmplog () ""
-  (interactive)
-  (log ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  )
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -88,7 +85,6 @@ This mode provide a basic configuration for an IDE."
       (let () 
 	;; before initiazing mode
 	(run-hooks shit-preinit-mode-hook)
-	(define-key shit-map (kbd "\C-c \C-c") 'tmplog)
 	(menu/init-menu)
 	;; after mode was initialized
 	(run-hooks shit-postinit-mode-hook)
@@ -103,3 +99,6 @@ This mode provide a basic configuration for an IDE."
       )
     )
   )
+
+
+;; TODO: provide a easy way for plugins to define a minor mode
