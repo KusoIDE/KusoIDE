@@ -57,6 +57,6 @@ This mode provide a basic configuration for an IDE."
   :group 'shit-group
 
   (if (not shit-mode)
-      
+      (menu/init-menu)
   )
 )

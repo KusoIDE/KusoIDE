@@ -14,7 +14,6 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(setq shit-mode 0)
 (setq DEBUG 1)
 (setq ROOTPATH nil)
 (setq LIBPATH nil)
