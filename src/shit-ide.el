@@ -108,16 +108,14 @@ function."
 (defun start-shit ()
   "A peace of shit configuration that tune emacs to be an IDE."
   (interactive)
-  (if (/= shit-mode 1)
-      (progn
-	(setq shit-mode 1)
-	(log "Starting shit mode . . .")
-	(init-shit)
-	(load-dir LIBPATH)
-	(load-dir PLUGINPATH)
-	;;(load-lib "menu.el")
-	)
-      )
+
+  (let ()
+    (log "Starting shit mode . . .")
+    (init-shit)
+    (load-dir LIBPATH)
+    (load-dir PLUGINPATH)
+    ;;(load-lib "menu.el")
+    )
   )
 
 (start-shit)

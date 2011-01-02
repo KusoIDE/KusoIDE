@@ -48,4 +48,4 @@
 ;;  (define-key-after global-map [menu-bar file new-proj phpproj] (cons "PHP" (make-sparse-keymap "php-proj")) 'pyproj)
 )
 
-(init-menu)
+(menu/init-menu)

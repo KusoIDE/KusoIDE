@@ -1,4 +1,4 @@
-fff;;   Shit - My personal emacs IDE configuration
+;;   Shit - My personal emacs IDE configuration
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -41,7 +41,8 @@ fff;;   Shit - My personal emacs IDE configuration
 (defvar shit-map (make-sparse-keymap)
  "Default keymap for shit-mode minor mode that hold the global key
 binding for shit IDE. each language plugin will have their own minor-mode
-and keymap for their actions.")
+and keymap for their actions."
+)
 
 ;; ---------------------------------------------------------------------
 ;; Groups
@@ -64,6 +65,13 @@ and keymap for their actions.")
   :tag '"C Plugin")
 
 ;; ----------------------------------------------------------------------
+;; Functions
+;; ----------------------------------------------------------------------
+(defun tmplog () ""
+  (interactive)
+  (log ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+  )
+;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
 (define-minor-mode shit-mode
@@ -71,7 +79,7 @@ and keymap for their actions.")
 This mode provide a basic configuration for an IDE."
   :init-value nil
   :lighter " Shit"
-  :keymap 'shit-map
+  :keymap shit-map
   :global t 
   :group 'shit-group
 
@@ -80,7 +88,7 @@ This mode provide a basic configuration for an IDE."
       (let () 
 	;; before initiazing mode
 	(run-hooks shit-preinit-mode-hook)
-	
+	(define-key shit-map (kbd "\C-c \C-c") 'tmplog)
 	;; after mode was initialized
 	(run-hooks shit-postinit-mode-hook)
 	)
