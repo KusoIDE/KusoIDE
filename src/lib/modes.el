@@ -1,4 +1,4 @@
-ff;;   Shit - My personal emacs IDE configuration
+fff;;   Shit - My personal emacs IDE configuration
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,33 @@ and keymap for their actions.")
 (defgroup shit-group nil
   "Default values for ShitIDE configuration will are categorized here.")
 
+(defgroup shit-features nil
+  "This group contains all the optional components of ShitIDE."
+  :group 'shit-group
+)
+
 ;; ---------------------------------------------------------------------
 ;; Custom Variables
 ;; ---------------------------------------------------------------------
+(defcustom c-plugin t
+  "ShitIDE C programming language plugin."
+  :group 'shit-features
+  :type 'boolean
+  :tag '"C Plugin")
+
+;; ----------------------------------------------------------------------
+;; Minor Modes
+;; ----------------------------------------------------------------------
+(define-minor-mode shit-mode
+  "Toggle Shit mode.
+This mode provide a basic configuration for an IDE."
+  :init-value nil
+  :lighter " Shit"
+  :keymap 'shit-map
+  :global t 
+  :group 'shit-group
+
+  (if (not shit-mode)
+      
+  )
+)
