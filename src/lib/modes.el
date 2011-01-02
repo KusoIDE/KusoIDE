@@ -55,14 +55,6 @@ and keymap for their actions."
   :group 'shit-group
 )
 
-;; ---------------------------------------------------------------------
-;; Custom Variables
-;; ---------------------------------------------------------------------
-(defcustom c-plugin t
-  "ShitIDE C programming language plugin."
-  :group 'shit-features
-  :type 'boolean
-  :tag '"C Plugin")
 
 ;; ----------------------------------------------------------------------
 ;; Functions

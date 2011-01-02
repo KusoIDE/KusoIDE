@@ -17,9 +17,9 @@
 ;; C project plugin for Shit IDE
 
 
-;; ---------------------------------------------------------------------
+;; -------------------------------------------------------------------
 ;; Hooks
-;; ---------------------------------------------------------------------
+;; -------------------------------------------------------------------
 (defvar shit-cplug-preinit-hook '()
   "This hook runs before initializing the Shit c-plugin minor mode."
   )
@@ -51,6 +51,15 @@ binding for Shit IDE C projects section."
   "This group contains all the optional components of Shit IDE C plugin."
   :group 'shit-group
 )
+
+;; ---------------------------------------------------------------------
+;; Custom Variables
+;; ---------------------------------------------------------------------
+(defcustom c-plugin t
+  "ShitIDE C programming language plugin."
+  :group 'shit-features
+  :type 'boolean
+  :tag '"C Plugin")
 
 ;; ---------------------------------------------------------------------
 ;; Functions
