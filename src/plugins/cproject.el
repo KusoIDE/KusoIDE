@@ -16,21 +16,60 @@
 
 ;; C project plugin for Shit IDE
 
+
+;; ---------------------------------------------------------------------
+;; Hooks
+;; ---------------------------------------------------------------------
+(defvar shit-cplug-preinit-hook '()
+  "This hook runs before initializing the Shit c-plugin minor mode."
+  )
+
+(defvar shit-cplug-postinit-hook '()
+  "This hook runs after Shit c-plugin minor mode initialized."
+  )
+
+(defvar shit-cplug-prerm--hook '()
+  "This hook runs before deactivating Shit c-plugin minor mode."
+  )
+
+(defvar shit-cplug-postrm-hook '()
+  "This hook runs after Shit c-plugin minor mode deactivated."
+  )
+
+;; ---------------------------------------------------------------------
+;; Keymaps
+;; ---------------------------------------------------------------------
+(defvar shit-cplugin-map (make-sparse-keymap)
+ "Default keymap for Shit c-plugin minor mode that hold the global key
+binding for Shit IDE C projects section."
+)
+
+;; ---------------------------------------------------------------------
+;; Groups
+;; ---------------------------------------------------------------------
+(defgroup shit-cplugin nil
+  "This group contains all the optional components of Shit IDE C plugin."
+  :group 'shit-group
+)
+
+;; ---------------------------------------------------------------------
+;; Functions
+;; ---------------------------------------------------------------------
 (defun init-menus () "Draw required menu for C mode"
-  (define-key global-map [Ctrl-x p c k ] 'kmodule)
+  (define-key global-map (kbd "\C-x n k") 'kmodule)
   (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
-  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
+;;  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
   
-  (define-key global-map [Ctrl-x p c n ] 'make-cpp)
-  (define-key global-map [menu-bar file new-proj cproj cpp-make] '("Make project (C++)" . make-cpp))
+;  (define-key global-map [Ctrl-x p c n ] 'make-cpp)
+;;  (define-key global-map [menu-bar file new-proj cproj cpp-make] '("Make project (C++)" . make-cpp))
   
-  (define-key global-map [Ctrl-x p c m ] 'make-c)
-  (define-key global-map [menu-bar file new-proj cproj c-make] '("Make project (C)" . make-c))
+;;  (define-key global-map [Ctrl-x p c m ] 'make-c)
+;;  (define-key global-map [menu-bar file new-proj cproj c-make] '("Make project (C)" . make-c))
 
   (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
 
-  (define-key global-map (kbd "\C-x n \C-c") 'generic-cpp)
+  (define-key shit-map (kbd "\C-x n \C-c") 'generic-cpp)
   (define-key global-map [menu-bar file new-proj cproj cppgeneric] '("Generic project (C++)" . generic-cpp))
 
 
@@ -55,13 +94,6 @@
     )
 )
 
-
-(defun init-key-bindings ()
-  "Initialize the required key bindings for C/C++ project."
-  (define-key global-map (kbd "\C-c \C-c") 'compile)
-)
-
-
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
@@ -83,5 +115,36 @@
   (message major-mode)
 )
 
-
+;; Initializing c menus at the load time
 (init-menus)
+
+;; ----------------------------------------------------------------------
+;; Minor Modes
+;; ----------------------------------------------------------------------
+(define-minor-mode shit-cplugin-mode
+  "Toggle Shit C plugin mode.
+This mode provide C language plugin for Shit IDE."
+  :lighter " shit-c"
+  :keymap shit-cplugin-map
+  :global t 
+  :group 'shit-group
+
+  (if shit-cplugin-mode
+      ;; shit-cplugin-mode is not loaded
+      (let () 
+	;; before initiazing mode
+	(run-hooks shit-cplug-preinit-hook)
+	(define-key shit-cpluging-map (kbd "\C-c \C-c") 'compile)
+	;; after mode was initialized
+	(run-hooks shit-cplug-postinit-hook)
+	)
+    ;; shit-mode already loaded
+    (let ()
+      ;; before deactivating mode
+      (run-hooks shit-cplug-prerm-hook)
+      ;; after deactivating mode
+      (run-hooks shit-cplug-postrm-hook)
+      )
+    )
+  )
+

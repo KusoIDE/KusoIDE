@@ -40,7 +40,7 @@
 ;; ---------------------------------------------------------------------
 (defvar shit-map (make-sparse-keymap)
  "Default keymap for shit-mode minor mode that hold the global key
-binding for shit IDE. each language plugin will have their own minor-mode
+binding for Shit IDE. each language plugin will have their own minor-mode
 and keymap for their actions."
 )
 
