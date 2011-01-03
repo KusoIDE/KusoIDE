@@ -53,3 +53,66 @@ binding for Kuso IDE dpaste plugin"
   :type 'boolean
   :tag '"dpaste.com plugins")
 
+;; ----------------------------------------------------------------------
+;; Functions
+;; ----------------------------------------------------------------------
+(defun init-keymap ()
+  "Initialize the keymap for dpaste plugin."
+  (define-key kuso-dpaste-map (kbd "\C-x p d") 'dpaste-region)
+  (define-key kuso-dpaste-map (kbd "\C-x p d") 'dpaste-buffer)
+  )
+
+(defun init-menus ()
+  "Initialize menu entry for dpaste plugin."
+  (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
+  (define-key-after global-map [menu-bar edit dpastereg] '("Dpaste Selected" . dpaste-region) 'sep1)
+  (define-key-after global-map [menu-bar edit dpastebuf] '("Dpaste Buffer" . dpaste-buffer) 'dpastereg)
+
+  (define-key global-map [menu-bar edit sep2] '("--") 'dpastebuf)
+  )
+  
+(defun destruct-menus ()
+  "Remove menus from menubar"
+    (global-unset-key [menu-bar edit sep1])
+    (global-unset-key [menu-bar edit sep2])
+    (global-unset-key [menu-bar edit dpastereg])
+    (global-unset-key [menu-bar edit dpastebuf])
+    )
+;; ----------------------------------------------------------------------
+;; Minor Modes
+;; ----------------------------------------------------------------------
+(define-minor-mode kuso-dpaste-mode
+  "Toggle Kuso dpaste plugin mode.
+This mode provide an easy way to dpaste a buffer or a snippet of text in
+http://www.dpaste.com/
+
+By marking a region and C-x p d this plugin dpaste the code and put the url
+in killring and also message the url. You can also use C-x p f to dpaste
+the current buffer."
+  :lighter nil
+  :keymap kuso-dpaste-map
+  :global t 
+  :group 'kuso-group
+
+  (if kuso-cplugin-mode
+      ;; kuso-cplugin-mode is not loaded
+      (let () 
+	;; before initiazing mode
+	(run-hooks 'kuso-dpaste-preinit-hook)
+	(init-keymap)
+	(init-menus
+	;; after mode was initialized
+	(run-hooks 'kuso-dpaste-postinit-hook)
+	)
+    ;; kuso-mode already loaded
+    (let ()
+      ;; before deactivating mode
+      (run-hooks 'kuso-dpaste-prerm-hook)
+      (destruct-menus)
+      ;; after deactivating mode
+      (run-hooks 'kuso-dpaste-postrm-hook)
+      )
+    )
+  )
+
+
