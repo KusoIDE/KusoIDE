@@ -115,5 +115,5 @@ function."
     (load-dir PLUGINPATH)
     )
   )
-(init-kuso)
+(start-kuso)
 

@@ -7,6 +7,7 @@
 * Disable EDE and other unused menu
 * Allow templates file to store in subdirectories so new project can
    have subdirectories
+* Improve modes.el file documentation
 
 -- Useful modes --
 * org mode
