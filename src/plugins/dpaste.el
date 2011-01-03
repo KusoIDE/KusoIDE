@@ -79,6 +79,31 @@ binding for Kuso IDE dpaste plugin"
     (global-unset-key [menu-bar edit dpastebuf])
     )
 
+(defun get-region-text () 
+  "Retrive the region (selected) text."
+  (let (text start end tmp)
+    (setq start (region-beginning))
+    (setq end (region-end))
+    (if (> start end)
+	(progn
+	  (setq tmp start)
+	  (setq start end)
+	  (setq end tmp)
+	  )
+      )
+    (setq text (buffer-substring-no-properties start end))
+    )
+)
+
+(defun dpaste-region ()
+  "dpaste the region and return the URL."
+  (interactive)
+  (let (text)
+    (setq text (get-region-text))
+    (deactivate-mark)
+    (message "<<<<<<< %s" text)
+    )
+  )
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
