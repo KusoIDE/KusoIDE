@@ -1,4 +1,4 @@
-;;   Shit - My personal emacs IDE configuration
+;;   Kuso - My personal emacs IDE
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -14,50 +14,50 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; C project plugin for Shit IDE
+;; C project plugin for Kuso IDE
 
 
 ;; -------------------------------------------------------------------
 ;; Hooks
 ;; -------------------------------------------------------------------
-(defvar shit-cplug-preinit-hook '()
-  "This hook runs before initializing the Shit c-plugin minor mode."
+(defvar kuso-cplug-preinit-hook '()
+  "This hook runs before initializing the Kuso c-plugin minor mode."
   )
 
-(defvar shit-cplug-postinit-hook '()
-  "This hook runs after Shit c-plugin minor mode initialized."
+(defvar kuso-cplug-postinit-hook '()
+  "This hook runs after Kuso c-plugin minor mode initialized."
   )
 
-(defvar shit-cplug-prerm--hook '()
-  "This hook runs before deactivating Shit c-plugin minor mode."
+(defvar kuso-cplug-prerm--hook '()
+  "This hook runs before deactivating Kuso c-plugin minor mode."
   )
 
-(defvar shit-cplug-postrm-hook '()
-  "This hook runs after Shit c-plugin minor mode deactivated."
+(defvar kuso-cplug-postrm-hook '()
+  "This hook runs after Kuso c-plugin minor mode deactivated."
   )
 
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
-(defvar shit-cplugin-map (make-sparse-keymap)
- "Default keymap for Shit c-plugin minor mode that hold the global key
-binding for Shit IDE C projects section."
+(defvar kuso-cplugin-map (make-sparse-keymap)
+ "Default keymap for Kuso c-plugin minor mode that hold the global key
+binding for Kuso IDE C projects section."
 )
 
 ;; ---------------------------------------------------------------------
 ;; Groups
 ;; ---------------------------------------------------------------------
-(defgroup shit-cplugin nil
-  "This group contains all the optional components of Shit IDE C plugin."
-  :group 'shit-group
+(defgroup kuso-cplugin nil
+  "This group contains all the optional components of Kuso IDE C plugin."
+  :group 'kuso-group
 )
 
 ;; ---------------------------------------------------------------------
 ;; Custom Variables
 ;; ---------------------------------------------------------------------
 (defcustom c-plugin t
-  "ShitIDE C programming language plugin."
-  :group 'shit-features
+  "KusoIDE C programming language plugin."
+  :group 'kuso-features
   :type 'boolean
   :tag '"C Plugin")
 
@@ -80,14 +80,14 @@ binding for Shit IDE C projects section."
 
   (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
 
-  (define-key shit-map (kbd "\C-x n \C-c") 'generic-cpp)
+  (define-key kuso-map (kbd "\C-x n \C-c") 'generic-cpp)
   (define-key global-map [menu-bar file new-proj cproj cppgeneric] '("Generic project (C++)" . generic-cpp))
 
 
   (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
   )
-;; Thsi function exists because maybe SHIT needs more information
+;; Thsi function exists because maybe Kuso needs more information
 ;; about new project in the feature the new-prject function did not
 ;; cover
 (defun c-new-project () "Create a new C/C++ project"
@@ -126,14 +126,14 @@ binding for Shit IDE C projects section."
 )
 
 (defun init-main-menu ()
-  "Initialize the C plugin menu under Shit menus."
+  "Initialize the C plugin menu under Kuso menus."
   (interactive)
 
 )
 
 (defun initial-keymap ()
   "Set the key binding for C project."
-  (define-key shit-cpluging-map (kbd "\C-c \C-c") 'compile)
+  (define-key kuso-cpluging-map (kbd "\C-c \C-c") 'compile)
 )
 
 ;; Initializing c menus at the load time
@@ -142,29 +142,29 @@ binding for Shit IDE C projects section."
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
-(define-minor-mode shit-cplugin-mode
-  "Toggle Shit C plugin mode.
-This mode provide C language plugin for Shit IDE."
-  :lighter " shit-c"
-  :keymap shit-cplugin-map
+(define-minor-mode kuso-cplugin-mode
+  "Toggle Kuso C plugin mode.
+This mode provide C language plugin for Kuso IDE."
+  :lighter " kuso-c"
+  :keymap kuso-cplugin-map
   :global t 
-  :group 'shit-group
+  :group 'kuso-group
 
-  (if shit-cplugin-mode
-      ;; shit-cplugin-mode is not loaded
+  (if kuso-cplugin-mode
+      ;; kuso-cplugin-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks shit-cplug-preinit-hook)
+	(run-hooks kuso-cplug-preinit-hook)
 	(initial-keymap)
 	;; after mode was initialized
-	(run-hooks shit-cplug-postinit-hook)
+	(run-hooks kuso-cplug-postinit-hook)
 	)
-    ;; shit-mode already loaded
+    ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks shit-cplug-prerm-hook)
+      (run-hooks kuso-cplug-prerm-hook)
       ;; after deactivating mode
-      (run-hooks shit-cplug-postrm-hook)
+      (run-hooks kuso-cplug-postrm-hook)
       )
     )
   )
