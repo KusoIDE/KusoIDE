@@ -56,6 +56,12 @@ binding for Kuso IDE. each language plugin will have their own minor-mode
 and keymap for their actions."
 )
 
+(defvar kuso-prefix-map (make-sparse-keymap)
+  "Make s-c as the default prefix for Kuso IDE minor mode. 
+By this prefix all the plugins that have small amount of keybindings
+can define their key bindings easily."
+)
+
 ;; ---------------------------------------------------------------------
 ;; Groups
 ;; ---------------------------------------------------------------------
@@ -95,7 +101,8 @@ This mode provide a basic configuration for an IDE."
 	(if tool-bar-mode (tool-bar-mode))
 	(if scroll-bar-mode (scroll-bar-mode))
 	(menu/init-menu)
-
+	
+	(define-key kuso-map (kbd "\S-c") 'kuso-prefix-map)
 	(run-hook 'kuso-plugin-preinit-hook)
 	(run-hook 'kuso-plugin-init-hook)
 	(run-hook 'kuso-plugin-postinit-hook)
