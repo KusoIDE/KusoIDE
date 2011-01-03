@@ -1,4 +1,4 @@
-;;   Shit - My personal emacs IDE configuration
+;;   Kuso - My personal emacs IDE
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -21,26 +21,26 @@
 
 ;; Turning on debuggin for development
 (defvar DEBUG 1
- "Shit IDE will produce more output in the debug mode (DEBUG = 1). log 
+ "Kuso IDE will produce more output in the debug mode (DEBUG = 1). log 
 function outputs will appear in *Messages* buffer."
  )
 
 (defvar ROOTPATH nil
-  "This variable refer to absolute path to Shit IDE source tree."
+  "This variable refer to absolute path to Kuso IDE source tree."
 )
 
 (defvar LIBPATH nil
-  "This variable refer to 'lib' directory of Shit IDE that contains the
-internal libraries for ShitIDE."
+  "This variable refer to 'lib' directory of Kuso IDE that contains the
+internal libraries for KusoIDE."
 )
 
 (defvar PLUGINPATH nil
-  "This variable refer to 'plugin' directory of ShitIDE that contains
-Shit plugins."
+  "This variable refer to 'plugin' directory of KusoIDE that contains
+Kuso plugins."
 )
 
 (defvar  TEMPLATESPATH nil
-  "This variable refer to 'template' directory of ShitIDE where plugins
+  "This variable refer to 'template' directory of KusoIDE where plugins
 store their code templates."
 )
 
@@ -68,8 +68,8 @@ store their code templates."
   )
 )
 
-(defun init-shit () "Inittialize Shit IDE environment"
-  (log "initializing SHIT . . .")
+(defun init-kuso () "Inittialize Kuso IDE environment"
+  (log "initializing Kuso . . .")
   (let (cur-path-list)
   (setq cur-path-list (split-string load-file-name "/"))
   (nbutlast cur-path-list)
@@ -85,7 +85,7 @@ store their code templates."
   
 )
 
-(defun load-lib (ADDR) "load the shit library on the ADDR path"
+(defun load-lib (ADDR) "load the kuso library on the ADDR path"
   (interactive)
   (let (tmp)
     (setq tmp (concat LIBPATH ADDR))
@@ -95,26 +95,26 @@ store their code templates."
 
 
 (defun log (ARG) "print a log on message buffer."
-  (if (= DEBUG 1) (message "[SHIT] DEBUG >>> %s" ARG))
+  (if (= DEBUG 1) (message "[Kuso] DEBUG >>> %s" ARG))
 )
 
 
 (defun warning (ARG) "A wrapper around elisp built-in warn
 function."
-  (warn "[SHIT] WARNING >>> %s ARG")
+  (warn "[Kuso] WARNING >>> %s ARG")
   )
 
-(defun start-shit ()
-  "A peace of shit configuration that tune emacs to be an IDE."
+(defun start-kuso ()
+  "A peace of kuso configuration that tune emacs to be an IDE."
   (interactive)
 
   (let ()
-    (log "Starting shit mode . . .")
-    (init-shit)
+    (log "Starting kuso mode . . .")
+    (init-kuso)
     (load-dir LIBPATH)
     (load-dir PLUGINPATH)
     )
   )
 
-(start-shit)
+(start-kuso)
 
