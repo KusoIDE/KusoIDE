@@ -75,25 +75,25 @@ This mode provide a basic configuration for an IDE."
       ;; kuso-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks kuso-preinit-mode-hook)
+	(run-hooks 'kuso-preinit-mode-hook)
 	;; i really found toolbar and scrollbar useless so i disabled them
 	(if tool-bar-mode (tool-bar-mode))
 	(if scroll-bar-mode (scroll-bar-mode))
 	(menu/init-menu)
 	;; after mode was initialized
-	(run-hooks kuso-postinit-mode-hook)
+	(run-hooks 'kuso-postinit-mode-hook)
 	)
     ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks kuso-prerm-mode-hook)
+      (run-hooks 'kuso-prerm-mode-hook)
 
       ;; return everything to normal
       (if (not tool-bar-mode) (tool-bar-mode))
       (if (not scroll-bar-mode) (scroll-bar-mode))
       (menu/destruct-menu)
       ;; after deactivating mode
-      (run-hooks kuso-postrm-mode-hook)
+      (run-hooks 'kuso-postrm-mode-hook)
       )
     )
   )

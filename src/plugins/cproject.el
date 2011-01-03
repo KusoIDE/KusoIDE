@@ -65,7 +65,6 @@ binding for Kuso IDE C projects section."
 ;; Functions
 ;; ---------------------------------------------------------------------
 (defun init-menus () "Draw required menu for C mode"
-  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
 
   (define-key global-map (kbd "\C-x n k") 'kmodule)
   (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
@@ -128,7 +127,7 @@ binding for Kuso IDE C projects section."
 (defun init-main-menu ()
   "Initialize the C plugin menu under Kuso menus."
   (interactive)
-
+  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
 )
 
 (defun initial-keymap ()
@@ -138,7 +137,7 @@ binding for Kuso IDE C projects section."
 
 ;; Initializing c menus at the load time
 (init-menus)
-
+(add-hook 'kuso-postinit-mode-hook 'init-main-menu)
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -154,17 +153,17 @@ This mode provide C language plugin for Kuso IDE."
       ;; kuso-cplugin-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks kuso-cplug-preinit-hook)
+	(run-hooks 'kuso-cplug-preinit-hook)
 	(initial-keymap)
 	;; after mode was initialized
-	(run-hooks kuso-cplug-postinit-hook)
+	(run-hooks 'kuso-cplug-postinit-hook)
 	)
     ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks kuso-cplug-prerm-hook)
+      (run-hooks 'kuso-cplug-prerm-hook)
       ;; after deactivating mode
-      (run-hooks kuso-cplug-postrm-hook)
+      (run-hooks 'kuso-cplug-postrm-hook)
       )
     )
   )
