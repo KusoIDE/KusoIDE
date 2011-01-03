@@ -1,4 +1,4 @@
-;;   Shit - My personal emacs IDE configuration
+;;   Kuso - My personal emacs IDE configuration
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -28,15 +28,15 @@
 
 (defun elmenu () "draw elisp project menu"
   ;; Elisp menu
-  (define-key global-map [Ctrl-x p e s] 'shit-plugin)
-  (define-key global-map [menu-bar file new-proj elproj splug] '("Shit plugin" . shit-plugin))
+  (define-key global-map [Ctrl-x p e s] 'kuso-plugin)
+  (define-key global-map [menu-bar file new-proj elproj splug] '("Kuso plugin" . kuso-plugin))
 
   (define-key global-map [Ctrl-x p e g] 'elgeneric)
   (define-key global-map [menu-bar file new-proj elproj elgeneric] '("Generic project" . elgeneric))
 )
 
 
-(defun menu/init-menu () "Initializing Shit IDE menu"
+(defun menu/init-menu () "Initializing Kuso IDE menu"
   ;; New Project Menu
   (define-key-after global-map [menu-bar file new-proj] (cons "New Project" (make-sparse-keymap "new project")) 'new-file)
   ;; New Project sub menus
@@ -51,7 +51,7 @@
 )
 
 (defun menu/destruct-menu ()
-  "Remove Shit provided menu form emacs menus"
+  "Remove Kuso provided menu form emacs menus"
   (global-unset-key [menu-bar file new-proj])
   
   )
