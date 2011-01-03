@@ -1,4 +1,4 @@
-;;   Shit - My personal emacs IDE configuration
+;;   Kuso - My personal emacs IDE
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,7 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; project.el - Shit providen API for projects
+;; project.el - Kuso providen API for projects
 
 ;; Some of the context variable that template render
 ;; enginge will render are:
@@ -38,9 +38,9 @@
   ;; Project name
   (setq project-name (read-string "Project Name: "))
   (if (string= project-name "") (error "Project name must not be emty"))
-  ;; Shit IDE use unix-project-name for dealing with project OS activity stuffs 
+  ;; Kuso IDE use unix-project-name for dealing with project OS activity stuffs 
   (setq unix-project-name (downcase (replace-regexp-in-string " " "_" project-name)))
-  ;; if specified directory does not exists, shit will make it
+  ;; if specified directory does not exists, Kuso will make it
   (setq project-path (read-directory-name "Project Path: " nil nil nil unix-project-name))
 
   (if (not (file-exists-p project-path))
@@ -55,14 +55,12 @@
       (progn
 	(setq project-license nil)
 	(setq project-author nil)
-	(setq project-home-page nil)
 	(setq project-author-email nil)
 	(setq project-desc nil)
 	)
     (progn
       (setq project-author (read-string "Project Author: "))
       (setq project-author-email (read-string "Project Author Email: "))
-      (setq project-home-page (read-string "Home Page: "))
       (setq project-desc (read-string "Description: "))
       )
     )
