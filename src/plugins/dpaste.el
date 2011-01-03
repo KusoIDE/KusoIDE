@@ -133,6 +133,7 @@ binding for Kuso IDE dpaste plugin"
     ;; This line of code gets from the el file that i mentioned above
     (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
     (shell-command-on-region start end (concat "curl -si" " -F 'content=<-'"
+					       " -A 'Kuso dpaste plugin'"
 					     " -F 'language=" type "'"
 					     " -F 'title=" title "'"
 					     " -F 'poster=" poster "'"
