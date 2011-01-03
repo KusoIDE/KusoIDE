@@ -127,7 +127,7 @@ binding for Kuso IDE C projects section."
 
 (defun initial-keymap ()
   "Set the key binding for C project."
-  (define-key kuso-cpluging-map (kbd "\C-c \C-c") 'compile)
+  (define-key kuso-cplugin-map (kbd "\C-c \C-c") 'compile)
 )
 
 ;; Initializing c menus at the load time
