@@ -66,8 +66,9 @@ binding for Kuso IDE C projects section."
 ;; ---------------------------------------------------------------------
 (defun init-menus () "Draw required menu for C mode"
 
-  (define-key global-map (kbd "\C-x n k") 'kmodule)
-  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
+  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
+;;  (define-key global-map (kbd "\C-x n k") 'kmodule)
+;;  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
 ;;  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
   
@@ -77,15 +78,16 @@ binding for Kuso IDE C projects section."
 ;;  (define-key global-map [Ctrl-x p c m ] 'make-c)
 ;;  (define-key global-map [menu-bar file new-proj cproj c-make] '("Make project (C)" . make-c))
 
-  (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
+;;  (define-key global-map [menu-bar file new-proj cproj separator1] '("--"))
 
-  (define-key kuso-map (kbd "\C-x n \C-c") 'generic-cpp)
+  (define-key global-map (kbd "\C-x n \C-c") 'generic-cpp)
   (define-key global-map [menu-bar file new-proj cproj cppgeneric] '("Generic project (C++)" . generic-cpp))
-
 
   (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
+
   )
+
 ;; Thsi function exists because maybe Kuso needs more information
 ;; about new project in the feature the new-prject function did not
 ;; cover
@@ -119,15 +121,8 @@ binding for Kuso IDE C projects section."
       )
     )
   (cd project-path)
-  (init-key-bindings)
   (find-file (concat unix-project-name ".c"))
-  (message major-mode)
-)
-
-(defun init-main-menu ()
-  "Initialize the C plugin menu under Kuso menus."
-  (interactive)
-  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
+  (kuso-cplugin-mode)
 )
 
 (defun initial-keymap ()
@@ -136,8 +131,9 @@ binding for Kuso IDE C projects section."
 )
 
 ;; Initializing c menus at the load time
-(init-menus)
-(add-hook 'kuso-postinit-mode-hook 'init-main-menu)
+;;(init-menus)
+(add-hook 'kuso-postinit-mode-hook 'init-menus)
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
