@@ -59,7 +59,7 @@ binding for Kuso IDE dpaste plugin"
 (defun init-keymap ()
   "Initialize the keymap for dpaste plugin."
   (define-key kuso-dpaste-map (kbd "\C-x p d") 'dpaste-region)
-  (define-key kuso-dpaste-map (kbd "\C-x p d") 'dpaste-buffer)
+  (define-key kuso-dpaste-map (kbd "\C-x p f") 'dpaste-buffer)
   )
 
 (defun init-menus ()
@@ -68,7 +68,7 @@ binding for Kuso IDE dpaste plugin"
   (define-key-after global-map [menu-bar edit dpastereg] '("Dpaste Selected" . dpaste-region) 'sep1)
   (define-key-after global-map [menu-bar edit dpastebuf] '("Dpaste Buffer" . dpaste-buffer) 'dpastereg)
 
-  (define-key global-map [menu-bar edit sep2] '("--") 'dpastebuf)
+  (define-key-after global-map [menu-bar edit sep2] '("--") 'dpastebuf)
   )
   
 (defun destruct-menus ()
@@ -78,6 +78,7 @@ binding for Kuso IDE dpaste plugin"
     (global-unset-key [menu-bar edit dpastereg])
     (global-unset-key [menu-bar edit dpastebuf])
     )
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -94,13 +95,13 @@ the current buffer."
   :global t 
   :group 'kuso-group
 
-  (if kuso-cplugin-mode
+  (if kuso-dpaste-mode
       ;; kuso-cplugin-mode is not loaded
       (let () 
 	;; before initiazing mode
 	(run-hooks 'kuso-dpaste-preinit-hook)
 	(init-keymap)
-	(init-menus
+	(init-menus)
 	;; after mode was initialized
 	(run-hooks 'kuso-dpaste-postinit-hook)
 	)
@@ -114,5 +115,3 @@ the current buffer."
       )
     )
   )
-
-
