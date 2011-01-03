@@ -47,12 +47,14 @@ and keymap for their actions."
 ;; ---------------------------------------------------------------------
 ;; Groups
 ;; ---------------------------------------------------------------------
-(defgroup kuso-group nil
-  "Default values for KusoIDE configuration will are categorized here.")
+(defgroup kuso-ide nil
+  "Default values for KusoIDE configuration will are categorized here."
+  :group 'emacs
+)
 
 (defgroup kuso-features nil
   "This group contains all the optional components of KusoIDE."
-  :group 'kuso-group
+  :group 'kuso-ide
 )
 
 

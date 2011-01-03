@@ -49,7 +49,7 @@ binding for Kuso IDE C projects section."
 ;; ---------------------------------------------------------------------
 (defgroup kuso-cplugin nil
   "This group contains all the optional components of Kuso IDE C plugin."
-  :group 'kuso-group
+  :group 'kuso-ide
 )
 
 ;; ---------------------------------------------------------------------
