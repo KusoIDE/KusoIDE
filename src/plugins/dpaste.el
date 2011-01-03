@@ -16,7 +16,24 @@
 
 ;; dpaste.com plugin
 
+;; -------------------------------------------------------------------
+;; Variables
+;; -------------------------------------------------------------------
 
+;; This variable copied from an other dpaste.el at
+;; https://github.com/gregnewman/dpaste.el/blob/master/dpaste.el
+(defvar dpaste-support-types '((css-mode . "Css")
+                                       (diff-mode . "Diff")
+                                       (haskell-mode . "Haskell")
+                                       (html-mode . "DjangoTemplate")
+                                       (javascript-mode . "JScript")
+                                       (js2-mode . "JScript")
+                                       (python-mode . "Python")
+                                       (inferior-python-mode . "PythonConsole")
+                                       (ruby-mode . "Ruby")
+                                       (sql-mode . "Sql")
+                                       (sh-mode . "Bash")
+                                       (xml-mode . "Xml")))
 ;; -------------------------------------------------------------------
 ;; Hooks
 ;; -------------------------------------------------------------------
