@@ -178,3 +178,4 @@ This mode provide C language plugin for Kuso IDE."
 	  )
 	)
       )
+  )
