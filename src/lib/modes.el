@@ -35,6 +35,18 @@
   "This hook runs after 'kuso-mode' minor mode deactivated."
   )
 
+(defvar kuso-plugin-preinit-hook '()
+  "This hook runs before initializing the plugins of Kuso IDE"
+  )
+
+(defvar kuso-plugin-init-hook '()
+  "This hook allow plugins to initialize them self in Kuso IDE."
+  )
+
+(defvar kuso-plugin-postinit-hook '()
+  "This hook runs after initializing the plugins of Kuso IDE"
+  )
+
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
@@ -78,10 +90,15 @@ This mode provide a basic configuration for an IDE."
       (let () 
 	;; before initiazing mode
 	(run-hooks 'kuso-preinit-mode-hook)
+
 	;; i really found toolbar and scrollbar useless so i disabled them
 	(if tool-bar-mode (tool-bar-mode))
 	(if scroll-bar-mode (scroll-bar-mode))
 	(menu/init-menu)
+
+	(run-hook 'kuso-plugin-preinit-hook)
+	(run-hook 'kuso-plugin-init-hook)
+	(run-hook 'kuso-plugin-postinit-hook)
 	;; after mode was initialized
 	(run-hooks 'kuso-postinit-mode-hook)
 	)
