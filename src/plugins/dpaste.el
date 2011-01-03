@@ -140,8 +140,7 @@ binding for Kuso IDE dpaste plugin"
     (with-current-buffer buf
       (message "<><><> %s " buffer-string)
       )
-    ;;(setq output (shell-command-to-string command))
-    ;;(message ">>> %s" output)
+
     )
   )
 ;; ----------------------------------------------------------------------
