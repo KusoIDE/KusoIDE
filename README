@@ -1,4 +1,4 @@
-Shit IDE - A personal peace of shit emacs based IDE
+Kuso IDE - A personal piece of Shit GNU Emacs based IDE
 Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 
 Contents
@@ -9,7 +9,7 @@ Contents
 
 1. License
 ==============================
-  Shit IDE is free software; you can redistribute it and/or modify
+  Kuso IDE is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 any later version.
@@ -28,6 +28,6 @@ under the term of GNU FDL.
 
 2. Dependencies
 =============================
-Shit IDE have these prequest softwares:
+Kuso IDE have these prequest softwares:
 
 * GNU Emacs
