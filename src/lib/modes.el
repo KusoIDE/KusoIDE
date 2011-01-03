@@ -1,4 +1,4 @@
-;;   Shit - My personal emacs IDE configuration
+;;   Kuso - My personal emacs IDE
 ;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
@@ -14,45 +14,45 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; This file will define the most popular modes for ShitIDE
+;; This file will define the most popular modes for KusoIDE
 
 ;; ---------------------------------------------------------------------
 ;; Hooks
 ;; ---------------------------------------------------------------------
-(defvar shit-preinit-mode-hook '()
-  "This hook runs before initializing the 'shit-mode' minor mode."
+(defvar kuso-preinit-mode-hook '()
+  "This hook runs before initializing the 'kuso-mode' minor mode."
   )
 
-(defvar shit-postinit-mode-hook '()
-  "This hook runs after 'shit-mode' minor mode initialized."
+(defvar kuso-postinit-mode-hook '()
+  "This hook runs after 'kuso-mode' minor mode initialized."
   )
 
-(defvar shit-prerm-mode-hook '()
-  "This hook runs before deactivating 'shit-mode' minor mode."
+(defvar kuso-prerm-mode-hook '()
+  "This hook runs before deactivating 'kuso-mode' minor mode."
   )
 
-(defvar shit-postrm-mode-hook '()
-  "This hook runs after 'shit-mode' minor mode deactivated."
+(defvar kuso-postrm-mode-hook '()
+  "This hook runs after 'kuso-mode' minor mode deactivated."
   )
 
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
-(defvar shit-map (make-sparse-keymap)
- "Default keymap for shit-mode minor mode that hold the global key
-binding for Shit IDE. each language plugin will have their own minor-mode
+(defvar kuso-map (make-sparse-keymap)
+ "Default keymap for kuso-mode minor mode that hold the global key
+binding for Kuso IDE. each language plugin will have their own minor-mode
 and keymap for their actions."
 )
 
 ;; ---------------------------------------------------------------------
 ;; Groups
 ;; ---------------------------------------------------------------------
-(defgroup shit-group nil
-  "Default values for ShitIDE configuration will are categorized here.")
+(defgroup kuso-group nil
+  "Default values for KusoIDE configuration will are categorized here.")
 
-(defgroup shit-features nil
-  "This group contains all the optional components of ShitIDE."
-  :group 'shit-group
+(defgroup kuso-features nil
+  "This group contains all the optional components of KusoIDE."
+  :group 'kuso-group
 )
 
 
@@ -63,37 +63,37 @@ and keymap for their actions."
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
-(define-minor-mode shit-mode
-  "Toggle Shit mode.
+(define-minor-mode kuso-mode
+  "Toggle Kuso mode.
 This mode provide a basic configuration for an IDE."
-  :lighter " Shit"
-  :keymap shit-map
+  :lighter " Kuso"
+  :keymap kuso-map
   :global t 
-  :group 'shit-group
+  :group 'kuso-group
 
-  (if shit-mode
-      ;; shit-mode is not loaded
+  (if kuso-mode
+      ;; kuso-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks shit-preinit-mode-hook)
+	(run-hooks kuso-preinit-mode-hook)
 	;; i really found toolbar and scrollbar useless so i disabled them
 	(if tool-bar-mode (tool-bar-mode))
 	(if scroll-bar-mode (scroll-bar-mode))
 	(menu/init-menu)
 	;; after mode was initialized
-	(run-hooks shit-postinit-mode-hook)
+	(run-hooks kuso-postinit-mode-hook)
 	)
-    ;; shit-mode already loaded
+    ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks shit-prerm-mode-hook)
+      (run-hooks kuso-prerm-mode-hook)
 
       ;; return everything to normal
       (if (not tool-bar-mode) (tool-bar-mode))
       (if (not scroll-bar-mode) (scroll-bar-mode))
       (menu/destruct-menu)
       ;; after deactivating mode
-      (run-hooks shit-postrm-mode-hook)
+      (run-hooks kuso-postrm-mode-hook)
       )
     )
   )
