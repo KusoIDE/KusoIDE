@@ -115,10 +115,33 @@ binding for Kuso IDE dpaste plugin"
 (defun dpaste-region ()
   "dpaste the region and return the URL."
   (interactive)
-  (let (text)
-    (setq text (get-region-text))
+  (let (start end text type title run poster command buf)
+    (setq start (region-beginning))
+    (setq end (region-end))
+    (if (> start end)
+	(progn
+	  (setq tmp start)
+	  (setq start end)
+	  (setq end tmp)
+	  )
+      )
+    ;;(setq text (get-region-text))
     (deactivate-mark)
-    (message "<<<<<<< %s" text)
+    (setq title (or (buffer-file-name) (buffer-name)))
+    (setq poster "sameer")
+    (setq but (generate-new-buffer "*Paste*"))
+    ;; This line of code gets from the el file that i mentioned above
+    (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
+    (shell-command-on-region star end(concat "curl -si" " -F 'content=<-'"
+					     " -F 'language=" type "'"
+					     " -F 'title=" title "'"
+					     " -F 'poster=" poster "'"
+					     " http://dpaste.com/api/v1/") buf)
+    (with-current-buffer buf
+      (message "<><><> %s " buffer-string)
+      )
+    ;;(setq output (shell-command-to-string command))
+    ;;(message ">>> %s" output)
     )
   )
 ;; ----------------------------------------------------------------------
