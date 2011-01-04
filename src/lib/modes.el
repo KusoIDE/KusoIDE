@@ -103,9 +103,9 @@ This mode provide a basic configuration for an IDE."
 	(menu/init-menu)
 	
 	(define-key kuso-map (kbd "\S-c") 'kuso-prefix-map)
-	(run-hook 'kuso-plugin-preinit-hook)
-	(run-hook 'kuso-plugin-init-hook)
-	(run-hook 'kuso-plugin-postinit-hook)
+	(run-hooks 'kuso-plugin-preinit-hook)
+	(run-hooks 'kuso-plugin-init-hook)
+	(run-hooks 'kuso-plugin-postinit-hook)
 	;; after mode was initialized
 	(run-hooks 'kuso-postinit-mode-hook)
 	)
