@@ -130,6 +130,7 @@ binding for Kuso IDE dpaste plugin"
     (setq title (or (buffer-file-name) (buffer-name)))
     (setq poster "sameer")
     (setq buf (generate-new-buffer "*Paste*"))
+    (log buf)
     ;; This line of code gets from the el file that i mentioned above
     (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
     (shell-command-on-region start end (concat "curl -si" " -F 'content=<-'"
@@ -139,9 +140,9 @@ binding for Kuso IDE dpaste plugin"
 					     " -F 'poster=" poster "'"
 					     " http://dpaste.com/api/v1/") buf)
     (with-current-buffer buf
+      (goto-char (point-min))
       ;; Also get from dpaste.el that i mentioned above ------------
-      (search-forward-regexp "^Location: http://dpaste\.com/[0-9]+/$")
-      (message "asddddddddasdasd")
+      (search-forward-regexp "^Location: http://dpaste.com/[0-9]+/")
       (message "Paste created: %s (yanked)" (match-string 1))
       (kill-new (match-string 1)))
     (kill-buffer but)
