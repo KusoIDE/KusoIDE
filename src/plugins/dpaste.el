@@ -82,7 +82,7 @@ binding for Kuso IDE dpaste plugin"
 (defun init-menus ()
   "Initialize menu entry for dpaste plugin."
   (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
-  (define-key-after global-map [menu-bar edit dpastereg] '("Dpaste Selected" . dpaste-region) 'sep1)
+  (define-key-after global-map [menu-bar edit dpastereg] '("Dpaste Selected"  . dpaste-region) 'sep1)
   (define-key-after global-map [menu-bar edit dpastebuf] '("Dpaste Buffer" . dpaste-buffer) 'dpastereg)
 
   (define-key-after global-map [menu-bar edit sep2] '("--") 'dpastebuf)
@@ -129,7 +129,7 @@ binding for Kuso IDE dpaste plugin"
     (deactivate-mark)
     (setq title (or (buffer-file-name) (buffer-name)))
     (setq poster "sameer")
-    (setq but (generate-new-buffer "*Paste*"))
+    (setq buf (generate-new-buffer "*Paste*"))
     ;; This line of code gets from the el file that i mentioned above
     (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
     (shell-command-on-region start end (concat "curl -si" " -F 'content=<-'"
@@ -139,9 +139,13 @@ binding for Kuso IDE dpaste plugin"
 					     " -F 'poster=" poster "'"
 					     " http://dpaste.com/api/v1/") buf)
     (with-current-buffer buf
-      (message "<><><> %s " buffer-string)
-      )
-
+      ;; Also get from dpaste.el that i mentioned above ------------
+      (search-forward-regexp "^Location: http://dpaste\.com/[0-9]+/$")
+      (message "asddddddddasdasd")
+      (message "Paste created: %s (yanked)" (match-string 1))
+      (kill-new (match-string 1)))
+    (kill-buffer but)
+    ;; ----------------------------
     )
   )
 ;; ----------------------------------------------------------------------
@@ -167,6 +171,8 @@ the current buffer."
 	(run-hooks 'kuso-dpaste-preinit-hook)
 	(init-keymap)
 	(init-menus)
+	(put 'dpaste-region 'menu-enable nil)
+	(force-mode-line-update)
 	;; after mode was initialized
 	(run-hooks 'kuso-dpaste-postinit-hook)
 	)
