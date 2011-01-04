@@ -24,12 +24,21 @@
 ;; ::project:: -- project proper name
 ;; ::unixname:: -- project unix name (escaped for shell)
 ;; ::desc:: -- project description
-
+;; --------------------------------------------------------------------
+;; Variables
+;; --------------------------------------------------------------------
 ;; Known licenses - Only free softwares license 
 ;; I do not like users who use non-free licenses
 ;; TODO: gather a complete list of free software licenses
 ;; TODO: build a hash variable from licenses
-(setq known-licenses '("gpl"))
+(defvar known-licenses '("gpl")
+  "The free software licenses for using as the project license."
+)
+
+
+;; ----------------------------------------------------------------------
+;; Functions
+;; ----------------------------------------------------------------------
 
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.
