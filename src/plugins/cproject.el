@@ -72,7 +72,7 @@ binding for Kuso IDE C projects section."
 ;; Functions
 ;; ---------------------------------------------------------------------
 (defun init-menus () "Draw required menu for C mode"
-
+  
   (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
   ;;  (define-key global-map (kbd "\C-x n k") 'kmodule)
   ;;  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
