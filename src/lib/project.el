@@ -24,6 +24,7 @@
 ;; ::project:: -- project proper name
 ;; ::unixname:: -- project unix name (escaped for shell)
 ;; ::desc:: -- project description
+
 ;; --------------------------------------------------------------------
 ;; Variables
 ;; --------------------------------------------------------------------
@@ -35,7 +36,10 @@
   "The free software licenses for using as the project license."
 )
 
-
+;; If user defined the developer details in user preferences Kuso use them
+;; as default values
+(setq project-author developer-name)
+(setq project-author-email developer-email)
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
@@ -63,13 +67,15 @@
   (if (not (member project-license known-licenses))
       (progn
 	(setq project-license nil)
-	(setq project-author nil)
-	(setq project-author-email nil)
 	(setq project-desc nil)
 	)
     (progn
-      (setq project-author (read-string "Project Author: "))
-      (setq project-author-email (read-string "Project Author Email: "))
+      (if (not project-author)
+	  (setq project-author (read-string "Project Author: "))
+	)
+      (if (not project-author-email)
+	  (setq project-author-email (read-string "Project Author Email: "))
+	)
       (setq project-desc (read-string "Description: "))
       )
     )
