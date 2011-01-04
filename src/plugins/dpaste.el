@@ -121,6 +121,7 @@ binding for Kuso IDE dpaste plugin"
     
     
     (setq title (or (buffer-file-name) (buffer-name)))
+    ;; TODO: poster should be the name of current developer
     (setq poster "sameer")
     (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
     (with-temp-buffer 
@@ -142,6 +143,35 @@ binding for Kuso IDE dpaste plugin"
       )
     )
   )
+
+
+(defun dpaste-buffer ()
+  "dpaste the current-buffer content."
+  (interactive)
+  (let (a b text type title poster)
+    
+    (setq title (or (buffer-file-name) (buffer-name)))
+    ;; TODO: poster should be the name of current developer
+    (setq poster "sameer")
+    (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
+    (setq text (buffer-string))
+    (with-temp-buffer 
+      (insert text)
+      (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
+							       " -A 'Kuso dpaste plugin'"
+							       " -F 'language=" type "'"
+							       " -F 'title=" title "'"
+							       " -F 'poster=" poster "'"
+							       " http://dpaste.com/api/v1/") (buffer-name))
+
+      (goto-char (point-min))
+      (setq a (search-forward-regexp "^Location: "))
+      (setq b (search-forward-regexp "http://dpaste.com/[0-9]+/"))
+      (message "Link: %s" (buffer-substring a b))
+      (kill-new (buffer-substring a b))
+      )
+    )
+)
 
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
