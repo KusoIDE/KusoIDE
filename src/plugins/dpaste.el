@@ -116,16 +116,7 @@ binding for Kuso IDE dpaste plugin"
 (defun dpaste-region ()
   "dpaste the region and return the URL."
   (interactive)
-  (let (start end text type title run poster command buf)
-;;    (setq start (region-beginning))
-;;    (setq end (region-end))
- ;;   (if (> start end)
-;;	(progn
-;;	  (setq tmp start)
-;;	  (setq start end)
-;;	  (setq end tmp)
-;;	  )
-  ;;    )
+  (let (a b text type title poster)
     (setq text (get-region-text))
     
     
@@ -134,21 +125,21 @@ binding for Kuso IDE dpaste plugin"
     (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
     (with-temp-buffer 
       (insert text)
-      (shell-command-on-region start end (concat "curl -si" " -F 'content=<-'"
+      (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
 					       " -A 'Kuso dpaste plugin'"
 					     " -F 'language=" type "'"
 					     " -F 'title=" title "'"
 					     " -F 'poster=" poster "'"
-					     " http://dpaste.com/api/v1/"))
+					     " http://dpaste.com/api/v1/") (buffer-name))
     
 
-      (goto-char (point-min))
-      (search-forward-regexp "^Location: http://dpaste.com/[0-9]+/")
-      (message "Link: %s (yanked)" (match-string 1))
-      (kill-new (match-string 1))
-      )
 
-    ;; ----------------------------
+      (goto-char (point-min))
+      (setq a (search-forward-regexp "^Location: "))
+      (setq b (search-forward-regexp "http://dpaste.com/[0-9]+/"))
+      (message "Link: %s" (buffer-substring a b))
+      (kill-new (buffer-substring a b))
+      )
     )
   )
 
