@@ -115,5 +115,13 @@ function."
     (load-dir PLUGINPATH)
     )
   )
+
+(defun kuso-reload ()
+  "Reloading Kuso IDE."
+  (interactive)
+  ;; TODO: use compiled version in main release
+  (load-file (concat ROOTPATH "kuso-ide.el"))
+)
+(define-key global-map (kbd "<f5>") 'kuso-reload)
 (start-kuso)
 
