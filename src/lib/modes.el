@@ -109,6 +109,7 @@ This mode provide a basic configuration for an IDE."
 	(run-hooks 'kuso-plugin-postinit-hook)
 	;; after mode was initialized
 	(run-hooks 'kuso-postinit-mode-hook)
+	(message "<<< %s" kuso-postinit-mode-hook)
 	)
     ;; kuso-mode already loaded
     (let ()
