@@ -113,6 +113,8 @@ function."
     (init-kuso)
     (load-dir LIBPATH)
     (load-dir PLUGINPATH)
+    (if kuso-workspace (cd kuso-workspace))
+    
     )
   )
 

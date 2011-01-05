@@ -36,10 +36,6 @@
   "The free software licenses for using as the project license."
 )
 
-;; If user defined the developer details in user preferences Kuso use them
-;; as default values
-(setq project-author developer-name)
-(setq project-author-email developer-email)
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
@@ -47,6 +43,11 @@
 ;; Each project plugin should use this function for initializing a versy 
 ;; basic New Project environment.
 (defun new-project () "New project basic function"
+
+  ;; If user defined the developer details in user preferences Kuso use them
+  ;; as default values
+  (setq project-author developer-name)
+  (setq project-author-email developer-email)
 
   ;; Project name
   (setq project-name (read-string "Project Name: "))

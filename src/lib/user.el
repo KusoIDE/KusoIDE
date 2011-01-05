@@ -40,3 +40,10 @@ Kuso IDE"
   :type 'string
   :tag '"Developer Email"
 )
+
+(defcustom kuso-workspace "~/src/"
+  "KusoIDE use this option as default path for new project."
+  :group 'kuso-user-preferences
+  :type 'string
+  :tag '"Workspace"
+)

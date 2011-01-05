@@ -103,6 +103,7 @@ This mode provide a basic configuration for an IDE."
 	(menu/init-menu)
 	
 	(define-key kuso-map (kbd "\S-c") 'kuso-prefix-map)
+	(if kuso-workspace (cd kuso-workspace))
 	(run-hooks 'kuso-plugin-preinit-hook)
 	(run-hooks 'kuso-plugin-init-hook)
 	(run-hooks 'kuso-plugin-postinit-hook)
