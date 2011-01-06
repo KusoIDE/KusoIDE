@@ -145,7 +145,7 @@ binding for Kuso IDE C projects section."
 ;; Initializing c menus at the load time
 (add-hook 'kuso-postinit-mode-hook 'cplugin/init-menus)
 (add-hook 'kuso-plugin-init-hook 'kuso-cplugin-mode)
-(log "AAA")
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -160,12 +160,17 @@ This mode provide C language plugin for Kuso IDE."
   (if kuso-cplugin-mode
       ;; kuso-cplugin-mode is not loaded
       (let () 
-	;; before initiazing mode
-	(run-hooks 'kuso-cplug-preinit-hook)
-	(initial-keymap)
-	(log "Z")
-	;; after mode was initialized
-	(run-hooks 'kuso-cplug-postinit-hook)
+	(if c-plugin
+	    (progn
+	      ;; before initiazing mode
+	      (run-hooks 'kuso-cplug-preinit-hook)
+	      (initial-keymap)
+	      (log "Z")
+	      ;; after mode was initialized
+	      (run-hooks 'kuso-cplug-postinit-hook)
+	      )
+	  (log "C Plugin turned off")
+	  )
 	)
     ;; kuso-mode already loaded
     (let ()
