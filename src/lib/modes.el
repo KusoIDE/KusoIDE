@@ -103,6 +103,11 @@ This mode provide a basic configuration for an IDE."
 	(menu/init-menu)
 	
 	(define-key kuso-map (kbd "\S-c") 'kuso-prefix-map)
+	(global-set-key (kbd "s-<left>") 'shrink-window-horizontally)
+	(global-set-key (kbd "s-<right>") 'enlarge-window-horizontally)
+	(global-set-key (kbd "s-<up>") 'enlarge-window)
+	(global-set-key (kbd "s-<down>") 'shrink-window)
+
 	(if kuso-workspace (cd kuso-workspace))
 	(run-hooks 'kuso-plugin-preinit-hook)
 	(run-hooks 'kuso-plugin-init-hook)
