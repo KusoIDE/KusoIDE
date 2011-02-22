@@ -75,9 +75,6 @@ binding for Kuso IDE C projects section."
   
   (interactive)
   (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
-
-  ;;  (define-key global-map (kbd "\C-x n k") 'kmodule)
-  ;;  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
   ;;  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
   
@@ -95,7 +92,7 @@ binding for Kuso IDE C projects section."
   (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
 
-  (define-key global-map (kbd "\C-x n k") 'generic-c)
+  (define-key global-map (kbd "\C-x n k") 'kernel-module)
   (define-key global-map [menu-bar file new-proj cproj kernmod] '("Kernel module" . kernel-module))
 
   )
@@ -133,8 +130,7 @@ binding for Kuso IDE C projects section."
       (project/write-dest-file cur template-data)
       )
     )
-
-  (find-file (concat unix-project-name ".c"))
+  (find-file (expand-file-name (concat unix-project-name ".c") project-path))
   (kuso-cplugin-mode)
   )
 
@@ -155,7 +151,7 @@ binding for Kuso IDE C projects section."
       )
     )
 
-  (find-file (concat unix-project-name ".c"))
+  (find-file (expand-file-name (concat unix-project-name ".c") project-path))
   (kuso-cplugin-mode)
   )
 
@@ -193,7 +189,7 @@ This mode provide C language plugin for Kuso IDE."
 	      ;; after mode was initialized
 	      (run-hooks 'kuso-cplug-postinit-hook)
 	      )
-	  (log "C Plugin turned off")
+	  (log "C Plugin turned on")
 	  )
 	)
     ;; kuso-mode already loaded
@@ -202,6 +198,7 @@ This mode provide C language plugin for Kuso IDE."
       (run-hooks 'kuso-cplug-prerm-hook)
       ;; after deactivating mode
       (run-hooks 'kuso-cplug-postrm-hook)
+      (log "C Plugin turned off")
       )
     )
   )
