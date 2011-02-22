@@ -94,7 +94,9 @@ binding for Kuso IDE C projects section."
 
   (define-key global-map (kbd "\C-x n c") 'generic-c)
   (define-key global-map [menu-bar file new-proj cproj cgeneric] '("Generic project (C)" . generic-c))
-  (log "C")
+
+  (define-key global-map (kbd "\C-x n k") 'generic-c)
+  (define-key global-map [menu-bar file new-proj cproj kernmod] '("Kernel module" . kernel-module))
 
   )
 
@@ -103,6 +105,7 @@ binding for Kuso IDE C projects section."
 ;; cover
 (defun c-new-project () "Create a new C/C++ project"
   (new-project)
+  (project/copying-license-copy)
   )
 
 
@@ -118,9 +121,30 @@ binding for Kuso IDE C projects section."
 (defun generic-c () "Create a generic type C project"
   (interactive)
   (c-new-project)
-  (project/copying-license-copy)
+  
   (let (template-file-regexp license-data filelist cur template-data)
     (setq template-file-regexp (concat TEMPLATESPATH "c/generic_c/*.tmpl"))
+    (setq filelist (file-expand-wildcards template-file-regexp))
+    (while filelist
+      (setq cur (pop filelist))
+      (setq template-data (project/render-template cur))
+      (setq template-data (replace-regexp-in-string "::unixname::" unix-project-name  template-data))
+      (setq template-data (replace-regexp-in-string "::UNIXNAME::" unix-project-name  template-data))
+      (project/write-dest-file cur template-data)
+      )
+    )
+  (cd project-path)
+  (find-file (concat unix-project-name ".c"))
+  (kuso-cplugin-mode)
+  )
+
+
+(defun kernel-module () "Create a linux kernel module project"
+  (interactive)
+  (c-new-project)
+
+  (let (template-file-regexp license-data filelist cur template-data)
+    (setq template-file-regexp (concat TEMPLATESPATH "c/kernel_module/*.tmpl"))
     (setq filelist (file-expand-wildcards template-file-regexp))
     (while filelist
       (setq cur (pop filelist))
