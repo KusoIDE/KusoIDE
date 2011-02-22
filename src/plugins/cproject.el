@@ -189,7 +189,7 @@ This mode provide C language plugin for Kuso IDE."
 	      ;; before initiazing mode
 	      (run-hooks 'kuso-cplug-preinit-hook)
 	      (initial-keymap)
-	      (log "Z")
+
 	      ;; after mode was initialized
 	      (run-hooks 'kuso-cplug-postinit-hook)
 	      )

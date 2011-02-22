@@ -103,10 +103,10 @@ This mode provide a basic configuration for an IDE."
 	(menu/init-menu)
 	
 	(define-key kuso-map (kbd "s-c") 'kuso-prefix-map)
-	(global-set-key (kbd "s-j") 'shrink-window-horizontally)
-	(global-set-key (kbd "s-l") 'enlarge-window-horizontally)
-	(global-set-key (kbd "s-i") 'enlarge-window)
-	(global-set-key (kbd "s-k") 'shrink-window)
+	(global-set-key (kbd "s-;") 'shrink-window-horizontally)
+	(global-set-key (kbd "s-'") 'enlarge-window-horizontally)
+	(global-set-key (kbd "s-[") 'enlarge-window)
+	(global-set-key (kbd "s-/") 'shrink-window)
 
 	(if kuso-workspace (cd kuso-workspace))
 	(run-hooks 'kuso-plugin-preinit-hook)
@@ -114,7 +114,7 @@ This mode provide a basic configuration for an IDE."
 	(run-hooks 'kuso-plugin-postinit-hook)
 	;; after mode was initialized
 	(run-hooks 'kuso-postinit-mode-hook)
-	(message "<<< %s" kuso-postinit-mode-hook)
+
 	)
     ;; kuso-mode already loaded
     (let ()
