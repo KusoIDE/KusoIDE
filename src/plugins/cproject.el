@@ -75,7 +75,7 @@ binding for Kuso IDE C projects section."
   
   (interactive)
   (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
-  (log "B")
+
   ;;  (define-key global-map (kbd "\C-x n k") 'kmodule)
   ;;  (define-key global-map [menu-bar file new-proj cproj kmodule] '("Kernel Module" . kmodule))
   
@@ -133,7 +133,7 @@ binding for Kuso IDE C projects section."
       (project/write-dest-file cur template-data)
       )
     )
-  (cd project-path)
+
   (find-file (concat unix-project-name ".c"))
   (kuso-cplugin-mode)
   )
@@ -154,7 +154,7 @@ binding for Kuso IDE C projects section."
       (project/write-dest-file cur template-data)
       )
     )
-  (cd project-path)
+
   (find-file (concat unix-project-name ".c"))
   (kuso-cplugin-mode)
   )
