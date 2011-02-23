@@ -15,5 +15,7 @@
   have subdirectories
 [ ] Improve modes.el file documentation
 [ ] add the license name into kernel module c file
+[ ] make sure cplugin keymap load with cplugin
+
 -- Useful modes --
 * org mode

@@ -158,7 +158,7 @@ binding for Kuso IDE C projects section."
 
 (defun initial-keymap ()
   "Set the key binding for C project."
-  (define-key kuso-cplugin-map (kbd "\C-c \C-c") 'compile)
+  (define-key global-map (kbd "<f9>") 'compile)
   )
 
 
