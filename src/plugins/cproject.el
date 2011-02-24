@@ -158,7 +158,7 @@ binding for Kuso IDE C projects section."
 
 (defun initial-keymap ()
   "Set the key binding for C project."
-  (define-key global-map (kbd "<f9>") 'compile)
+  (define-key kuso-cplugin-map (kbd "<f9>") 'compile)
   )
 
 
@@ -185,7 +185,7 @@ This mode provide C language plugin for Kuso IDE."
 	      ;; before initiazing mode
 	      (run-hooks 'kuso-cplug-preinit-hook)
 	      (initial-keymap)
-
+	      (define-key global-map (kbd "s-p") 'kuso-cplugin-map)
 	      ;; after mode was initialized
 	      (run-hooks 'kuso-cplug-postinit-hook)
 	      )
