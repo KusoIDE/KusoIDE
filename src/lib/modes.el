@@ -113,9 +113,9 @@ This mode provide a basic configuration for an IDE."
 
 	;; Centralize backups
 	(setq backup-directory-alist
-	      `((".*" . ,"/tmp/")))
+	      `((".*" . ,"~/.tmp/")))
 	(setq auto-save-file-name-transforms
-	      `((".*" ,"/tmp" t)))
+	      `((".*" ,"~/.tmp" t)))
 	(if kuso-workspace (cd kuso-workspace))
 	(run-hooks 'kuso-plugin-preinit-hook)
 	(run-hooks 'kuso-plugin-init-hook)
