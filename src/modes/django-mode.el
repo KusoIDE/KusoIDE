@@ -65,22 +65,23 @@ binding for Kuso IDE django plugin"
 ;; ----------------------------------------------------------------------
 (defun init-keymap ()
   "Initialize the keymap for django plugin."
-  ;;(define-key django-map (kbd "\C-x p d") 'django-region)
+  (define-key django-map (kbd "<f6>") 'django-runserver)
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
 (defun init-menus ()
   "Initialize menu entry for django plugin."
-  ;; (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
-  ;; (define-key-after global-map [menu-bar edit djangoreg] '("Django Selected"  . django-region) 'sep1)
-  ;; (define-key-after global-map [menu-bar edit djangobuf] '("Django Buffer" . django-buffer) 'djangoreg)
+  (define-key-after global-map [menu-bar django] (cons "Django" (make-sparse-keymap "django-map")))
 
-  ;; (define-key-after global-map [menu-bar edit sep2] '("--") 'djangobuf)
+  (define-key-after global-map [menu-bar django runserver] '("Development Server"  . django-runserver))
+  (define-key-after global-map [menu-bar django runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
+  (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
+
   )
   
 (defun destruct-menus ()
   "Remove menus from menubar"
-    ;; (global-unset-key [menu-bar edit sep1])
+    (global-unset-key [menu-bar django])
     ;; (global-unset-key [menu-bar edit sep2])
     ;; (global-unset-key [menu-bar edit djangoreg])
     ;; (global-unset-key [menu-bar edit djangobuf])
@@ -95,7 +96,7 @@ binding for Kuso IDE django plugin"
   "colorizing the region from start to end."
   (ansi-color-apply-on-region start end)
 )
-  
+
 (defun* django-runserver (&optional (extra ""))
   "Run the project development server in a new buffer"
   (interactive)
@@ -117,7 +118,7 @@ binding for Kuso IDE django plugin"
   (interactive "sEnter extra arguments for runserver: ")
   (django-runserver args)
 )
-(django-runserver
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -136,6 +137,7 @@ GNUEmacs."
 	;; before initiazing mode
 	(run-hooks 'django-preinit-hook)
 	(init-keymap)
+	(message "sdfsdfsdf")
 	(init-menus)
 	;;(put 'django-region 'menu-enable nil)
 	;;(force-mode-line-update)
