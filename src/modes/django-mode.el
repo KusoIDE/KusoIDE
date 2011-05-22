@@ -16,10 +16,14 @@
 
 ;; django plugin
 
+(require 'cl)
 
 ;; -------------------------------------------------------------------
 ;; Variables
 ;; -------------------------------------------------------------------
+(defvar project-path ""
+  "Project source tree path.")
+
 ;; -------------------------------------------------------------------
 ;; Hooks
 ;; -------------------------------------------------------------------
@@ -82,7 +86,26 @@ binding for Kuso IDE django plugin"
     ;; (global-unset-key [menu-bar edit djangobuf])
     )
 
+(defun get-project-path ()
+  "Get the project path."
+  (setq project-path (read-directory-name "Project source tree: "))
+)
 
+(defun* runserver (&optional (extra ""))
+  "Run the project development server in a new buffer"
+  (interactive)
+  (let (params)
+    (if (string= project-path "")
+	(get-project-path)
+      )
+    (message project-path)
+    (setq params (concat project-path "manage.py runserver " extra))
+    (setq runserver-buffer (get-buffer-create "*Runserver*"))
+    (setq runserverp (start-process-shell-command "Runserver" runserver-buffer (concat "python " params)))
+    
+    
+    )
+  )
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -112,6 +135,7 @@ GNUEmacs."
       ;; before deactivating mode
       (run-hooks 'django-prerm-hook)
       (destruct-menus)
+      (setq project-path "")
       ;; after deactivating mode
       (run-hooks 'django-postrm-hook)
       )
