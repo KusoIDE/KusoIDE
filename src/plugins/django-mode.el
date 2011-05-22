@@ -61,139 +61,59 @@ binding for Kuso IDE django plugin"
 ;; ----------------------------------------------------------------------
 (defun init-keymap ()
   "Initialize the keymap for django plugin."
-  (define-key kuso-django-map (kbd "\C-x p d") 'django-region)
-  (define-key kuso-django-map (kbd "\C-x p f") 'django-buffer)
+  ;; (define-key django-map (kbd "\C-x p d") 'django-region)
+  ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
 (defun init-menus ()
   "Initialize menu entry for django plugin."
-  (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
-  (define-key-after global-map [menu-bar edit djangoreg] '("Django Selected"  . django-region) 'sep1)
-  (define-key-after global-map [menu-bar edit djangobuf] '("Django Buffer" . django-buffer) 'djangoreg)
+  ;; (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
+  ;; (define-key-after global-map [menu-bar edit djangoreg] '("Django Selected"  . django-region) 'sep1)
+  ;; (define-key-after global-map [menu-bar edit djangobuf] '("Django Buffer" . django-buffer) 'djangoreg)
 
-  (define-key-after global-map [menu-bar edit sep2] '("--") 'djangobuf)
+  ;; (define-key-after global-map [menu-bar edit sep2] '("--") 'djangobuf)
   )
   
 (defun destruct-menus ()
   "Remove menus from menubar"
-    (global-unset-key [menu-bar edit sep1])
-    (global-unset-key [menu-bar edit sep2])
-    (global-unset-key [menu-bar edit djangoreg])
-    (global-unset-key [menu-bar edit djangobuf])
+    ;; (global-unset-key [menu-bar edit sep1])
+    ;; (global-unset-key [menu-bar edit sep2])
+    ;; (global-unset-key [menu-bar edit djangoreg])
+    ;; (global-unset-key [menu-bar edit djangobuf])
     )
 
-(defun get-region-text () 
-  "Retrive the region (selected) text."
-  (let (text start end tmp)
-    (setq start (region-beginning))
-    (setq end (region-end))
-    (if (> start end)
-	(progn
-	  (setq tmp start)
-	  (setq start end)
-	  (setq end tmp)
-	  )
-      )
-    (setq text (buffer-substring-no-properties start end))
-    )
-)
-
-
-(defun django-region ()
-  "django the region and return the URL."
-  (interactive)
-  (let (a b text type title poster)
-    (setq text (get-region-text))
-    
-    
-    (setq title (or (buffer-file-name) (buffer-name)))
-    ;; TODO: poster should be the name of current developer
-    (setq poster "sameer")
-    (setq type (or (cdr (assoc major-mode django-support-types)) ""))
-    (with-temp-buffer 
-      (insert text)
-      (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
-					       " -A 'Kuso django plugin'"
-					     " -F 'language=" type "'"
-					     " -F 'title=" title "'"
-					     " -F 'poster=" poster "'"
-					     " http://django.com/api/v1/") (buffer-name))
-    
-
-
-      (goto-char (point-min))
-      (setq a (search-forward-regexp "^Location: "))
-      (setq b (search-forward-regexp "http://django.com/[0-9]+/"))
-      (message "Link: %s" (buffer-substring a b))
-      (kill-new (buffer-substring a b))
-      )
-    )
-  )
-
-
-(defun django-buffer ()
-  "django the current-buffer content."
-  (interactive)
-  (let (a b text type title poster)
-    
-    (setq title (or (buffer-file-name) (buffer-name)))
-    ;; TODO: poster should be the name of current developer
-    (setq poster "sameer")
-    (setq type (or (cdr (assoc major-mode django-support-types)) ""))
-    (setq text (buffer-string))
-    (with-temp-buffer 
-      (insert text)
-      (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
-							       " -A 'Kuso django plugin'"
-							       " -F 'language=" type "'"
-							       " -F 'title=" title "'"
-							       " -F 'poster=" poster "'"
-							       " http://django.com/api/v1/") (buffer-name))
-
-      (goto-char (point-min))
-      (setq a (search-forward-regexp "^Location: "))
-      (setq b (search-forward-regexp "http://django.com/[0-9]+/"))
-      (message "Link: %s" (buffer-substring a b))
-      (kill-new (buffer-substring a b))
-      )
-    )
-)
 
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
-(define-minor-mode kuso-django-mode
+(define-minor-mode django-mode
   "Toggle Kuso django plugin mode.
-This mode provide an easy way to django a buffer or a snippet of text in
-http://www.django.com/
-
-By marking a region and C-x p d this plugin django the code and put the url
-in killring and also message the url. You can also use C-x p f to django
-the current buffer."
+This plugin provide some functionality for speedup django development on
+GNUEmacs."
   :lighter nil
-  :keymap kuso-django-map
+  :keymap django-map
   :global t 
   :group 'kuso-group
 
-  (if kuso-django-mode
+  (if django-mode
       ;; kuso-cplugin-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks 'kuso-django-preinit-hook)
+	(run-hooks 'django-preinit-hook)
 	(init-keymap)
 	(init-menus)
-	(put 'django-region 'menu-enable nil)
-	(force-mode-line-update)
+	;;(put 'django-region 'menu-enable nil)
+	;;(force-mode-line-update)
 	;; after mode was initialized
-	(run-hooks 'kuso-django-postinit-hook)
+	(run-hooks 'django-postinit-hook)
 	)
     ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks 'kuso-django-prerm-hook)
+      (run-hooks 'django-prerm-hook)
       (destruct-menus)
       ;; after deactivating mode
-      (run-hooks 'kuso-django-postrm-hook)
+      (run-hooks 'django-postrm-hook)
       )
     )
   )
