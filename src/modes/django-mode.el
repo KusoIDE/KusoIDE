@@ -42,7 +42,7 @@
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
-(defvar kuso-django-map (make-sparse-keymap)
+(defvar django-map (make-sparse-keymap)
  "Default keymap for Kuso django minor mode that hold the global key
 binding for Kuso IDE django plugin"
 )
@@ -61,7 +61,7 @@ binding for Kuso IDE django plugin"
 ;; ----------------------------------------------------------------------
 (defun init-keymap ()
   "Initialize the keymap for django plugin."
-  ;; (define-key django-map (kbd "\C-x p d") 'django-region)
+  ;;(define-key django-map (kbd "\C-x p d") 'django-region)
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
