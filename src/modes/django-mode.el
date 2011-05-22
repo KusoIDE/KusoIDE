@@ -96,14 +96,13 @@ binding for Kuso IDE django plugin"
   (ansi-color-apply-on-region start end)
 )
   
-(defun* start-runserver (&optional (extra ""))
+(defun* django-runserver (&optional (extra ""))
   "Run the project development server in a new buffer"
   (interactive)
   (let (params)
     (if (string= project-path "")
 	(get-project-path)
       )
-    (message project-path)
     (setq params (concat project-path "manage.py runserver " extra))
     (setq runserver-buffer (get-buffer-create "*Runserver*"))
     (ansi-color-for-comint-mode-on)
@@ -113,6 +112,12 @@ binding for Kuso IDE django plugin"
     )
   )
 
+(defun django-runserver-extra (args)
+  "Run the development server with extra options."
+  (interactive "sEnter extra arguments for runserver: ")
+  (django-runserver args)
+)
+(django-runserver
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
