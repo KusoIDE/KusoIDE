@@ -14,86 +14,72 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; dpaste.com plugin
+;; django plugin
+
 
 ;; -------------------------------------------------------------------
 ;; Variables
 ;; -------------------------------------------------------------------
-
-;; This variable copied from an other dpaste.el at
-;; https://github.com/gregnewman/dpaste.el/blob/master/dpaste.el
-(defvar dpaste-support-types '((css-mode . "Css")
-                                       (diff-mode . "Diff")
-                                       (haskell-mode . "Haskell")
-                                       (html-mode . "DjangoTemplate")
-                                       (javascript-mode . "JScript")
-                                       (js2-mode . "JScript")
-                                       (python-mode . "Python")
-                                       (inferior-python-mode . "PythonConsole")
-                                       (ruby-mode . "Ruby")
-                                       (sql-mode . "Sql")
-                                       (sh-mode . "Bash")
-                                       (xml-mode . "Xml")))
 ;; -------------------------------------------------------------------
 ;; Hooks
 ;; -------------------------------------------------------------------
-(defvar kuso-dpaste-preinit-hook '()
-  "This hook runs before initializing the Kuso dpaste-plugin minor mode."
+(defvar django-preinit-hook '()
+  "This hook runs before initializing the Kuso django-plugin minor mode."
   )
 
-(defvar kuso-dpaste-postinit-hook '()
-  "This hook runs after Kuso dpaste-plugin minor mode initialized."
+(defvar django-postinit-hook '()
+  "This hook runs after Kuso django-plugin minor mode initialized."
   )
 
-(defvar kuso-dpaste-prerm--hook '()
-  "This hook runs before deactivating Kuso dpaste-plugin minor mode."
+(defvar django-prerm--hook '()
+  "This hook runs before deactivating Kuso django-plugin minor mode."
   )
 
-(defvar kuso-dpaste-postrm-hook '()
-  "This hook runs after Kuso dpaste-plugin minor mode deactivated."
+(defvar django-postrm-hook '()
+  "This hook runs after Kuso django-plugin minor mode deactivated."
   )
 
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
-(defvar kuso-dpaste-map (make-sparse-keymap)
- "Default keymap for Kuso dpaste minor mode that hold the global key
-binding for Kuso IDE dpaste plugin"
+(defvar kuso-django-map (make-sparse-keymap)
+ "Default keymap for Kuso django minor mode that hold the global key
+binding for Kuso IDE django plugin"
 )
 
 ;; ---------------------------------------------------------------------
 ;; Custom Variables
 ;; ---------------------------------------------------------------------
-(defcustom dpaste-plugin t
-  "KusoIDE dpaste plugin."
+(defcustom django-plugin t
+  "KusoIDE Django programming language plugin."
   :group 'kuso-features
   :type 'boolean
-  :tag '"dpaste.com plugins")
+  :tag '"django plugins")
 
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
 (defun init-keymap ()
-  "Initialize the keymap for dpaste plugin."
-  (define-key kuso-dpaste-map (kbd "\C-x p d") 'dpaste-region)
-  (define-key kuso-dpaste-map (kbd "\C-x p f") 'dpaste-buffer)
+  "Initialize the keymap for django plugin."
+  (define-key kuso-django-map (kbd "\C-x p d") 'django-region)
+  (define-key kuso-django-map (kbd "\C-x p f") 'django-buffer)
   )
 
 (defun init-menus ()
-  "Initialize menu entry for dpaste plugin."
+  "Initialize menu entry for django plugin."
   (define-key-after global-map [menu-bar edit sep1] '("--") 'paste-from-menu)
-  (define-key-after global-map [menu-bar edit dpastereg] '("Dpaste Selected"  . dpaste-region) 'sep1)
-  (define-key-after global-map [menu-bar edit dpastebuf] '("Dpaste Buffer" . dpaste-buffer) 'dpastereg)
+  (define-key-after global-map [menu-bar edit djangoreg] '("Django Selected"  . django-region) 'sep1)
+  (define-key-after global-map [menu-bar edit djangobuf] '("Django Buffer" . django-buffer) 'djangoreg)
 
-  (define-key-after global-map [menu-bar edit sep2] '("--") 'dpastebuf)
+  (define-key-after global-map [menu-bar edit sep2] '("--") 'djangobuf)
   )
   
 (defun destruct-menus ()
   "Remove menus from menubar"
     (global-unset-key [menu-bar edit sep1])
     (global-unset-key [menu-bar edit sep2])
-    (global-unset-key [menu-bar edit dpastereg])
-    (global-unset-key [menu-bar edit dpastebuf])
+    (global-unset-key [menu-bar edit djangoreg])
+    (global-unset-key [menu-bar edit djangobuf])
     )
 
 (defun get-region-text () 
@@ -113,8 +99,8 @@ binding for Kuso IDE dpaste plugin"
 )
 
 
-(defun dpaste-region ()
-  "dpaste the region and return the URL."
+(defun django-region ()
+  "django the region and return the URL."
   (interactive)
   (let (a b text type title poster)
     (setq text (get-region-text))
@@ -123,21 +109,21 @@ binding for Kuso IDE dpaste plugin"
     (setq title (or (buffer-file-name) (buffer-name)))
     ;; TODO: poster should be the name of current developer
     (setq poster "sameer")
-    (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
+    (setq type (or (cdr (assoc major-mode django-support-types)) ""))
     (with-temp-buffer 
       (insert text)
       (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
-					       " -A 'Kuso dpaste plugin'"
+					       " -A 'Kuso django plugin'"
 					     " -F 'language=" type "'"
 					     " -F 'title=" title "'"
 					     " -F 'poster=" poster "'"
-					     " http://dpaste.com/api/v1/") (buffer-name))
+					     " http://django.com/api/v1/") (buffer-name))
     
 
 
       (goto-char (point-min))
       (setq a (search-forward-regexp "^Location: "))
-      (setq b (search-forward-regexp "http://dpaste.com/[0-9]+/"))
+      (setq b (search-forward-regexp "http://django.com/[0-9]+/"))
       (message "Link: %s" (buffer-substring a b))
       (kill-new (buffer-substring a b))
       )
@@ -145,28 +131,28 @@ binding for Kuso IDE dpaste plugin"
   )
 
 
-(defun dpaste-buffer ()
-  "dpaste the current-buffer content."
+(defun django-buffer ()
+  "django the current-buffer content."
   (interactive)
   (let (a b text type title poster)
     
     (setq title (or (buffer-file-name) (buffer-name)))
     ;; TODO: poster should be the name of current developer
     (setq poster "sameer")
-    (setq type (or (cdr (assoc major-mode dpaste-support-types)) ""))
+    (setq type (or (cdr (assoc major-mode django-support-types)) ""))
     (setq text (buffer-string))
     (with-temp-buffer 
       (insert text)
       (shell-command-on-region (point-min) (point-max) (concat "curl -si" " -F 'content=<-'"
-							       " -A 'Kuso dpaste plugin'"
+							       " -A 'Kuso django plugin'"
 							       " -F 'language=" type "'"
 							       " -F 'title=" title "'"
 							       " -F 'poster=" poster "'"
-							       " http://dpaste.com/api/v1/") (buffer-name))
+							       " http://django.com/api/v1/") (buffer-name))
 
       (goto-char (point-min))
       (setq a (search-forward-regexp "^Location: "))
-      (setq b (search-forward-regexp "http://dpaste.com/[0-9]+/"))
+      (setq b (search-forward-regexp "http://django.com/[0-9]+/"))
       (message "Link: %s" (buffer-substring a b))
       (kill-new (buffer-substring a b))
       )
@@ -176,38 +162,38 @@ binding for Kuso IDE dpaste plugin"
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
-(define-minor-mode kuso-dpaste-mode
-  "Toggle Kuso dpaste plugin mode.
-This mode provide an easy way to dpaste a buffer or a snippet of text in
-http://www.dpaste.com/
+(define-minor-mode kuso-django-mode
+  "Toggle Kuso django plugin mode.
+This mode provide an easy way to django a buffer or a snippet of text in
+http://www.django.com/
 
-By marking a region and C-x p d this plugin dpaste the code and put the url
-in killring and also message the url. You can also use C-x p f to dpaste
+By marking a region and C-x p d this plugin django the code and put the url
+in killring and also message the url. You can also use C-x p f to django
 the current buffer."
   :lighter nil
-  :keymap kuso-dpaste-map
+  :keymap kuso-django-map
   :global t 
   :group 'kuso-group
 
-  (if kuso-dpaste-mode
+  (if kuso-django-mode
       ;; kuso-cplugin-mode is not loaded
       (let () 
 	;; before initiazing mode
-	(run-hooks 'kuso-dpaste-preinit-hook)
+	(run-hooks 'kuso-django-preinit-hook)
 	(init-keymap)
 	(init-menus)
-	(put 'dpaste-region 'menu-enable nil)
+	(put 'django-region 'menu-enable nil)
 	(force-mode-line-update)
 	;; after mode was initialized
-	(run-hooks 'kuso-dpaste-postinit-hook)
+	(run-hooks 'kuso-django-postinit-hook)
 	)
     ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
-      (run-hooks 'kuso-dpaste-prerm-hook)
+      (run-hooks 'kuso-django-prerm-hook)
       (destruct-menus)
       ;; after deactivating mode
-      (run-hooks 'kuso-dpaste-postrm-hook)
+      (run-hooks 'kuso-django-postrm-hook)
       )
     )
   )
