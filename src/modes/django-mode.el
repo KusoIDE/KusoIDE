@@ -91,7 +91,12 @@ binding for Kuso IDE django plugin"
   (setq project-path (read-directory-name "Project source tree: "))
 )
 
-(defun* runserver (&optional (extra ""))
+(defun buffer-change-colorizing (start end length)
+  "colorizing the region from start to end."
+  (ansi-color-apply-on-region start end)
+)
+  
+(defun* start-runserver (&optional (extra ""))
   "Run the project development server in a new buffer"
   (interactive)
   (let (params)
@@ -101,11 +106,13 @@ binding for Kuso IDE django plugin"
     (message project-path)
     (setq params (concat project-path "manage.py runserver " extra))
     (setq runserver-buffer (get-buffer-create "*Runserver*"))
-    (setq runserverp (start-process-shell-command "Runserver" runserver-buffer (concat "python " params)))
-    
-    
+    (ansi-color-for-comint-mode-on)
+    (switch-to-buffer runserver-buffer)
+    (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+    (setq runserverp (start-process-shell-command "Runserver" runserver-buffer (concat "python " params)))   
     )
   )
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
