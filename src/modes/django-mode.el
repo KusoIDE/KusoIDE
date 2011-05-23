@@ -85,6 +85,8 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django manage runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
   (define-key-after global-map [menu-bar django manage syncdb] '("Syncdb"  . django-syncdb) 'runserver-extra)
   (define-key-after global-map [menu-bar django manage syncdb-extra] '("Syncdb with extra options"  . django-syncdb-extra) 'syncdb)
+  (define-key-after global-map [menu-bar django manage custom-command] '("Custom Command"  . django-command) 'syncdb-extra)
+
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
 
   )
@@ -164,6 +166,11 @@ binding for Kuso IDE django plugin"
   (django-runserver args)
 )
 
+(defun django-command (command)
+  "Run the specified command with manage.py"
+  (interactive "sEnter command: ")
+  (manage-command "*Custom*" "custom" command)
+)
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
