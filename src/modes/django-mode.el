@@ -66,6 +66,7 @@ binding for Kuso IDE django plugin"
 (defun init-keymap ()
   "Initialize the keymap for django plugin."
   (define-key django-map (kbd "<f6>") 'django-runserver)
+  (define-key django-map (kbd "<f7>") 'django-syncdb)
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
@@ -76,7 +77,8 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django manage] (cons "Management" (make-sparse-keymap "django-manage-map")))
   (define-key-after global-map [menu-bar django manage runserver] '("Development Server"  . django-runserver))
   (define-key-after global-map [menu-bar django manage runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
-  (define-key-after global-map [menu-bar django manage syncdb] '("syncdb"  . django-syncdb) 'runserver-extra)
+  (define-key-after global-map [menu-bar django manage syncdb] '("Syncdb"  . django-syncdb) 'runserver-extra)
+  (define-key-after global-map [menu-bar django manage syncdb-extra] '("Syncdb with extra options"  . django-syncdb-extra) 'syncdb)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
 
   )
@@ -89,9 +91,14 @@ binding for Kuso IDE django plugin"
     ;; (global-unset-key [menu-bar edit djangobuf])
     )
 
+(defun get-project-path ()
+  "Get the project path."
+  (setq project-path (read-directory-name "Project source tree: "))
+)
+
 (defun manage-command (buffername command-process-name command)
   "Run the given command in e new buffer."
-    (let (fullcommand)
+    (let (fullcommand lastslash)
     (if (string= project-path "")
 	(get-project-path)
       )
@@ -99,15 +106,28 @@ binding for Kuso IDE django plugin"
     (ansi-color-for-comint-mode-on)
     (switch-to-buffer newcommand-buffer)
     (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+    (setq lastslash (substring project-path (- (length  project-path) 1) (length project-path)))
+    (message lastslash)
+    (if (not (string= lastslash "/")) (setq project-path (concat project-path "/")))
     (setq fullcommand (concat "python " project-path "manage.py " command))
     (message fullcommand)
     (setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
     )
 )
 
-(defun get-project-path ()
-  "Get the project path."
-  (setq project-path (read-directory-name "Project source tree: "))
+(defun* django-syncdb (&optional (extra ""))
+  "Run the django syndb"
+  (interactive)
+  (let (params)
+    (setq params (concat "syncdb " extra))
+    (manage-command "*Syncdb*" "syncdb" params)
+    )
+)
+
+(defun django-syncdb-extra ()
+  "Run the django syndb with extra options."
+  (interactive "sEnter extra options for syncdb: ")
+  (django-syncdb extra)
 )
 
 (defun buffer-change-colorizing (start end length)
