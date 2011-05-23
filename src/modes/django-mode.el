@@ -73,8 +73,10 @@ binding for Kuso IDE django plugin"
   "Initialize menu entry for django plugin."
   (define-key-after global-map [menu-bar django] (cons "Django" (make-sparse-keymap "django-map")))
 
-  (define-key-after global-map [menu-bar django runserver] '("Development Server"  . django-runserver))
-  (define-key-after global-map [menu-bar django runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
+  (define-key-after global-map [menu-bar django manage] (cons "Management" (make-sparse-keymap "django-manage-map")))
+  (define-key-after global-map [menu-bar django manage runserver] '("Development Server"  . django-runserver))
+  (define-key-after global-map [menu-bar django manage runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
+  (define-key-after global-map [menu-bar django manage syncdb] '("syncdb"  . django-syncdb) 'runserver-extra)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
 
   )
@@ -86,6 +88,22 @@ binding for Kuso IDE django plugin"
     ;; (global-unset-key [menu-bar edit djangoreg])
     ;; (global-unset-key [menu-bar edit djangobuf])
     )
+
+(defun manage-command (buffername command-process-name command)
+  "Run the given command in e new buffer."
+    (let (fullcommand)
+    (if (string= project-path "")
+	(get-project-path)
+      )
+    (setq newcommand-buffer (get-buffer-create buffername))
+    (ansi-color-for-comint-mode-on)
+    (switch-to-buffer newcommand-buffer)
+    (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+    (setq fullcommand (concat "python " project-path "manage.py " command))
+    (message fullcommand)
+    (setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
+    )
+)
 
 (defun get-project-path ()
   "Get the project path."
@@ -101,15 +119,8 @@ binding for Kuso IDE django plugin"
   "Run the project development server in a new buffer"
   (interactive)
   (let (params)
-    (if (string= project-path "")
-	(get-project-path)
-      )
-    (setq params (concat project-path "manage.py runserver " extra))
-    (setq runserver-buffer (get-buffer-create "*Runserver*"))
-    (ansi-color-for-comint-mode-on)
-    (switch-to-buffer runserver-buffer)
-    (add-hook 'after-change-functions 'buffer-change-colorizing t t)
-    (setq runserverp (start-process-shell-command "Runserver" runserver-buffer (concat "python " params)))   
+    (setq params (concat "runserver " extra))
+    (manage-command "*Runserver*" "Runserver" params)
     )
   )
 
