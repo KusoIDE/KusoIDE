@@ -73,6 +73,7 @@ binding for Kuso IDE django plugin"
   "Initialize the keymap for django plugin."
   (define-key django-map (kbd "<f6>") 'django-runserver)
   (define-key django-map (kbd "<f7>") 'django-syncdb)
+  (define-key django-map (kbd "\C-c s") 'django-shell)
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
@@ -87,6 +88,7 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django manage syncdb-extra] '("Syncdb with extra options"  . django-syncdb-extra) 'syncdb)
   (define-key-after global-map [menu-bar django manage custom-command] '("Custom Command"  . django-command) 'syncdb-extra)
 
+  (define-key-after global-map [menu-bar django shell] '("Project shell"  . django-shell) 'manage)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
 
   )
@@ -164,6 +166,11 @@ binding for Kuso IDE django plugin"
   "Run the development server with extra options."
   (interactive "sEnter extra arguments for runserver: ")
   (django-runserver args)
+)
+(defun django-shell ()
+  "Running Django shell."
+  (interactive)
+  (manage-command "*Shell*" "Shell" "shell")
 )
 
 (defun django-command (command)
