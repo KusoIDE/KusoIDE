@@ -17,6 +17,12 @@
 ;; django plugin
 
 (require 'cl)
+(require 'comint)
+
+;; -------------------------------------------------------------------
+;; Constant
+;; -------------------------------------------------------------------
+(defconst *python* "/usr/bin/python")
 
 ;; -------------------------------------------------------------------
 ;; Variables
@@ -96,6 +102,7 @@ binding for Kuso IDE django plugin"
   (setq project-path (read-directory-name "Project source tree: "))
 )
 
+
 (defun manage-command (buffername command-process-name command)
   "Run the given command in e new buffer."
     (let (fullcommand lastslash)
@@ -106,12 +113,11 @@ binding for Kuso IDE django plugin"
     (ansi-color-for-comint-mode-on)
     (switch-to-buffer newcommand-buffer)
     (add-hook 'after-change-functions 'buffer-change-colorizing t t)
-    (setq lastslash (substring project-path (- (length  project-path) 1) (length project-path)))
-    (message lastslash)
-    (if (not (string= lastslash "/")) (setq project-path (concat project-path "/")))
-    (setq fullcommand (concat "python " project-path "manage.py " command))
+    (setq fullcommand (expand-file-name "manage.py" project-path))
+    ;;(setq fullcommand (concat fullcommand " " command))
     (message fullcommand)
-    (setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
+    ;;(setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
+    (setq commandp (apply 'make-comint-in-buffer command-process-name newcommand-buffer *python* nil (list fullcommand command)))
     )
 )
 
@@ -119,7 +125,10 @@ binding for Kuso IDE django plugin"
   "Run the django syndb"
   (interactive)
   (let (params)
-    (setq params (concat "syncdb " extra))
+    (if (not (string= extra ""))
+	(setq params (concat "syncdb " extra))
+      (setq params "syncdb")
+      )
     (manage-command "*Syncdb*" "syncdb" params)
     )
 )
@@ -139,7 +148,10 @@ binding for Kuso IDE django plugin"
   "Run the project development server in a new buffer"
   (interactive)
   (let (params)
-    (setq params (concat "runserver " extra))
+    (if (not (string= extra ""))
+	(setq params (concat "runserver " extra))
+      (setq params "runserver")
+      )
     (manage-command "*Runserver*" "Runserver" params)
     )
   )
