@@ -109,6 +109,7 @@ binding for Kuso IDE django plugin"
     (if (string= project-path "")
 	(get-project-path)
       )
+    (cd project-path)
     (setq newcommand-buffer (get-buffer-create buffername))
     (ansi-color-for-comint-mode-on)
     (switch-to-buffer newcommand-buffer)
@@ -118,6 +119,7 @@ binding for Kuso IDE django plugin"
     (message fullcommand)
     ;;(setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
     (setq commandp (apply 'make-comint-in-buffer command-process-name newcommand-buffer *python* nil (list fullcommand command)))
+    (cd django-cwd)
     )
 )
 
@@ -180,8 +182,8 @@ GNUEmacs."
 	;; before initiazing mode
 	(run-hooks 'django-preinit-hook)
 	(init-keymap)
-	(message "sdfsdfsdf")
 	(init-menus)
+	(setq django-cwd default-directory)
 	;;(put 'django-region 'menu-enable nil)
 	;;(force-mode-line-update)
 	;; after mode was initialized
