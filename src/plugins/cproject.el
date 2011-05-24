@@ -163,8 +163,8 @@ binding for Kuso IDE C projects section."
 
 
 ;; Initializing c menus at the load time
-(add-hook 'kuso-postinit-mode-hook 'cplugin/init-menus)
-(add-hook 'kuso-plugin-init-hook 'kuso-cplugin-mode)
+;; (add-hook 'kuso-postinit-mode-hook 'cplugin/init-menus)
+;; (add-hook 'kuso-plugin-init-hook 'kuso-cplugin-mode)
 
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
