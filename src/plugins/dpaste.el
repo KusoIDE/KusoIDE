@@ -211,4 +211,4 @@ the current buffer."
       )
     )
   )
-(provide 'kuso-dpaste-mode)
+(provide 'dpaste)
