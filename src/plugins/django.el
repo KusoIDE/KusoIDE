@@ -69,7 +69,7 @@ binding for Kuso IDE django plugin"
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
-(defun init-keymap ()
+(defun django/init-keymap ()
   "Initialize the keymap for django plugin."
   (define-key django-map (kbd "<f6>") 'django-runserver)
   (define-key django-map (kbd "<f7>") 'django-syncdb)
@@ -77,23 +77,20 @@ binding for Kuso IDE django plugin"
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
-(defun init-menus ()
+(defun django/init-menus ()
   "Initialize menu entry for django plugin."
   (define-key-after global-map [menu-bar django] (cons "Django" (make-sparse-keymap "django-map")))
-
   (define-key-after global-map [menu-bar django manage] (cons "Management" (make-sparse-keymap "django-manage-map")))
   (define-key-after global-map [menu-bar django manage runserver] '("Development Server"  . django-runserver))
   (define-key-after global-map [menu-bar django manage runserver-extra] '("Development Server Extended"  . django-runserver-extra) 'runserver)
   (define-key-after global-map [menu-bar django manage syncdb] '("Syncdb"  . django-syncdb) 'runserver-extra)
   (define-key-after global-map [menu-bar django manage syncdb-extra] '("Syncdb with extra options"  . django-syncdb-extra) 'syncdb)
   (define-key-after global-map [menu-bar django manage custom-command] '("Custom Command"  . django-command) 'syncdb-extra)
-
   (define-key-after global-map [menu-bar django shell] '("Project shell"  . django-shell) 'manage)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
-
   )
   
-(defun destruct-menus ()
+(defun django/destruct-menus ()
   "Remove menus from menubar"
     (global-unset-key [menu-bar django])
     ;; (global-unset-key [menu-bar edit sep2])
@@ -195,8 +192,8 @@ GNUEmacs."
       (let () 
 	;; before initiazing mode
 	(run-hooks 'django-preinit-hook)
-	(init-keymap)
-	(init-menus)
+	(django/init-keymap)
+	(django/init-menus)
 	(setq django-cwd default-directory)
 	;;(put 'django-region 'menu-enable nil)
 	;;(force-mode-line-update)
@@ -207,11 +204,11 @@ GNUEmacs."
     (let ()
       ;; before deactivating mode
       (run-hooks 'django-prerm-hook)
-      (destruct-menus)
+      (django/destruct-menus)
       (setq project-path "")
       ;; after deactivating mode
       (run-hooks 'django-postrm-hook)
       )
     )
   )
-(provide 'django-mode)
+(provide 'django)
