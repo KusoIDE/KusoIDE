@@ -214,3 +214,4 @@ GNUEmacs."
       )
     )
   )
+(provide 'django-mode)
