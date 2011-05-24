@@ -56,17 +56,18 @@ store their code templates."
 
 (defun load-dir (path) "Load entire directory"
   (let (load-elc load-el filelist tmp)
-  (setq load-elc (concat path "*.elc"))
-  (setq load-el (concat path "*.el"))
-  (setq filelist (file-expand-wildcards load-elc))
-  (setq tmp (file-expand-wildcards load-el))
-  (setq filelist (append filelist tmp))
-  (log (format "%s libraries found" filelist))
-  ;; TODO: delete unkown filetypes from filelist 
-  (setq filelist (mapcar 'strip-el-ext filelist))
-  (mapcar 'load filelist)
+    (setq load-elc (concat path "*.elc"))
+    (setq load-el (concat path "*.el"))
+    (setq filelist (file-expand-wildcards load-elc))
+    (setq tmp (file-expand-wildcards load-el))
+    (setq filelist (append filelist tmp))
+    (log (format "%s libraries found" filelist))
+    ;; TODO: delete unkown filetypes from filelist 
+    (setq filelist (mapcar 'strip-el-ext filelist))    
+    (mapcar 'load filelist)
   )
 )
+
 
 (defun init-kuso () "Inittialize Kuso IDE environment"
   (log "initializing Kuso . . .")
