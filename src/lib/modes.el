@@ -16,6 +16,12 @@
 
 ;; This file will define the most popular modes for KusoIDE
 
+;; -------------------------------------------------------------------
+;; Variables
+;; -------------------------------------------------------------------
+(defvar project-path ""
+  "Project source tree path.")
+
 ;; ---------------------------------------------------------------------
 ;; Hooks
 ;; ---------------------------------------------------------------------
@@ -79,6 +85,31 @@ can define their key bindings easily."
 ;; ----------------------------------------------------------------------
 ;; Functions
 ;; ----------------------------------------------------------------------
+(defun get-project-path ()
+  "Get the project path."
+  (setq project-path (read-directory-name "Project source tree: "))
+)
+
+(defun kuso/get-todo ()
+  "Get a list of TODO entries from the project source tree"
+  (interactive)
+)
+
+(defun kuso/cleanup ()
+  "Remove all the unneecessary files form project."
+  (interactive)
+  (let (buffer commands)
+    (if (string= project-path "")
+	(get-project-path)
+      )
+    (setq commands "rm -fv `find @@pp@@  -iname \"*.pyc\"` && rm -fv `find @@pp@@ -iname \"*~\"` && rm -fv `find @@pp@@ -iname \"\.#*\"` && rm -vf `find @@pp@@ -iname \"#*\"`")
+    (setq commands (replace-regexp-in-string "@@pp@@" project-path commands))
+    (setq buffer (get-buffer-create "*Cleanup*"))
+    (switch-to-buffer buffer)
+    (start-process-shell-command "Cleanup" buffer commands)
+    )
+  
+  )
 
 ;; ----------------------------------------------------------------------
 ;; Minor Modes

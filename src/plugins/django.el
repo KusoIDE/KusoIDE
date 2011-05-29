@@ -176,23 +176,6 @@ binding for Kuso IDE django plugin"
   (manage-command "*Custom*" "custom" command)
 )
 
-
-(defun django/cleanup ()
-  "Remove all the unneecessary files form project."
-  (interactive)
-  (let (buffer commands)
-    (if (string= project-path "")
-	(get-project-path)
-      )
-    (setq commands "rm -fv `find @@pp@@  -iname \"*.pyc\"` && rm -fv `find @@pp@@ -iname \"*~\"` && rm -fv `find @@pp@@ -iname \"\.#*\"` && rm -vf `find @@pp@@ -iname \"#*\"`")
-    (setq commands (replace-regexp-in-string "@@pp@@" project-path commands))
-    (setq buffer (get-buffer-create "*Cleanup*"))
-    (switch-to-buffer buffer)
-    (start-process-shell-command "Cleanup" buffer commands)
-    )
-  
-  )
-
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
