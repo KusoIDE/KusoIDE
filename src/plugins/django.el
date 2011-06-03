@@ -88,6 +88,7 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django manage custom-command] '("Custom Command"  . django-command) 'syncdb-extra)
   (define-key-after global-map [menu-bar django shell] '("Project shell"  . django-shell) 'manage)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
+  (define-key-after global-map [menu-bar django pylintcheck] '("Check buffer with pylint"  . pylint-check-current-buffer) 'django-shell)
   )
   
 (defun django/destruct-menus ()
