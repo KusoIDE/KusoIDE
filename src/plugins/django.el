@@ -176,6 +176,26 @@ binding for Kuso IDE django plugin"
   (manage-command "*Custom*" "custom" command)
 )
 
+(defun pylint-check-current-buffer ()
+  "Run pylint on current buffer."
+  (interactive)
+  (let (cbuffer-file pylint-buffer)
+    (setq cbuffer-file (buffer-file-name))
+    (if (string cbuffer-file)
+	(progn
+	      (setq pylint-buffer (get-buffer-create "*Pylint*"))
+	      (ansi-color-for-comint-mode-on)
+	      (switch-to-buffer pylint-buffer)
+	      (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+	      (setq fullcommand (concat "-f colorized " cbuffer-file))
+	      (setq commandp (apply 'make-comint-in-buffer "pylint" pylint-buffer "pylint" nil (list fullcommand command)))
+
+	  )
+      (message "This buffer did not visit any file.")
+      )
+    
+    )
+)
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
