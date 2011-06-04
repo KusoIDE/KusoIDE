@@ -89,6 +89,8 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django shell] '("Project shell"  . django-shell) 'manage)
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
   (define-key-after global-map [menu-bar django pylintcheck] '("Check buffer with pylint"  . pylint-check-current-buffer) 'django-shell)
+  (define-key-after global-map [menu-bar django cleanup] '("Cleanup source tree"  . django/cleanup) 'pylintcheck)
+
   )
   
 (defun django/destruct-menus ()
@@ -176,6 +178,29 @@ binding for Kuso IDE django plugin"
   (interactive "sEnter command: ")
   (manage-command "*Custom*" "custom" command)
 )
+
+
+(defun django/cleanup ()
+  "Remove all the unneecessary files form project."
+  (interactive)
+  (let (buffer commands)
+    (if (string= project-path "")
+	(get-project-path)
+      )
+    (setq commands "rm -fv `find @@pp@@  -iname \"*.pyc\"` && rm -fv `find @@pp@@ -iname \"*~\"` && rm -fv `find @@pp@@ -iname \"\.#*\"` && rm -vf `find @@pp@@ -iname \"#*\"`")
+    (setq commands (replace-regexp-in-string "@@pp@@" project-path commands))
+    (setq buffer (get-buffer-create "*Cleanup*"))
+    (switch-to-buffer buffer)
+    (start-process-shell-command "Cleanup" buffer commands)
+    )
+  
+  )
+
+(defun kuso/get-todo ()
+  "Get a list of TODO entries from the project source tree"
+  (interactive)
+)
+
 
 (defun pylint-check-current-buffer ()
   "Run pylint on current buffer."
