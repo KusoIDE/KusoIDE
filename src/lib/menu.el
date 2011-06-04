@@ -38,6 +38,7 @@
 
 (defun menu/init-menu () "Initializing Kuso IDE menu"
   ;; New Project Menu
+  (interactive)
   (define-key-after global-map [menu-bar file new-proj] (cons "New Project" (make-sparse-keymap "new project")) 'new-file)
   ;; New Project sub menus
 ;;  (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
@@ -52,6 +53,7 @@
 
 (defun menu/destruct-menu ()
   "Remove Kuso provided menu form emacs menus"
+  (interactive)
   (global-unset-key [menu-bar file new-proj])
   
   )

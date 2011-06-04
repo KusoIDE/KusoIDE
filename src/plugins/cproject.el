@@ -27,7 +27,7 @@
 ;; ---------------------------------------------------------------------
 ;; Custom Variables
 ;; ---------------------------------------------------------------------
-(defcustom c-plugin t
+(defcustom c-plugin nil
   "KusoIDE C programming language plugin."
   :group 'kuso-features
   :type 'boolean
@@ -74,8 +74,9 @@ binding for Kuso IDE C projects section."
 (defun cplugin/init-menus () "Draw required menu for C mode"
   
   (interactive)
+  (message "SsssssssssSS")
   (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
-  
+
   ;;  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
   
 					;  (define-key global-map [Ctrl-x p c n ] 'make-cpp)
@@ -131,7 +132,7 @@ binding for Kuso IDE C projects section."
       )
     )
   (find-file (expand-file-name (concat unix-project-name ".c") project-path))
-  (kuso-cplugin-mode)
+
   )
 
 
@@ -152,15 +153,20 @@ binding for Kuso IDE C projects section."
     )
 
   (find-file (expand-file-name (concat unix-project-name ".c") project-path))
-  (kuso-cplugin-mode)
+
   )
 
 
-(defun initial-keymap ()
+(defun cplugin/initial-keymap ()
   "Set the key binding for C project."
   (define-key kuso-cplugin-map (kbd "<f9>") 'compile)
   )
 
+(defun cplugin/destruct-menu ()
+  "clean up the created menus."
+  (interactive)
+    (global-unset-key [menu-bar file new-proj cproj])
+)
 
 ;; Initializing c menus at the load time
 ;; (add-hook 'kuso-postinit-mode-hook 'cplugin/init-menus)
@@ -180,22 +186,28 @@ This mode provide C language plugin for Kuso IDE."
   (if kuso-cplugin-mode
       ;; kuso-cplugin-mode is not loaded
       (let () 
-	(if c-plugin
+	(message "sssscccccccccccccccccc")
+	(if kuso-cplugin-mode
 	    (progn
 	      ;; before initiazing mode
 	      (run-hooks 'kuso-cplug-preinit-hook)
-	      (initial-keymap)
+	      (cplugin/init-menus)
+	      (cplugin/initial-keymap)
+	      
 	      (define-key global-map (kbd "s-p") 'kuso-cplugin-map)
+	      (message "ssssssssssssssssssssssssssssss")
 	      ;; after mode was initialized
 	      (run-hooks 'kuso-cplug-postinit-hook)
+	      (log "C Plugin turned on")
 	      )
-	  (log "C Plugin turned on")
+	  (log "Can't load Cplugin")
 	  )
 	)
     ;; kuso-mode already loaded
     (let ()
       ;; before deactivating mode
       (run-hooks 'kuso-cplug-prerm-hook)
+      (cplugin/destruct-menu)
       ;; after deactivating mode
       (run-hooks 'kuso-cplug-postrm-hook)
       (log "C Plugin turned off")
