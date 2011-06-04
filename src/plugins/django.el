@@ -196,9 +196,22 @@ binding for Kuso IDE django plugin"
   
   )
 
-(defun kuso/get-todo ()
+(defun django/get-todo ()
   "Get a list of TODO entries from the project source tree"
   (interactive)
+  (let (command gbuffer commandp)
+    (if (string= project-path "")
+	(get-project-path)
+      )
+    (setq command (concat "grep \"# TODO:\" " project-path " -Rn -T --color"))
+    (message command)
+    (setq gbuffer (get-buffer-create "*Grep*"))
+    (ansi-color-for-comint-mode-on)
+    (switch-to-buffer gbuffer)
+    (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+    (setq commandp (start-process-shell-command "grep" gbuffer command))
+
+    )
 )
 
 
