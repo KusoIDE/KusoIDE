@@ -1,4 +1,3 @@
-
 CC = gcc
 CFLAGS = -g -Wall
 OBJECTS = ::unixname::.o
@@ -8,7 +7,7 @@ LIBS =
 
 all: ::unixname::
 
-memdump: $(OBJECTS)
+::unixname::: $(OBJECTS)
 	$(CC) -o ::unixname:: $(OBJECTS) $(LDFLAGS) $(LIBS)
 
 .SUFFIXES:

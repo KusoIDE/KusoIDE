@@ -74,7 +74,6 @@ binding for Kuso IDE C projects section."
 (defun cplugin/init-menus () "Draw required menu for C mode"
   
   (interactive)
-  (message "SsssssssssSS")
   (define-key-after global-map [menu-bar file new-proj cproj] (cons "C/C++" (make-sparse-keymap "c-cpp-proj")))
 
   ;;  (define-key global-map [menu-bar file new-proj cproj separator2] '("--"))
