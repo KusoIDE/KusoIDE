@@ -1,0 +1,86 @@
+(add-to-list 'load-path "~/.emacs.d/")
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
+(require 'auto-complete-config)
+;;(require 'auto-complete)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+(global-auto-complete-mode t)
+(setq tramp-default-method "ssh")
+
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python-mode)
+
+;; Enabling ropemacs
+;;(require 'pymacs)
+;;(pymacs-load "ropemacs" "rope-")
+
+(setq ropemacs-enable-shortcuts nil)
+(setq ropemacs-local-prefix "C-c C-p")
+
+
+
+
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/snippets")
+
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-arjen)
+     ))
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(c-plugin nil)
+ ;'(color-theme-selection "Arjen" nil (color-theme_seldefcustom))
+ '(developer-email "--EMAIL--")
+ '(developer-name "--FULLNAME--")
+ '(kuso-workspace "--WORKSPACE--")
+ '(face-font-family-alternatives (quote (("courier" "Monospace" "fixed") ("courier" "CMU Typewriter Text" "fixed") ("Sans Serif" "helv" "helvetica" "arial" "fixed") ("helv" "helvetica" "arial" "fixed"))))
+ '(inhibit-startup-screen t)
+ '(rng-nxml-auto-validate-flag nil))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(font-lock-comment-face ((t (:foreground "orange red"))))
+ '(font-lock-keyword-face ((t (:foreground "DeepSkyBlue1")))))
+
+(require 'flymake)
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+		    temp-file
+            (file-name-directory buffer-file-name))))
+      (list "--ADDR--/pyemacs.sh"  (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+             '("\\.py$" flymake-pyflakes-init)))
+;; flymake shortkeys
+(global-set-key (kbd "\C-x a") 'flymake-display-err-menu-for-current-line)
+(global-set-key (kbd "\C-x p") 'flymake-goto-next-error)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+;;(require 'kuso-dpaste-mode)
+(setq x-select-enable-clipboard t)
+(column-number-mode t)
+;; dabbrev configuration
+(require 'ac-dabbrev)
+(setq ac-sources
+     (list ac-source-dabbrev
+           ))
+(global-set-key (kbd "<backtab>") 'dabbrev-expand)
+
+(load-file "--KUSOHOME--/kuso-ide.el")
+(kuso-mode)
