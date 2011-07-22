@@ -31,3 +31,7 @@ under the term of GNU FDL.
 Kuso IDE have these prequest softwares:
 
 * GNU Emacs
+
+3. Installation
+===============
+Just run install.sh in its directory
