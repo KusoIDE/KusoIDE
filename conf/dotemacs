@@ -42,8 +42,9 @@
   ;; If there is more than one, they won't work right.
  '(c-plugin nil)
  ;'(color-theme-selection "Arjen" nil (color-theme_seldefcustom))
- '(developer-email "lxsameer@gnu.org")
- '(developer-name "Sameer Rahmani")
+ '(developer-email "--EMAIL--")
+ '(developer-name "--FULLNAME--")
+ '(kuso-workspace "--WORKSPACE--")
  '(face-font-family-alternatives (quote (("courier" "Monospace" "fixed") ("courier" "CMU Typewriter Text" "fixed") ("Sans Serif" "helv" "helvetica" "arial" "fixed") ("helv" "helvetica" "arial" "fixed"))))
  '(inhibit-startup-screen t)
  '(rng-nxml-auto-validate-flag nil))
@@ -63,7 +64,7 @@
        (local-file (file-relative-name
 		    temp-file
             (file-name-directory buffer-file-name))))
-      (list "~/bin/pyemacs.sh"  (list local-file))))
+      (list "--ADDR--/pyemacs.sh"  (list local-file))))
   (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py$" flymake-pyflakes-init)))
 ;; flymake shortkeys
@@ -81,5 +82,5 @@
            ))
 (global-set-key (kbd "<backtab>") 'dabbrev-expand)
 
-(load-file "~/src/kuso-ide/src/kuso-ide.el")
+(load-file "--KUSOHOME--/kuso-ide.el")
 (kuso-mode)
