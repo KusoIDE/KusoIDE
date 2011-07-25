@@ -1,5 +1,5 @@
-;;   Kuso - My personal emacs IDE
-;;    Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
+;;   lxdjango-mode - My personal emacs IDE
+;;    Copyright (C) 2010-2011  Sameer Rahmani <lxsameer@gnu.org>
 ;;
 ;;    This program is free software: you can redistribute it and/or modify
 ;;    it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; django plugin
+;; lxdjango plugin
 
 (require 'cl)
 (require 'comint)
@@ -34,35 +34,41 @@
 ;; Hooks
 ;; -------------------------------------------------------------------
 (defvar django-preinit-hook '()
-  "This hook runs before initializing the Kuso django-plugin minor mode."
+  "This hook runs before initializing the lxdjango minor mode."
   )
 
 (defvar django-postinit-hook '()
-  "This hook runs after Kuso django-plugin minor mode initialized."
+  "This hook runs after lxdjango minor mode initialized."
   )
 
 (defvar django-prerm--hook '()
-  "This hook runs before deactivating Kuso django-plugin minor mode."
+  "This hook runs before deactivating lxdjango minor mode."
   )
 
 (defvar django-postrm-hook '()
-  "This hook runs after Kuso django-plugin minor mode deactivated."
+  "This hook runs after lxdjango minor mode deactivated."
   )
 
 ;; ---------------------------------------------------------------------
 ;; Keymaps
 ;; ---------------------------------------------------------------------
 (defvar django-map (make-sparse-keymap)
- "Default keymap for Kuso django minor mode that hold the global key
-binding for Kuso IDE django plugin"
+ "Default keymap for lxdjango minor mode"
 )
 
+;; ---------------------------------------------------------------------
+;; Groups
+;; ---------------------------------------------------------------------
+(defgroup django nil
+  "Django minor mode for Emacs."
+  :group 'programming
+  :prefix "lxdjango")
 ;; ---------------------------------------------------------------------
 ;; Custom Variables
 ;; ---------------------------------------------------------------------
 (defcustom django-plugin t
-  "KusoIDE Django programming language plugin."
-  :group 'kuso-features
+  "Django framework minor mode."
+  :group 'django
   :type 'boolean
   :tag '"django plugins")
 
@@ -74,7 +80,6 @@ binding for Kuso IDE django plugin"
   (define-key django-map (kbd "<f6>") 'django-runserver)
   (define-key django-map (kbd "<f7>") 'django-syncdb)
   (define-key django-map (kbd "\C-c s") 'django-shell)
-  ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
 
 (defun django/init-menus ()
@@ -96,9 +101,6 @@ binding for Kuso IDE django plugin"
 (defun django/destruct-menus ()
   "Remove menus from menubar"
     (global-unset-key [menu-bar django])
-    ;; (global-unset-key [menu-bar edit sep2])
-    ;; (global-unset-key [menu-bar edit djangoreg])
-    ;; (global-unset-key [menu-bar edit djangobuf])
     )
 
 (defun get-project-path ()
@@ -119,9 +121,7 @@ binding for Kuso IDE django plugin"
     (switch-to-buffer newcommand-buffer)
     (add-hook 'after-change-functions 'buffer-change-colorizing t t)
     (setq fullcommand (expand-file-name "manage.py" project-path))
-    ;;(setq fullcommand (concat fullcommand " " command))
     (message fullcommand)
-    ;;(setq commandp (start-process-shell-command command-process-name newcommand-buffer fullcommand))
     (setq commandp (apply 'make-comint-in-buffer command-process-name newcommand-buffer *python* nil (list fullcommand command)))
     (cd django-cwd)
     )
@@ -228,8 +228,6 @@ binding for Kuso IDE django plugin"
 	  (add-hook 'after-change-functions 'buffer-change-colorizing t t)
 	  (setq fullcommand (concat "pylint -f colorized " cbuffer-file))
 	  (setq commandp (start-process-shell-command "pylint" pylint-buffer fullcommand))
-	  ;;(setq commandp (apply 'make-comint-in-buffer "pylint" pylint-buffer "pylint" nil (list fullcommand)))
-
 	  )
       (message "This buffer did not visit any file.")
       )
@@ -242,16 +240,16 @@ binding for Kuso IDE django plugin"
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
 (define-minor-mode django-mode
-  "Toggle Kuso django plugin mode.
+  "Toggle lxdjango minor mode.
 This plugin provide some functionality for speedup django development on
 GNUEmacs."
   :lighter nil
   :keymap django-map
   :global t 
-  :group 'kuso-group
+  :group 'django
 
   (if django-mode
-      ;; kuso-cplugin-mode is not loaded
+      ;; lxdjango minor mode is not loaded
       (let () 
 	;; before initiazing mode
 	(run-hooks 'django-preinit-hook)
@@ -259,11 +257,10 @@ GNUEmacs."
 	(django/init-menus)
 	(setq django-cwd default-directory)
 	;;(put 'django-region 'menu-enable nil)
-	;;(force-mode-line-update)
 	;; after mode was initialized
 	(run-hooks 'django-postinit-hook)
 	)
-    ;; kuso-mode already loaded
+    ;; lxdjango plugin already loaded
     (let ()
       ;; before deactivating mode
       (run-hooks 'django-prerm-hook)
