@@ -18,7 +18,6 @@
 
 (require 'cl)
 (require 'comint)
-
 ;; -------------------------------------------------------------------
 ;; Constant
 ;; -------------------------------------------------------------------
@@ -73,6 +72,7 @@ binding for Kuso IDE django plugin"
   "Initialize the keymap for django plugin."
   (define-key django-map (kbd "<f6>") 'django-runserver)
   (define-key django-map (kbd "<f7>") 'django-syncdb)
+  (define-key django-map (kbd "s-<f1>") 'python/gethelp)
   (define-key django-map (kbd "\C-c s") 'django-shell)
   ;; (define-key django-map (kbd "\C-x p f") 'django-buffer)
   )
@@ -90,7 +90,8 @@ binding for Kuso IDE django plugin"
   (define-key-after global-map [menu-bar django sep2] '("--") 'runserver-extra)
   (define-key-after global-map [menu-bar django pylintcheck] '("Check buffer with pylint"  . pylint-check-current-buffer) 'django-shell)
   (define-key-after global-map [menu-bar django cleanup] '("Cleanup source tree"  . django/cleanup) 'pylintcheck)
-
+  (define-key-after global-map [menu-bar django sep3] '("--") 'cleanup)
+  (define-key-after global-map [menu-bar django cwordhelp] '("Current word help"  . python/gethelp) 'sep3)
   )
   
 (defun django/destruct-menus ()
@@ -237,7 +238,21 @@ binding for Kuso IDE django plugin"
     )
 )
 
-
+(defun python/gethelp ()
+  "Show the python help of current word"
+  (interactive)
+  (let (cword pybuffer fullcommand)
+    (setq pybuffer (get-buffer-create "*PyHelp*"))
+    (setq cword (thing-at-point 'word))
+    (ansi-color-for-comint-mode-on)
+    (switch-to-buffer-other-window pybuffer)
+    (erase-buffer)
+    (setq fullcommand (concat *python* " -c 'help(\"" cword "\")'"))
+    (setq commandp (start-process-shell-command *python* pybuffer fullcommand))
+    ;;(setq fullcommand (concat "-c 'help(\"" cword "\")'"))
+    ;;(setq commandp (apply 'make-comint-in-buffer "python" pybuffer "python" nil (list fullcommand)))
+    )
+)
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
