@@ -9,6 +9,7 @@ workspace=`read`
 echo "Where do you want to put pyemacs.sh file: "
 addr=`read`
 kusohome=`pwd`
+
 mkdir -p ~/.emacs.d
 if [ -x ~/.emacs ]; then
     cp ~/.emacs ~/.emacs.backup
@@ -19,4 +20,9 @@ echo "Creating ~/.emacs"
 mkdir -p $addr
 cp conf/bin/pyemacs.sh $addr/ -rv
 chmod u+x $addr/pyemacs.sh
-sed "s/--EMAIL--/$mail/" conf/dotemacs| sed "s/--FULLNAME--/$fullname/"| sed "--WORKSPACE--" | sed "s/--ADDR--/$addrcp/" | sed "s/--KUSOHOME--/$kusohome/" > ~/.emacs
+cp conf/dotemacs ~/.emacs
+sed "s/--EMAIL--/$mail/" -i ~/.emacs
+sed "s/--FULLNAME--/$fullname/" -i ~/.emacs
+sed "s/--WORKSPACE--/$workspace/" -i ~/.emacs
+sed "s/--ADDR--/$addrcp/" -i ~/.emacs
+sed "s/--KUSOHOME--/$kusohome/" > ~/.emacs
