@@ -30,12 +30,24 @@ under the term of GNU FDL.
 =============================
 Kuso IDE have these prequest softwares:
 
+
 * GNU Emacs
-** For python
-*** pep8
-*** pyflakes
-*** pychecker
-*** pylint
+
+Python dependencies
+-------------------
+* pep8
+* pyflakes
+* pychecker
+* pylint
+
+HTML dependencies
+-----------------
+* tidy
+
+CSS dependencies
+----------------
+* python-cssutils (pip install cssutils)
+
 
 3. Installation
 ===============

@@ -1,35 +1,39 @@
+;; Setup load directory
 (add-to-list 'load-path "~/.emacs.d/")
-(add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; auto complete ------------------------------------------------------------
 (require 'auto-complete-config)
-;;(require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
 (global-auto-complete-mode t)
+
+;; ssh configuration ---------------------------------------------------------
 (setq tramp-default-method "ssh")
 
+;; python configuration ------------------------------------------------------
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
 (require 'python-mode)
 
-;; php-mode
+;; php-mode -------------------------------------------------------------------
 (autoload 'php-mode "php-mode" "PHP editing mode" t)
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
-
+;; yasnippet configuration ----------------------------------------------------
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/snippets")
 
+;; Setting up color them -------------------------------------------------------
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
      (color-theme-arjen)
      ))
-
+;; Setting up customization -----------------------------------------------------
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,7 +55,10 @@
  '(font-lock-comment-face ((t (:foreground "orange red"))))
  '(font-lock-keyword-face ((t (:foreground "DeepSkyBlue1")))))
 
+;; flymake ---------------------------------------------------------
 (require 'flymake)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -63,25 +70,49 @@
   (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py$" flymake-pyflakes-init)))
 
+(defun flymake-html-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-inplace))
+	 (local-file (file-relative-name
+		      temp-file
+		      (file-name-directory buffer-file-name))))
+    (list "tidy" (list local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks
+	     '("\\.html$\\|\\.ctp" flymake-html-init))
+
+(add-to-list 'flymake-err-line-patterns
+	     '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
+	       nil 1 2 4))
+
+(defun flymake-css-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-inplace))
+	 (local-file (file-relative-name
+		      temp-file
+		      (file-name-directory buffer-file-name))))
+    (list "cssparse" (list local-file))))
+(add-to-list 'flymake-allowed-file-name-masks
+	     '("\\.css$" flymake-css-init))
+(add-to-list 'flymake-err-line-patterns
+	     '("\\(.*\\) \\[\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)\\]"
+	       nil 2 3 1))
+(add-hook 'css-mode-hook
+	  (lambda () (flymake-mode t)))
+
 ;; flymake shortkeys
 (global-set-key (kbd "\C-x a") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "\C-x p") 'flymake-goto-next-error)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-;;(require 'kuso-dpaste-mode)
-(setq x-select-enable-clipboard t)
-(column-number-mode t)
-;; dabbrev configuration
+
+;; dabbrev configuration  ----------------------------------------------------------
 (require 'ac-dabbrev)
 (setq ac-sources
      (list ac-source-dabbrev
            ))
 (global-set-key (kbd "<backtab>") 'dabbrev-expand)
 
-(autoload 'python-pylint "python-pylint")
-(autoload 'pylint "python-pylint")
-(global-linum-mode)
 
+;; C configuration ----------------------------------------------------------------
 ;; clang auto completion
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
@@ -93,10 +124,21 @@
   (define-key c-mode-base-map (kbd "M-3") 'ac-complete-clang)
 )
 
-;; Linux style for c programming
+;; Linux style for c programming ------------------------------------------------
 (setq c-default-style '((java-mode . "java")
 			(awk-mode . "awk")
 			(other . "linux")))
 
+;; KUSO configuration ------------------------------------------------------------
 (load-file "--KUSOHOME--/src/kuso-ide.el")
 (kuso-mode)
+
+;; General configuration ---------------------------------------------------------
+(autoload 'python-pylint "python-pylint")
+(autoload 'pylint "python-pylint")
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq x-select-enable-clipboard t)
+(column-number-mode t)
+(global-linum-mode)
