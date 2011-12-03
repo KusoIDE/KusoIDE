@@ -10,17 +10,16 @@ read -p "Enter your full name: " fullname
 read -p "Enter your email address: " mail
 read -p "Where is your workspace directory[~/src/]: " workspace
 read -p "Where do you want to put pyemacs.sh file[~/bin/]: " addr
-echo -e "\n"
 
 # Validating informations
 if [ "$workspace" == "" ]
 then
-    workspace="~/src/"
+    workspace="$HOME/src/"
 fi
 
 if [ "$addr" == "" ]
 then
-    addr="~/bin/"
+    addr=$HOME/bin/
 fi
 
 # Installing stage1
@@ -30,6 +29,7 @@ if [ -e ~/.emacs ]; then
     echo "Backing up exists .emacs file . . ."
     cp ~/.emacs ~/.emacs.backup
 fi
+addr=$(echo "$addr" |sed "s,\~,$HOME,mg")
 
 echo "Copying files . . . "
 cp conf/emacs.d/* ~/.emacs.d -r
@@ -38,7 +38,7 @@ cp conf/bin/pyemacs.sh $addr/ -r
 chmod u+x $addr/pyemacs.sh
 
 echo "Creating ~/.emacs"
-dotemacs=~/.AAA
+dotemacs=~/.emacs
 cp conf/dotemacs $dotemacs
 v="s/--EMAIL--/$fullname/"
 sed "s/--EMAIL--/$mail/mg" -i $dotemacs
@@ -47,5 +47,5 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--ADDR--,$addr,mg" -i $dotemacs
 sed "s,--KUSOHOME--,$kusohome,mg" -i $dotemacs
 
-echo "Installation finished."
+echo -e "\nInstallation finished."
 echo "Restart the GNU/Emacs and make sure that all the requirements met."
