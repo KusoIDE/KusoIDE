@@ -1,5 +1,5 @@
-Kuso IDE - A personal piece of Shit GNU Emacs based IDE
-Copyright (C) 2010  Sameer Rahmani <lxsameer@gnu.org>
+Kuso IDE - A piece of Shit GNU Emacs based IDE
+Copyright (C) 2010-2011  Sameer Rahmani <lxsameer@gnu.org>
 
 Contents
 ==============================
@@ -31,6 +31,11 @@ under the term of GNU FDL.
 Kuso IDE have these prequest softwares:
 
 * GNU Emacs
+** For python
+*** pep8
+*** pyflakes
+*** pychecker
+*** pylint
 
 3. Installation
 ===============
