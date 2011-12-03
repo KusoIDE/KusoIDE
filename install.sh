@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VERSION="0.9.0"
+VERSION="0.10.0"
 
 # Gathering informations
 echo -e "\n\tKuso IDE v$VERSION copyright 2010-2011 Sameer Rahmani <lxsameer@gnu.org>\n\n"
