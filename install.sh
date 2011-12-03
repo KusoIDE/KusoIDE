@@ -34,6 +34,7 @@ addr=$(echo "$addr" |sed "s,\~,$HOME,mg")
 echo "Copying files . . . "
 cp conf/emacs.d/* ~/.emacs.d -r
 mkdir -p $addr
+mkdir -p $HOME/.tmp
 cp conf/bin/pyemacs.sh $addr/ -r
 chmod u+x $addr/pyemacs.sh
 
