@@ -82,5 +82,5 @@
            ))
 (global-set-key (kbd "<backtab>") 'dabbrev-expand)
 
-(load-file "--KUSOHOME--/kuso-ide.el")
+(load-file "--KUSOHOME--/src/kuso-ide.el")
 (kuso-mode)
