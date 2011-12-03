@@ -22,9 +22,8 @@ cp conf/bin/pyemacs.sh $addr/ -r
 chmod u+x $addr/pyemacs.sh -v
 cp conf/dotemacs ~/.emacs
 echo "python ./rep.py $mail $fullname $workspace $addr $kusohome"
-python ./rep.py $mail $fullname $workspace $addr $kusohome
-#sed "s/--EMAIL--/$mail/" -i ~/.emacs
-#sed "s/--FULLNAME--/$fullname/" -i ~/.emacs
-#sed "s/--WORKSPACE--/$workspace/" -i ~/.emacs
-#sed "s/--ADDR--/$addr/" -i ~/.emacs
-#sed "s/--KUSOHOME--/$kusohome/" -i ~/.emacs
+sed "s/--EMAIL--/$mail/" -i ~/.emacs
+sed "s/--FULLNAME--/$fullname/" -i ~/.emacs
+sed "s/--WORKSPACE--/$workspace/" -i ~/.emacs
+sed "s/--ADDR--/$addr/" -i ~/.emacs
+sed "s/--KUSOHOME--/$kusohome/" -i ~/.emacs
