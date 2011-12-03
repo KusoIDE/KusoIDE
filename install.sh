@@ -9,7 +9,6 @@ echo -e "level customization.\n\n"
 read -p "Enter your full name: " fullname
 read -p "Enter your email address: " mail
 read -p "Where is your workspace directory[~/src/]: " workspace
-read -p "Where do you want to put pyemacs.sh file[~/bin/]: " addr
 
 # Validating informations
 if [ "$workspace" == "" ]
@@ -17,10 +16,7 @@ then
     workspace="$HOME/src/"
 fi
 
-if [ "$addr" == "" ]
-then
-    addr=$HOME/bin/
-fi
+addr=$HOME/.kuso
 
 # Installing stage1
 kusohome=`pwd`
@@ -29,8 +25,6 @@ if [ -e ~/.emacs ]; then
     echo "Backing up exists .emacs file . . ."
     cp ~/.emacs ~/.emacs.backup
 fi
-addr=$(echo "$addr" |sed "s,\~,$HOME,mg")
-
 echo "Copying files . . . "
 cp conf/emacs.d/* ~/.emacs.d -r
 mkdir -p $addr
