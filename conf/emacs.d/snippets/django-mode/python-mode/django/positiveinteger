@@ -1,0 +1,1 @@
+${1:FIELDNAME} = models.PositiveIntegerField(${2:blank=True, null=True})

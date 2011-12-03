@@ -1,0 +1,18 @@
+;; Object sss/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "sss/"
+  :tables (list 
+   (semanticdb-table "sss.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "sss.c"
+    :pointmax 850
+    :fsize 169
+    :lastmodtime '(19739 31366)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!lxsameer!src!sss!semantic.cache"
+  :semantic-tag-version "2.0pre7"
+  :semanticdb-version "2.0pre7"
+  )

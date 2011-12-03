@@ -1,0 +1,18 @@
+;; Object bits/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "bits/"
+  :tables (list 
+   (semanticdb-table "c++config.h"
+    :major-mode 'c++-mode
+    :tags nil
+    :file "c++config.h"
+    :pointmax 41901
+    :fsize 41900
+    :lastmodtime '(19701 32168)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!usr!include!c++!4.4!x86_64-linux-gnu!bits!semantic.cache"
+  :semantic-tag-version "2.0pre7"
+  :semanticdb-version "2.0pre7"
+  )

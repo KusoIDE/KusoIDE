@@ -1,0 +1,1 @@
+${1:FIELDNAME} = models.CharField(${2:blank=True, }max_length=${3:255})
