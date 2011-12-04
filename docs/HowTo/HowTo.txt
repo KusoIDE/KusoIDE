@@ -1,1 +1,22 @@
-how to use kuso ide
+For use Kuso-IDE on you'r emacs follow below step:
+
+First clone Kuso-IDE any where you like on your computer:	 
+     $ git clone https://bitbucket.org/lxsameer/kuso-ide.git
+
+Second install Kuso-IDE with running install.sh like:
+     $ ./install.sh
+
+Then you will see this question and follow the awnser:
+
+     Enter your full name: YOUR NAME 
+     Enter your email address: YOUR E-MAIL ADDRESS
+     Where is your workspace directory[~/src/]:~/YOUR WORKSPACE "if you null this option your emacs work with ~/src/ as default workspace"
+     
+Then you will see this message and your installation completed:
+     Backing up exists .emacs file . . .
+     Copying files . . . 
+     Creating ~/.emacs
+
+     Installation finished.
+     Restart the GNU/Emacs and make sure that all the requirements met.
+Enjoy it!
