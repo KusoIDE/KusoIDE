@@ -1,11 +1,33 @@
 #! /bin/bash
 
-VERSION="0.10.0"
+VERSION="0.11.0"
 
 # Gathering informations
 echo -e "\n\tKuso IDE v$VERSION copyright 2010-2011 Sameer Rahmani <lxsameer@gnu.org>\n\n"
 echo "Enter requested informations. You can change it later in top"
 echo -e "level customization.\n\n"
+condition="1"
+while [ "$condition" == "1" ] ; do
+    read -p "Do you want to install Kuso IDE as an stand alone application ([y]/n)? " standalone
+
+    if [ "$standalone" == "" -o "$standalone" == "y" ]
+    then
+	standalone="y"
+	dotemacs=~/.kuso
+	repo=~/.kuso.d
+	cp bin/kuso $repo
+	condition="0"
+    fi
+
+    if [ "$standalone" == "n" ]
+    then
+	dotemacs=~/.emacs
+	repo=~/.emacs.d
+	condition="0"
+    fi
+    
+
+done
 read -p "Enter your full name: " fullname
 read -p "Enter your email address: " mail
 read -p "Where is your workspace directory[~/src/]: " workspace
@@ -16,24 +38,23 @@ then
     workspace="$HOME/src/"
 fi
 
-addr=$HOME/.kuso
+addr=$HOME/.kuso.d
 
 # Installing stage1
 kusohome=`pwd`
-mkdir -p ~/.emacs.d
-if [ -e ~/.emacs ]; then
+mkdir -p $repo
+if [ -e $dotemacs ]; then
     echo "Backing up exists .emacs file . . ."
-    cp ~/.emacs ~/.emacs.backup
+    cp $dotemacs "$dotemacs.backup"
 fi
 echo "Copying files . . . "
-cp conf/emacs.d/* ~/.emacs.d -r
+cp conf/emacs.d/* $repo -r
 mkdir -p $addr
 mkdir -p $HOME/.tmp
 cp conf/bin/pyemacs.sh $addr/ -r
 chmod u+x $addr/pyemacs.sh
 
 echo "Creating ~/.emacs"
-dotemacs=~/.emacs
 cp conf/dotemacs $dotemacs
 v="s/--EMAIL--/$fullname/"
 sed "s/--EMAIL--/$mail/mg" -i $dotemacs
