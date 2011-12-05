@@ -113,7 +113,7 @@
       (add-hook 'after-change-functions 'buffer-change-colorizing t t)
       (setq fullcommand *node*)
       (message fullcommand)
-      (setq commandp (apply 'make-comint-in-buffer *node* newcommand-buffer *node* nil (list fullcommand command)))
+      (setq commandp (apply 'make-comint-in-buffer *node* newcommand-buffer *node* nil (list command)))
       )
 )
 
@@ -129,7 +129,7 @@
     (add-hook 'after-change-functions 'buffer-change-colorizing t t)
     (setq fullcommand "npm")
     (message fullcommand)
-    (setq commandp (apply 'make-comint-in-buffer "npm" newcommand-buffer "npm" nil (list fullcommand "install" package)))
+    (setq commandp (apply 'make-comint-in-buffer "npm" newcommand-buffer "npm" nil (list "install" package)))
     )
 )
 
