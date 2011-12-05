@@ -1,0 +1,19 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Kuso IDE
+GenericName=Development Environment
+Comment=GNU/Emacs based development IDE
+MimeType=text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=
+Icon=accessories-calculator
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Development;IDE;
+Exec=$HOME/.kuso.d/kuso %F
+TryExec=kuso
+Icon=$HOME/.kuso.d/logo.svg
+Type=Application
+Terminal=false
+
