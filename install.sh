@@ -60,6 +60,7 @@ if [ "$standalone" == "y" ]
 then
     cp bin/kuso $repo
     cp bin/kuso.desktop $HOME/.local/share/applications/
+    sed "s,--HOME--,$HOME,mg" -i $HOME/.local/share/applications/kuso.desktop
     cp images/icon.svg $repo
 fi
 
@@ -69,5 +70,8 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--ADDR--,$addr,mg" -i $dotemacs
 sed "s,--KUSOHOME--,$kusohome,mg" -i $dotemacs
 
+echo "Copy the below code in your initial shell script:"
+echo 
+echo "export PATH=\$PATH:$repo"
 echo -e "\nInstallation finished."
 echo "Restart the GNU/Emacs and make sure that all the requirements met."
