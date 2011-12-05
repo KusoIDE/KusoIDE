@@ -14,7 +14,7 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar KUSO-VERSION "v0.13.0"
+(defvar KUSO-VERSION "v0.14.0"
   "KusoIDE version string")
 
 
