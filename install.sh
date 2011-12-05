@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VERSION="0.11.0"
+VERSION="0.12.0"
 
 # Gathering informations
 echo -e "\n\tKuso IDE v$VERSION copyright 2010-2011 Sameer Rahmani <lxsameer@gnu.org>\n\n"
@@ -16,6 +16,7 @@ while [ "$condition" == "1" ] ; do
 	dotemacs=~/.kuso
 	repo=~/.kuso.d
 	condition="0"
+	conffile=conf/dotkuso
     fi
 
     if [ "$standalone" == "n" ]
@@ -23,6 +24,7 @@ while [ "$condition" == "1" ] ; do
 	dotemacs=~/.emacs
 	repo=~/.emacs.d
 	condition="0"
+	conffile=conf/dotemacs
     fi
     
 
@@ -54,7 +56,7 @@ cp conf/bin/pyemacs.sh $addr/ -r
 chmod u+x $addr/pyemacs.sh
 
 echo "Creating ~/.emacs"
-cp conf/dotemacs $dotemacs
+cp $conffile $dotemacs
 
 if [ "$standalone" == "y" ]
 then
