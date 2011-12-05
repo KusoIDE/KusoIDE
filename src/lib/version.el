@@ -22,6 +22,5 @@
   "Return the Version number, to use in shell script"
   (let (version)
     (setq version KUSO-VERSION)
-
     )
 )
