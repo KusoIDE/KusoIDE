@@ -115,6 +115,22 @@
       )
 )
 
+(defun nodejs-npm (package)
+  "Install a package using npm utility"
+  (interactive "sPackage name: ")
+  (let (fullcommand command)
+    (setq command (concat "install " package))
+    (message command)
+    (setq newcommand-buffer (get-buffer-create "*npm*"))
+    (ansi-color-for-comint-mode-on)
+    (switch-to-buffer newcommand-buffer)
+    (add-hook 'after-change-functions 'buffer-change-colorizing t t)
+    (setq fullcommand "npm")
+    (message fullcommand)
+    (setq commandp (apply 'make-comint-in-buffer "npm" newcommand-buffer "npm" nil (list fullcommand "install" package)))
+    )
+)
+
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
