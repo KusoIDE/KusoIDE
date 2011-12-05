@@ -15,7 +15,6 @@ while [ "$condition" == "1" ] ; do
 	standalone="y"
 	dotemacs=~/.kuso
 	repo=~/.kuso.d
-	cp bin/kuso $repo
 	condition="0"
     fi
 
@@ -56,7 +55,14 @@ chmod u+x $addr/pyemacs.sh
 
 echo "Creating ~/.emacs"
 cp conf/dotemacs $dotemacs
-v="s/--EMAIL--/$fullname/"
+
+if [ "$standalone" == "y" ]
+then
+    cp bin/kuso $repo
+    cp bin/kuso.desktop $HOME/.local/share/applications/
+    cp images/icon.svg $repo
+fi
+
 sed "s/--EMAIL--/$mail/mg" -i $dotemacs
 sed "s/--FULLNAME--/$fullname/mg" -i $dotemacs
 sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs

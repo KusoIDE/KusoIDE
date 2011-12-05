@@ -13,7 +13,7 @@ StartupNotify=true
 Categories=Development;IDE;
 Exec=$HOME/.kuso.d/kuso %F
 TryExec=kuso
-Icon=$HOME/.kuso.d/logo.svg
+Icon=$HOME/.kuso.d/icon.svg
 Type=Application
 Terminal=false
 
