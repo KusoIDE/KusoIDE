@@ -1,9 +1,9 @@
 #! /bin/bash
 
-VERSION="0.12.0"
+VERSION=$(emacs -l src/lib/version.el --eval "(princ (get_version))" --batch -Q)
 
 # Gathering informations
-echo -e "\n\tKuso IDE v$VERSION copyright 2010-2011 Sameer Rahmani <lxsameer@gnu.org>\n\n"
+echo -e "\n\tKuso IDE $VERSION copyright 2010-2011 Sameer Rahmani <lxsameer@gnu.org>\n\n"
 echo "Enter requested informations. You can change it later in top"
 echo -e "level customization.\n\n"
 condition="1"

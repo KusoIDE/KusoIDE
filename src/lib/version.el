@@ -14,5 +14,14 @@
 ;;    You should have received a copy of the GNU General Public License
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defvar KUSO-VERSION "0.13.0"
+(defvar KUSO-VERSION "v0.13.0"
   "KusoIDE version string")
+
+
+(defun get_version ()
+  "Return the Version number, to use in shell script"
+  (let (version)
+    (setq version KUSO-VERSION)
+
+    )
+)

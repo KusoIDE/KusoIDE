@@ -15,7 +15,7 @@
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defvar aboutkusoidemsg "
-Kuso IDE v%%VERSION%% Copyright © 2010-2011 Sameer Rahmani <lxsameer@gnu.org>
+Kuso IDE %%VERSION%% Copyright © 2010-2011 Sameer Rahmani <lxsameer@gnu.org>
 Kuso IDE release under the term of GPLv2.
 
 Home page:
