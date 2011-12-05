@@ -78,4 +78,4 @@ echo "export PATH=\$PATH:$repo"
 echo -e "\nInstallation finished."
 echo "Restart the GNU/Emacs and make sure that all the requirements met."
 echo
-printf "\033[01;33mImportant Note:\033[00m Do NOT remove the Kuso IDE source."
+printf "\033[01;33mImportant Note:\033[00m Do NOT remove the Kuso IDE source.\n"
