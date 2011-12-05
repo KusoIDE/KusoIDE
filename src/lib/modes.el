@@ -90,7 +90,15 @@ can define their key bindings easily."
   (setq project-path (read-directory-name "Project source tree: "))
 )
 
+(defun aboutkuso ()
+  "Show an small about note"
+  (message "NA")
+)
 
+(defun init_menu ()
+  "Initialized menu"
+  (define-key-after global-map [menu-bar help-menu about-kuso] '("About Kuso" . aboutkuso) 'about-emacs)
+)
 ;; ----------------------------------------------------------------------
 ;; Minor Modes
 ;; ----------------------------------------------------------------------
@@ -121,7 +129,7 @@ This mode provide a basic configuration for an IDE."
 	(global-set-key (kbd "s-[") 'enlarge-window)
 	(global-set-key (kbd "s-/") 'shrink-window)
 
-
+	(init_menu)
 	;; Centralize backups
 	(setq backup-directory-alist
 	      `((".*" . ,"~/.tmp/")))
