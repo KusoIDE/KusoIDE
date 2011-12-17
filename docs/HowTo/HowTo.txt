@@ -1,15 +1,44 @@
-For use Kuso-IDE on you'r emacs follow below step:
 
-First clone Kuso-IDE any where you like on your computer:	 
+
+How to install KUSO-IDE
+-----------------------
+
+For use Kuso-IDE follow below step:
+
+First you must install some Dependencies for installing KUSO-IDE by the below list:
+
+      * GNU Emacs
+
+      Python dependencies
+      -------------------
+      * pep8
+      * pyflakes
+      * pychecker
+      * pylint
+      
+      HTML dependencies
+      -----------------
+      * tidy
+      
+      CSS dependencies
+      ----------------
+      * python-cssutils (pip install cssutils)
+
+second clone Kuso-IDE any where you like on your computer:	 
      $ git clone https://bitbucket.org/lxsameer/kuso-ide.git
 
-Second install Kuso-IDE with running install.sh like:
+Third  install Kuso-IDE with running install.sh like:
      $ ./install.sh
 
 Then you will see this question and follow the awnser:
 
+     Do you want to install Kuso IDE as an stand alone application ([y]/n)? 
+     	(if you say [y]es you can run KUSO-IDE stand alone.)
+
      Enter your full name: YOUR NAME 
+
      Enter your email address: YOUR E-MAIL ADDRESS
+
      Where is your workspace directory[~/src/]:~/YOUR WORKSPACE "if you null this option your emacs work with ~/src/ as default workspace"
      
 Then you will see this message and your installation completed:
@@ -18,5 +47,40 @@ Then you will see this message and your installation completed:
      Creating ~/.emacs
 
      Installation finished.
+     Restart the GNU/Emacs and make sure that all the requirements met   Backing up exists .emacs file . . .
+     Copying files . . . 
+     Creating ~/.emacs
+
+     Installation finished.
      Restart the GNU/Emacs and make sure that all the requirements met.
 Enjoy it!
+
+
+KUSO-IDE Facilities
+-------------------
+	In this version of KUSO-IDE some facilities developed for working better and faster with this IDE like:
+	* Auto Complition
+	       with this facility which in KUSO-IDE existent you can complete reserve word and the variables 
+	       previously written by the user and this Auto Complition available for these programming 
+	       language : (C , Python , Elisp , Html).
+	* Syntax Checker
+	       with this facility there is no worried about syntax error.when you type wrong , this facility 
+	       highlight your wrong code.
+	* Django mode 
+	       Django mode is the best of KUSO-IDE facilities , for running this facility use :
+	       M-x Django-mode
+	       then you can see Django in your menu bar which organized :
+
+	       Management
+			Development server<f6>		"press f6 buttom for running Django server which equivalent (python manage.py runserver) command in shell"
+			Development server Extended	"runnig Django server with manual argumant"
+			syncdb	    <f7>   		"press f7 for synchronized your database"
+			syncdb with Extra option	"runnig syncdb with extra parameter"
+			Custom Command	  		"runnig another command of manage.py"
+	       Project shell   C-c s			"runnig Django-shell of your project"
+	       Check buffer whit pylint			"based on pep8 standard check you'r source code and give a rank number to you'r source code quality"
+	       Cleanup source tree			"cleanup source tree of project"
+	       Current word help <Super-f1>
+
+	       
+			
