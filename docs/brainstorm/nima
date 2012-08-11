@@ -1,2 +1,19 @@
-my brain storm
+define for installer of KUSO-IDE check dependencies needed for install KUSO-IDE 
+if not installed like a below list of KUSO-IDE dependencies:
+* GNU Emacs
+
+      Python dependencies
+      -------------------
+      * pep8
+      * pyflakes
+      * pychecker
+      * pylint
+      
+      HTML dependencies
+      -----------------
+      * tidy
+      
+      CSS dependencies
+      ----------------
+      * python-cssutils (pip install cssutils)
 
