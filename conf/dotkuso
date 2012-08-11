@@ -42,9 +42,9 @@
   ;; If there is more than one, they won't work right.
  '(c-plugin nil)
  ;'(color-theme-selection "Arjen" nil (color-theme_seldefcustom))
- '(developer-email "lxsameer@gnu.org")
- '(developer-name "Sameer Rahmani")
- '(kuso-workspace "/home/lxsameer/src/")
+ '(developer-email "--EMAIL--")
+ '(developer-name "--FULLNAME--")
+ '(kuso-workspace "--WORKSPACE--")
  '(face-font-family-alternatives (quote (("courier" "Monospace" "fixed") ("courier" "CMU Typewriter Text" "fixed") ("Sans Serif" "helv" "helvetica" "arial" "fixed") ("helv" "helvetica" "arial" "fixed"))))
  '(inhibit-startup-screen t)
  '(rng-nxml-auto-validate-flag nil))
@@ -67,7 +67,7 @@
        (local-file (file-relative-name
 		    temp-file
             (file-name-directory buffer-file-name))))
-      (list "/home/lxsameer/.kuso.d/pyemacs.sh"  (list local-file))))
+      (list "--ADDR--/pyemacs.sh"  (list local-file))))
   (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py$" flymake-pyflakes-init)))
 
@@ -131,7 +131,7 @@
 			(other . "linux")))
 
 ;; KUSO configuration ------------------------------------------------------------
-(load-file "/home/lxsameer/src/kuso-ide/src/kuso-ide.el")
+(load-file "--KUSOHOME--/src/kuso-ide.el")
 (kuso-mode)
 
 ;; General configuration ---------------------------------------------------------
@@ -143,3 +143,17 @@
 (setq x-select-enable-clipboard t)
 (column-number-mode t)
 (global-linum-mode)
+
+;; IDO config ----------------------------------------------------------------
+(require 'ido)
+(ido-mode t)
+
+;; Workgroups ----------------------------------------------------------------
+(require 'workgroups)
+
+
+;; org-mode ------------------------------------------------------
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)

@@ -1,21 +1,17 @@
--- High Priority --
-[ ] define prefix key map for language plugins
-[ ] define  a prefix keymap for kuso-mode so some plugins can use that safely
+* High Priority
+  define prefix key map for language plugins
+  define  a prefix keymap for kuso-mode so some plugins can use that safely
 
--- Normal Priority --
-[ ] Remove unkown filetypes from filelist in load-dir
-[ ] Add some option for user to choose between liceenses
-[ ] Review license templates
-[ ] Build the debian folder nad required files for deb packages
-[ ] Escape project name for a unix name "shell-quote-argument"
-[X] Add a config file for user to put his/her configuration there
-   ("Done with custom variables")
-[ ] Disable EDE and other unused menu
-[ ] Allow templates file to store in subdirectories so new project can
+* Normal Priority
+  Remove unkown filetypes from filelist in load-dir
+  Add some option for user to choose between liceenses
+  Review license templates
+  Build the debian folder nad required files for deb packages
+  Escape project name for a unix name "shell-quote-argument"
+  Disable EDE and other unused menu
+  Allow templates file to store in subdirectories so new project can
   have subdirectories
-[ ] Improve modes.el file documentation
-[ ] add the license name into kernel module c file
-[ ] make sure cplugin keymap load with cplugin
+  Improve modes.el file documentation
+  add the license name into kernel module c file
+  make sure cplugin keymap load with cplugin
 
--- Useful modes --
-* org mode

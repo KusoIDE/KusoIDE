@@ -140,9 +140,9 @@
   "Toggle nodejs minor mode.
 This plugin provide some functionality for speedup nodejs development on
 GNUEmacs."
+  :global nil
   :lighter nil
   :keymap nodejs-map
-  :global t 
   :group 'nodejs
 
   (if nodejs-mode

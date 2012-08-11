@@ -258,9 +258,9 @@
   "Toggle lxdjango minor mode.
 This plugin provide some functionality for speedup django development on
 GNUEmacs."
+  :global nil
   :lighter nil
   :keymap django-map
-  :global t 
   :group 'django
 
   (if django-mode
