@@ -1,5 +1,6 @@
 ;; Setup load directory
 (add-to-list 'load-path "~/.kuso.d/")
+(add-to-list 'load-path "~/.kuso.d/ecb/")
 
 ;; auto complete ------------------------------------------------------------
 (require 'auto-complete-config)
@@ -157,3 +158,17 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when(global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Configuring ECB and CEDET
+(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+
+(global-ede-mode 1)
+(semantic-load-enable-code-helpers)
+(global-srecode-minor-mode 1)
+
+(require 'ecb)
