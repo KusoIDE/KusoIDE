@@ -1,0 +1,3 @@
+#! /bin/sh
+
+emacs --title KusoIDE -q -l ~/.kuso $1
