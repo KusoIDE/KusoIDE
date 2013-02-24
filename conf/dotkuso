@@ -1,5 +1,6 @@
 ;; Setup load directory
 (add-to-list 'load-path "~/.kuso.d/")
+(add-to-list 'load-path "~/.kuso.d/ecb/")
 
 ;; auto complete ------------------------------------------------------------
 (require 'auto-complete-config)
@@ -172,3 +173,16 @@
 (add-hook 'python-mode-hook         'hs-minor-mode)
 (add-hook 'lua-mode-hook         'hs-minor-mode)
 (add-hook 'js-mode-hook         'hs-minor-mode)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Configuring ECB and CEDET
+(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+
+(global-ede-mode 1)
+(semantic-load-enable-code-helpers)
+(global-srecode-minor-mode 1)
+
+(require 'ecb)
