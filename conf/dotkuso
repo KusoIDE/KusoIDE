@@ -157,3 +157,18 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when(global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+;; HideShow
+(load-library "hideshow")
+(global-set-key (kbd "C-\-") 'hs-toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+(add-hook 'python-mode-hook         'hs-minor-mode)
+(add-hook 'lua-mode-hook         'hs-minor-mode)
+(add-hook 'js-mode-hook         'hs-minor-mode)
