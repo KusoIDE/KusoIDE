@@ -1,7 +1,7 @@
 * High Priority
   define prefix key map for language plugins
   define  a prefix keymap for kuso-mode so some plugins can use that safely
-
+  byte compile the installed .d directory using  emacs --batch --eval '(byte-recompile-directory ".")'
 * Normal Priority
   Remove unkown filetypes from filelist in load-dir
   Add some option for user to choose between liceenses
