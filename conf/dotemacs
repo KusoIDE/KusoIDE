@@ -57,6 +57,7 @@
  '(font-lock-comment-face ((t (:foreground "orange red"))))
  '(font-lock-keyword-face ((t (:foreground "DeepSkyBlue1")))))
 
+;; (set-frame-font "Terminus-10")
 ;; flymake ---------------------------------------------------------
 (require 'flymake)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
@@ -155,12 +156,73 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Configuring ECB and CEDET
-(load-file "~/.emacs.d/cedet/cedet-devel-load.el")
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+;;(load-file "~/.emacs.d/cedet/cedet-devel-load.el")
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 
-(global-ede-mode 1)
-(semantic-load-enable-code-helpers)
-(global-srecode-minor-mode 1)
+;;(global-ede-mode 1)
+;;(semantic-load-enable-code-helpers)
+;;(global-srecode-minor-mode 1)
 
-(require 'ecb)
+;;(require 'ecb)
+
+;; JS folding
+(add-hook 'js-mode-hook
+          (lambda ()
+            ;; Scan the file for nested code blocks
+            (imenu-add-menubar-index)
+            ;; Activate the folding mode
+            (hs-minor-mode t)))
+
+;; Lua mode --------------------
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; HideShow --------------------
+(load-library "hideshow")
+(global-set-key (kbd "C-\-") 'hs-toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+(add-hook 'python-mode-hook         'hs-minor-mode)
+(add-hook 'lua-mode-hook         'hs-minor-mode)
+(add-hook 'js-mode-hook         'hs-minor-mode)
+
+
+;; git-gutter ------------------
+(require 'fringe-helper)
+(fringe-helper-define 'test-bitmap '(top repeat)
+  "XX......"
+  "..XX...."
+  "....XX.."
+  "......XX")
+
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+ (autoload 'hideshowvis-minor-mode
+   "hideshowvis"
+   "Will indicate regions foldable with hideshow in the fringe."
+   'interactive)
+(dolist (hook (list 'emacs-lisp-mode-hook
+		    'c++-mode-hook
+		    'python-mode-hook))
+  (add-hook hook 'hideshowvis-enable))
+
+
+
+;;(require 'git-gutter)
+;;(require 'git-gutter-fringe)
+
+;;(global-git-gutter-mode t)
+
+;;(add-hook 'ruby-mode-hook 'git-gutter-mode)
+
+;;(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+
+;;(global-set-key (kbd "C-x p") 'git-gutter:previous-diff)
+;;(global-set-key (kbd "C-x n") 'git-gutter:next-diff)

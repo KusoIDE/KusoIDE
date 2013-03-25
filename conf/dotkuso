@@ -159,7 +159,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
-;; HideShow
+;; HideShow --------------------
 (load-library "hideshow")
 (global-set-key (kbd "C-\-") 'hs-toggle-hiding)
 (global-set-key (kbd "C-\\") 'toggle-selective-display)
@@ -177,22 +177,22 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Configuring ECB and CEDET
-(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+;;(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 
-(global-ede-mode 1)
-(semantic-load-enable-code-helpers)
-(global-srecode-minor-mode 1)
+;;(global-ede-mode 1)
+;;(semantic-load-enable-code-helpers)
+;;(global-srecode-minor-mode 1)
 
-(require 'ecb)
+;;(require 'ecb)
 
-;; Lua-mode
+;; Lua-mode -------------------
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
-;; JS folding
+;; JS folding ----------------
 (add-hook 'js-mode-hook
           (lambda ()
             ;; Scan the file for nested code blocks
