@@ -19,6 +19,13 @@
 (require 'python-mode)
 (define-key py-mode-map (kbd "\C-c @") 'uncomment-region)
 
+;; python autocomplete
+(require 'deferred)
+(require 'epc)
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+
 ;; php-mode -------------------------------------------------------------------
 (autoload 'php-mode "php-mode" "PHP editing mode" t)
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
