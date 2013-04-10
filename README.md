@@ -36,7 +36,7 @@ Kuso IDE required these softwares:
 * GNU Emacs
 
 Python dependencies
-^^^^^^^^^^^^^^^^^^^
+-------------------
   * pep8
   * pyflakes
   * pychecker
@@ -47,11 +47,11 @@ For autocompetion:
   * epc
 
 HTML dependencies
-^^^^^^^^^^^^^^^^^
+-----------------
   * tidy
 
 CSS dependencies
-^^^^^^^^^^^^^^^^
+----------------
   * python-cssutils (pip install cssutils)
 
 
