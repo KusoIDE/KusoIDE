@@ -1,39 +1,12 @@
 ;; Setup load directory
 (add-to-list 'load-path "~/.kuso.d/")
-(add-to-list 'load-path "~/.kuso.d/ecb/")
 
-;; auto complete ------------------------------------------------------------
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.kuso.d/ac-dict")
-(ac-config-default)
-
-(global-auto-complete-mode t)
-
-;; ssh configuration ---------------------------------------------------------
-(setq tramp-default-method "ssh")
-
-;; python configuration ------------------------------------------------------
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
-(require 'python-mode)
-(define-key py-mode-map (kbd "\C-c @") 'uncomment-region)
-
-;; python autocomplete
-(require 'deferred)
-(require 'epc)
-(autoload 'jedi:setup "jedi" nil t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)
-
-;; php-mode -------------------------------------------------------------------
-(autoload 'php-mode "php-mode" "PHP editing mode" t)
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
-
-;; yasnippet configuration ----------------------------------------------------
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.kuso.d/snippets")
+;; General configuration ---------------------------------------------------------
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq x-select-enable-clipboard t)
+(column-number-mode t)
+(global-linum-mode)
 
 ;; Setting up color them -------------------------------------------------------
 (require 'color-theme)
@@ -42,6 +15,7 @@
      (color-theme-initialize)
      (color-theme-arjen)
      ))
+
 ;; Setting up customization -----------------------------------------------------
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -64,10 +38,93 @@
  '(font-lock-comment-face ((t (:foreground "orange red"))))
  '(font-lock-keyword-face ((t (:foreground "DeepSkyBlue1")))))
 
-;; flymake ---------------------------------------------------------
+(set-frame-font "Terminus-9")
+
+;; HideShow --------------------
+(load-library "hideshow")
+(global-set-key (kbd "C-\-") 'hs-toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
+
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+(add-hook 'python-mode-hook         'hs-minor-mode)
+(add-hook 'js-mode-hook         'hs-minor-mode)
+
+(require 'fringe-helper)
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+(autoload 'hideshowvis-minor-mode
+  "hideshowvis"
+  "Will indicate regions foldable with hideshow in the fringe."
+  'interactive)
+(dolist (hook (list 'emacs-lisp-mode-hook
+		    'c++-mode-hook
+		    'python-mode-hook))
+  (add-hook hook 'hideshowvis-enable))
+
+
+;; auto complete ------------------------------------------------------------
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.kuso.d/ac-dict")
+(ac-config-default)
+
+(global-auto-complete-mode t)
+
+;;dabbrev;;
+;; dabbrev configuration  ----------------------------------------------------------
+(require 'ac-dabbrev)
+(setq ac-sources
+     (list ac-source-dabbrev
+           ))
+(global-set-key (kbd "<backtab>") 'dabbrev-expand)
+;;/dabbrev;;
+
+;; ssh configuration ---------------------------------------------------------
+(setq tramp-default-method "ssh")
+
+;;python-mode;;
+;; python configuration ------------------------------------------------------
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python-mode)
+(define-key py-mode-map (kbd "\C-c @") 'uncomment-region)
+
+(autoload 'python-pylint "python-pylint")
+(autoload 'pylint "python-pylint")
+
+;;/python-mode;;
+
+;;python-autocomplete;;
+;; python autocomplete -------------------------------------------------------
+(require 'deferred)
+(require 'epc)
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+;;/python-autocomplete;;
+
+;;php-mode;;
+;; php-mode -------------------------------------------------------------------
+(autoload 'php-mode "php-mode" "PHP editing mode" t)
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+;;/php-mode;;
+
+
+;;yasnippet;;
+;; yasnippet configuration ----------------------------------------------------
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.kuso.d/snippets")
+;;/yasnippet;;
+
+;; flymake --------------------------------------------------------------------
 (require 'flymake)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; pyflymake ------------------------------------------------------------------
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -79,6 +136,7 @@
   (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py$" flymake-pyflakes-init)))
 
+;; html flymake ---------------------------------------------------------------
 (defun flymake-html-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-inplace))
@@ -94,6 +152,7 @@
 	     '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
 	       nil 1 2 4))
 
+l;; css flymake -----------------------------------------------------------------
 (defun flymake-css-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-inplace))
@@ -109,18 +168,20 @@
 (add-hook 'css-mode-hook
 	  (lambda () (flymake-mode t)))
 
-;; flymake shortkeys
+;; flymake shortkeys --------------------------------------------------------------
 (global-set-key (kbd "\C-x a") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "\C-x p") 'flymake-goto-next-error)
 
-;; dabbrev configuration  ----------------------------------------------------------
-(require 'ac-dabbrev)
-(setq ac-sources
-     (list ac-source-dabbrev
-           ))
-(global-set-key (kbd "<backtab>") 'dabbrev-expand)
+;; JS folding
+(add-hook 'js-mode-hook
+          (lambda ()
+            ;; Scan the file for nested code blocks
+            (imenu-add-menubar-index)
+            ;; Activate the folding mode
+            (hs-minor-mode t)))
 
 
+;;clang-mode;;
 ;; C configuration ----------------------------------------------------------------
 ;; clang auto completion
 (require 'auto-complete-clang)
@@ -138,66 +199,44 @@
 			(awk-mode . "awk")
 			(other . "linux")))
 
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+;;/clang-mode;;
+
 ;; KUSO configuration ------------------------------------------------------------
 (load-file "--KUSOHOME--/src/kuso-ide.el")
 (kuso-mode)
 
-;; General configuration ---------------------------------------------------------
-(autoload 'python-pylint "python-pylint")
-(autoload 'pylint "python-pylint")
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(setq x-select-enable-clipboard t)
-(column-number-mode t)
-(global-linum-mode)
-
-;; IDO config ----------------------------------------------------------------
-(require 'ido)
-(ido-mode t)
-
-;; Workgroups ----------------------------------------------------------------
-(require 'workgroups)
-
-
+;;org-mode;;
 ;; org-mode ------------------------------------------------------
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when(global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
-;; HideShow --------------------
-(load-library "hideshow")
-(global-set-key (kbd "C-\-") 'hs-toggle-hiding)
-(global-set-key (kbd "C-\\") 'toggle-selective-display)
-
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-(add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'lisp-mode-hook       'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
-(add-hook 'sh-mode-hook         'hs-minor-mode)
-(add-hook 'python-mode-hook         'hs-minor-mode)
-(add-hook 'lua-mode-hook         'hs-minor-mode)
-(add-hook 'js-mode-hook         'hs-minor-mode)
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;/org-mode;;
 
+;;cedet;;
 ;; Configuring ECB and CEDET
-;;(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
-;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+(load-file "~/.kuso.d/cedet/cedet-devel-load.el")
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
 
-;;(global-ede-mode 1)
-;;(semantic-load-enable-code-helpers)
-;;(global-srecode-minor-mode 1)
+(global-ede-mode 1)
+(semantic-load-enable-code-helpers)
+(global-srecode-minor-mode 1)
+(add-to-list 'load-path "~/.kuso.d/ecb/")
+(require 'ecb)
+;;/cedet;;
 
-;;(require 'ecb)
-
-;; Lua-mode -------------------
+;;lua-mode;;
+;; Lua mode --------------------
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+(add-hook 'lua-mode-hook         'hs-minor-mode)
+;;/lua-mode;;
 
 ;; JS folding ----------------
 (add-hook 'js-mode-hook
@@ -215,3 +254,19 @@
 (add-hook 'yaml-mode-hook
 	  '(lambda ()
 	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+;;git-gutter;;
+;; git-gutter ------------------
+(require 'git-gutter)
+(require 'git-gutter-fringe)
+
+(global-git-gutter-mode t)
+
+(add-hook 'ruby-mode-hook 'git-gutter-mode)
+(add-hook 'python-mode-hook 'git-gutter-mode)
+
+(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+
+(global-set-key (kbd "C-x p") 'git-gutter:previous-diff)
+(global-set-key (kbd "C-x n") 'git-gutter:next-diff)
+;;/git-gutter;;
