@@ -238,6 +238,23 @@ l;; css flymake ----------------------------------------------------------------
 (add-hook 'lua-mode-hook         'hs-minor-mode)
 ;;/lua-mode;;
 
+;; JS folding ----------------
+(add-hook 'js-mode-hook
+          (lambda ()
+            ;; Scan the file for nested code blocks
+            (imenu-add-menubar-index)
+            ;; Activate the folding mode
+            (hs-minor-mode t)))
+
+
+;; Yaml mode --------------------------------------
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+	  '(lambda ()
+	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
 ;;git-gutter;;
 ;; git-gutter ------------------
 (require 'git-gutter)
