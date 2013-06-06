@@ -9,12 +9,11 @@
 (global-linum-mode)
 
 ;; Setting up color them -------------------------------------------------------
-(require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-arjen)
-     ))
+     (color-theme-tomorrow-night-eighties)
+))
 
 ;; Setting up customization -----------------------------------------------------
 (custom-set-variables
@@ -270,3 +269,32 @@ l;; css flymake ----------------------------------------------------------------
 (global-set-key (kbd "C-x p") 'git-gutter:previous-diff)
 (global-set-key (kbd "C-x n") 'git-gutter:next-diff)
 ;;/git-gutter;;
+
+;; Yaml mode --------------------------------------
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+	  '(lambda ()
+	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(autoload 'inf-ruby-setup-keybindings "inf-ruby" "" t)
+(eval-after-load 'ruby-mode
+  '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
+
+(add-to-list 'load-path "~/.kuso.d/rinari")
+(require 'rinari)
+
+(setq rinari-tags-file-name "TAGS")
+
+
+(add-to-list 'load-path "~/.kuso.d/rhtml")
+(require 'rhtml-mode)
+(add-hook 'rhtml-mode-hook
+     	  (lambda () (rinari-launch)))
+
+
+
+(show-paren-mode t)
