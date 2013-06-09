@@ -1,11 +1,29 @@
 #! /bin/bash
 
+# Kuso IDE installer script
+# Its a very quick way to install Kuso IDE
+# I now this code is not very nice but who cares it works
+
+
 VERSION=1.0.0
 
-remoteconffile=
-remoteexecutable=
+remoteconffile="http://raw.github.com/Karajlug/KusoIDE/1.0/conf/dotkuso"
+remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/1.0/bin/kuso"
 
 conffile=conf/dotkuso
+
+# Coloring Functions
+function info() {
+    echo -e "[\033[01;32mINFO\033[00m]: $1"
+}
+
+function error(){
+    echo -e "[\033[01;31mERR\033[00m]: $1"
+}
+
+function warn(){
+    echo -e "[\033[01;33mWARN\033[00m]: $1"
+}
 
 # Gathering informations
 echo -e "\n\033[01;32mKuso IDE\033[00m $VERSION copyright 2010-2013 \033[01;34mSameer Rahmani <lxsameer@gnu.org>\033[00m\n\n"
@@ -45,27 +63,30 @@ then
     workspace="$HOME/src/"
 fi
 
-addr=$HOME/.kuso.d
-
 # Installing stage1
-kusohome=`pwd`
+info "Creating configuration folder in $repo"
 mkdir -p $repo
+
 if [ -e $dotemacs ]; then
-    echo "Backing up exists init file . . ."
+    info "An init file already exists."
+    info "Backing up exists init file to $dotemacs.backup . . ."
     #cp $dotemacs "$dotemacs.backup"
 fi
-echo "Copying files . . . "
+
 if [ -e $conffile ]
 then
+    info "Copying init files . . . "
     cp $conffile $dotemacs
     cp bin/$executable $repo/$executable
 else
-    wget $remoteconffile -o $dotemacs
-    wget $remoteexecutable -o $repo/$executable
+    info "Downloading init file and executable . . ."
+    wget $remoteconffile -q -O $dotemacs
+    wget $remoteexecutable -q -O $repo/$executable
 fi
 
 if [ "$standalone" == "" -o "$standalone" == "y" ]
 then
+    info "Creating a link in globe PATH . . ."
     sudo ln -s $repo/$executable /usr/bin/$executable
 fi
 
@@ -75,10 +96,6 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--REPO--,$repo,mg" -i $dotemacs
 
 
-echo "Copy the below code in your initial shell script:"
-echo
-echo "export PATH=\$PATH:$repo"
-echo -e "\nInstallation finished."
-echo "Restart the GNU/Emacs and make sure that all the requirements met."
-echo
-printf "\033[01;33mImportant Note:\033[00m Do NOT remove the Kuso IDE source.\n"
+info "Pre-Installation finished."
+
+echo "\nNow you must run the Kuso IDE to download requirements and configuration. Have Fun ;)"
