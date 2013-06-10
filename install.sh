@@ -98,4 +98,4 @@ sed "s,--REPO--,$repo,mg" -i $dotemacs
 
 info "Pre-Installation finished."
 
-echo "\nNow you must run the Kuso IDE to download requirements and configuration. Have Fun ;)"
+echo -e "\nNow you must run the Kuso IDE to download requirements and configuration. Have Fun ;)"
