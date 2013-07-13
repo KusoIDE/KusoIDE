@@ -151,7 +151,7 @@
 	     '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
 	       nil 1 2 4))
 
-l;; css flymake -----------------------------------------------------------------
+;; css flymake -----------------------------------------------------------------
 (defun flymake-css-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
 		     'flymake-create-temp-inplace))
