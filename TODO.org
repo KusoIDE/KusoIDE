@@ -1,7 +1,7 @@
 * Tasks
 ** Workgroups
 *** TODO Add a directory scanning mode. load each workgroup by name only.
-
+** TODO Provide a variable (defcustom) which allow user to easily change them from customize menu
 
 * New Plusings
 ** TODO Add hs-minor-mode to the plugin mojor mode load hook
