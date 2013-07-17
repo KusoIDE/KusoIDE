@@ -88,6 +88,7 @@ if [ "$standalone" == "" -o "$standalone" == "y" ]
 then
     info "Creating a link in globe PATH . . ."
     sudo ln -s $repo/$executable /usr/bin/$executable
+    chmod +x $repo/$executable
 fi
 
 sed "s/--EMAIL--/$mail/mg" -i $dotemacs
