@@ -16,7 +16,7 @@ REQUIRMENTS=(emacs git)
 
 # Coloring Functions
 function info() {
-    echo -ne "[\033[01;32mINFO\033[00m]: $1"
+    echo -e "[\033[01;32mINFO\033[00m]: $1"
 }
 
 function error(){
