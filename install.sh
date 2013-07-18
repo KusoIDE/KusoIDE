@@ -12,6 +12,8 @@ remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/1.0/bin/kuso"
 
 conffile=conf/dotkuso
 
+REQUIREMENTS=(emacs git)
+
 # Coloring Functions
 function info() {
     echo -e "[\033[01;32mINFO\033[00m]: $1"
@@ -25,8 +27,34 @@ function warn(){
     echo -e "[\033[01;33mWARN\033[00m]: $1"
 }
 
+function requirements_check(){
+    for app in "${REQUIRMENTS[@]}"
+    do
+        echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[CHEKING]\033[00m \r"      
+        if hash $1 2>/dev/null; then
+            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[OK]\033[00m     \n"
+        else
+            REQUIREMENTS_CHECK=false
+            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;31m[ERR]\033[00m    \n"
+        fi
+    done    
+}
+
 # Gathering informations
 echo -e "\n\033[01;32mKuso IDE\033[00m $VERSION copyright 2010-2013 \033[01;34mSameer Rahmani <lxsameer@gnu.org>\033[00m\n\n"
+
+# Requirments check to make sure everything is ok
+echo -e "Requirment Check"
+# if this variable changed to fasle , means we have something to install
+REQUIREMENTS_CHECK=true
+requirements_check $REQUIREMENTS
+# exit if our requirement check 
+if [ $REQUIREMENTS_CHECK == false ]; then 
+    error "Please install requirments first";
+    exit;
+fi
+echo -e "\n\n"
+
 echo "Enter requested informations. You can change it later in top"
 echo -e "your init file.\n\n"
 
@@ -36,20 +64,20 @@ while [ "$condition" == "1" ] ; do
 
     if [ "$standalone" == "" -o "$standalone" == "y" ]
     then
-	standalone="y"
-	dotemacs=~/.kuso_dev
-	repo=~/.kuso.d_dev
-	condition="0"
-	executable=kuso-dev
+        standalone="y"
+        dotemacs=~/.kuso_dev
+        repo=~/.kuso.d_dev
+        condition="0"
+        executable=kuso-dev
     fi
 
     if [ "$standalone" == "n" ]
     then
-	dotemacs=~/.emacs
-	repo=~/.emacs.d
-	condition="0"
+        dotemacs=~/.emacs
+        repo=~/.emacs.d
+        condition="0"
 
-	executable=emacs-dev
+        executable=emacs-dev
     fi
 
 done
