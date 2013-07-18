@@ -12,7 +12,7 @@ remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/1.0/bin/kuso"
 
 conffile=conf/dotkuso
 
-REQUIRMENTS=(emacs git)
+REQUIREMENTS=(emacs git)
 
 # Coloring Functions
 function info() {
@@ -27,14 +27,14 @@ function warn(){
     echo -e "[\033[01;33mWARN\033[00m]: $1"
 }
 
-function requirments_check(){
+function requirements_check(){
     for app in "${REQUIRMENTS[@]}"
     do
         echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[CHEKING]\033[00m \r"      
         if hash $1 2>/dev/null; then
             echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[OK]\033[00m     \n"
         else
-            REQUIRMENT_CHECK=false
+            REQUIREMENTS_CHECK=false
             echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;31m[ERR]\033[00m    \n"
         fi
     done    
@@ -46,10 +46,10 @@ echo -e "\n\033[01;32mKuso IDE\033[00m $VERSION copyright 2010-2013 \033[01;34mS
 # Requirments check to make sure everything is ok
 echo -e "Requirment Check"
 # if this variable changed to fasle , means we have something to install
-REQUIRMENT_CHECK=true
-requirments_check $REQUIRMENTS
+REQUIREMENTS_CHECK=true
+requirements_check $REQUIREMENTS
 # exit if our requirement check 
-if [ $REQUIRMENT_CHECK == false ]; then 
+if [ $REQUIREMENTS_CHECK == false ]; then 
     error "Please install requirments first";
     exit;
 fi
