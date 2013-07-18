@@ -30,13 +30,13 @@ function warn(){
 function requirments_check(){
     for app in "${REQUIRMENTS[@]}"
     do
-	echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[CHEKING]\033[00m \r"	
-	if hash $1 2>/dev/null; then
-	    echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[OK]\033[00m     \n"
-	else
-	    REQUIRMENT_CHECK=false
-	    echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;31m[ERR]\033[00m    \n"
-	fi
+        echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[CHEKING]\033[00m \r"      
+        if hash $1 2>/dev/null; then
+            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[OK]\033[00m     \n"
+        else
+            REQUIRMENT_CHECK=false
+            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;31m[ERR]\033[00m    \n"
+        fi
     done    
 }
 
@@ -64,20 +64,20 @@ while [ "$condition" == "1" ] ; do
 
     if [ "$standalone" == "" -o "$standalone" == "y" ]
     then
-	standalone="y"
-	dotemacs=~/.kuso_dev
-	repo=~/.kuso.d_dev
-	condition="0"
-	executable=kuso-dev
+        standalone="y"
+        dotemacs=~/.kuso_dev
+        repo=~/.kuso.d_dev
+        condition="0"
+        executable=kuso-dev
     fi
 
     if [ "$standalone" == "n" ]
     then
-	dotemacs=~/.emacs
-	repo=~/.emacs.d
-	condition="0"
+        dotemacs=~/.emacs
+        repo=~/.emacs.d
+        condition="0"
 
-	executable=emacs-dev
+        executable=emacs-dev
     fi
 
 done
