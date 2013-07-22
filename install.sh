@@ -44,14 +44,13 @@ function requirements_check(){
 
 
 
-while getopts u:d:p:f: option
+while getopts ":e" option
 do
     case "${option}"
         in
         e)mode="expert";;
     esac
 done
-
 
 # Gathering informations
 echo -e "\n\033[01;32mKuso IDE\033[00m $VERSION copyright 2010-2013 \033[01;34mSameer Rahmani <lxsameer@gnu.org>\033[00m\n\n"
@@ -138,7 +137,7 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--REPO--,$repo,mg" -i $dotemacs
 
 
-if [ $mode == "expert"]
+if [ $mode == "expert" ]
 then
     info "Installing base system . . ."
     echo "(setq KUSO-INSTALL-MODE \"expert\")" > /tmp/init_kuso_installer.el
@@ -148,4 +147,4 @@ else
     `which emacs` --batch -l $dotemacs
 fi
 
-echo -e "\nNow you must run the Kuso IDE to download requirements and configuration. Have Fun ;)"
+echo -e "\nNow run `kuso` and have fun ;)"
