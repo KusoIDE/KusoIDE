@@ -12,6 +12,8 @@ remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/1.0/bin/kuso"
 
 conffile=conf/dotkuso
 
+mode="basic"
+
 REQUIREMENTS=(emacs git)
 
 # Coloring Functions
@@ -30,15 +32,26 @@ function warn(){
 function requirements_check(){
     for app in "${REQUIRMENTS[@]}"
     do
-        echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[CHEKING]\033[00m \r"      
+        info "Check for $app"
         if hash $1 2>/dev/null; then
-            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;34m[OK]\033[00m     \n"
+            info "$app is present"
         else
             REQUIREMENTS_CHECK=false
-            echo -ne "[\033[01;32mINFO\033[00m]: $app \033[01;31m[ERR]\033[00m    \n"
+            error "Can not find $app"
         fi
-    done    
+    done
 }
+
+
+
+while getopts u:d:p:f: option
+do
+    case "${option}"
+        in
+        e)mode="expert";;
+    esac
+done
+
 
 # Gathering informations
 echo -e "\n\033[01;32mKuso IDE\033[00m $VERSION copyright 2010-2013 \033[01;34mSameer Rahmani <lxsameer@gnu.org>\033[00m\n\n"
@@ -48,8 +61,8 @@ echo -e "Requirment Check"
 # if this variable changed to fasle , means we have something to install
 REQUIREMENTS_CHECK=true
 requirements_check $REQUIREMENTS
-# exit if our requirement check 
-if [ $REQUIREMENTS_CHECK == false ]; then 
+# exit if our requirement check
+if [ $REQUIREMENTS_CHECK == false ]; then
     error "Please install requirments first";
     exit;
 fi
@@ -125,6 +138,14 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--REPO--,$repo,mg" -i $dotemacs
 
 
-info "Pre-Installation finished."
+if [ $mode == "expert"]
+then
+    info "Installing base system . . ."
+    echo "(setq KUSO-INSTALL-MODE \"expert\")" > /tmp/init_kuso_installer.el
+    `which emacs` --batch -l /tmp/init_kuso_installer.el -l $dotemacs
+else
+    info "Installing base system . . ."
+    `which emacs` --batch -l $dotemacs
+fi
 
 echo -e "\nNow you must run the Kuso IDE to download requirements and configuration. Have Fun ;)"

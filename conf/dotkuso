@@ -18,4 +18,18 @@
     )
   )
 
+(toggle-debug-on-error)
+
+(unless (require 'kuso-base nil t)
+  (message "Installing 'kuso-base' plugin")
+  (el-get-install 'kuso-base)
+)
+
+(unless (require 'kuso-installer nil t)
+  (message "Installing 'kuso-installer' plugin")
+  (el-get-install 'kuso-installer)
+  (if (boundp 'KUSO-INSTALL-MODE)
+      (kuso/install-plugins))
+)
+
 (el-get 'sync)
