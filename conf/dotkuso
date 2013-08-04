@@ -298,3 +298,6 @@
 
 
 (show-paren-mode t)
+
+(require 'haml-mode)
+(require 'sass-mode)
