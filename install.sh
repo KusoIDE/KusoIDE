@@ -137,14 +137,14 @@ sed "s,--WORKSPACE--,$workspace,mg" -i $dotemacs
 sed "s,--REPO--,$repo,mg" -i $dotemacs
 
 
-if [ $mode == "expert" ]
-then
-    info "Installing base system . . ."
-    echo "(setq KUSO-INSTALL-MODE \"expert\")" > /tmp/init_kuso_installer.el
-    `which emacs` --batch -l /tmp/init_kuso_installer.el -l $dotemacs
-else
-    info "Installing base system . . ."
-    `which emacs` --batch -l $dotemacs
-fi
+#if [ $mode == "expert" ]
+#then
+#    info "Installing base system . . ."
+#    echo "(setq KUSO-INSTALL-MODE \"expert\")" > /tmp/init_kuso_installer.el
+#    `which emacs` --batch -l /tmp/init_kuso_installer.el -l $dotemacs
+#else
+#    info "Installing base system . . ."
+#    `which emacs` --batch -l $dotemacs
+#fi
 
 echo -e "\nNow run `kuso` and have fun ;)"
