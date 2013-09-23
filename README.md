@@ -35,26 +35,24 @@ Kuso IDE required these softwares:
 
 * GNU Emacs
 
-Python dependencies
--------------------
+Python dependencies (kuso-python plugin)
+========================================
   * pep8
   * pyflakes
   * pychecker
   * pylint
-
-For autocompetion:
   * jedi
   * epc
 
 HTML dependencies
------------------
+=================
   * tidy
 
 CSS dependencies
-----------------
+================
   * python-cssutils (pip install cssutils)
 
 
 3. Installation
 ---------------
-Just run install.sh in its directory
+Just run install.sh in its directory and after that run kuso to get extra plugins
