@@ -80,7 +80,7 @@ while [ "$condition" == "1" ] ; do
         dotemacs=~/.kuso_dev
         repo=~/.kuso.d_dev
         condition="0"
-        executable=kuso-dev
+        executable=kuso
     fi
 
     if [ "$standalone" == "n" ]
@@ -88,8 +88,7 @@ while [ "$condition" == "1" ] ; do
         dotemacs=~/.emacs
         repo=~/.emacs.d
         condition="0"
-
-        executable=emacs-dev
+        executable=kuso
     fi
 
 done
@@ -127,7 +126,7 @@ fi
 if [ "$standalone" == "" -o "$standalone" == "y" ]
 then
     info "Creating a link in globe PATH . . ."
-    sudo ln -s $repo/$executable /usr/bin/$executable
+    sudo ln -s $repo/$executable /usr/bin/$executable-dev
     chmod +x $repo/$executable
 fi
 
@@ -147,4 +146,4 @@ sed "s,--REPO--,$repo,mg" -i $dotemacs
 #    `which emacs` --batch -l $dotemacs
 #fi
 
-echo -e "\nNow run `kuso` and have fun ;)"
+echo -e "\nNow run 'kuso' and have fun ;)"

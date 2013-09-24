@@ -6,3 +6,6 @@
 * New Plugings
 ** TODO Add hs-minor-mode to the plugin mojor mode load hook
 ** TODO add the custom snippets path to yasnippet load path
+
+* Release
+** TODO remove '-dev' suffix from executable filename
