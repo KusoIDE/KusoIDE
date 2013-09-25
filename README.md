@@ -4,13 +4,12 @@ A piece of Shit GNU Emacs based IDE
 Copyright (C) 2010-2013  Sameer Rahmani <lxsameer@gnu.org>
 
 Contents
---------
-
+========
 1. License
 2. Dependencies
 
 1. License
-----------
+==========
   Kuso IDE is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
@@ -29,14 +28,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 under the term of GNU FDL.
 
 2. Dependencies
----------------
+===============
 Kuso IDE required these softwares:
 
 
 * GNU Emacs
 
 Python dependencies (kuso-python plugin)
-========================================
+----------------------------------------
   * pep8
   * pyflakes
   * pychecker
@@ -45,14 +44,14 @@ Python dependencies (kuso-python plugin)
   * epc
 
 HTML dependencies
-=================
+-----------------
   * tidy
 
 CSS dependencies
-================
+----------------
   * python-cssutils (pip install cssutils)
 
 
 3. Installation
----------------
+===============
 Just run install.sh in its directory and after that run kuso to get extra plugins
