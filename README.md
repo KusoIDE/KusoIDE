@@ -43,6 +43,12 @@ Python dependencies (kuso-python plugin)
   * jedi
   * epc
 
+Ruby dependencies (kuso-ruby plugin)
+------------------------------------
+  * rb-readline
+  * Rake
+  * Bundle
+
 HTML dependencies
 -----------------
   * tidy
