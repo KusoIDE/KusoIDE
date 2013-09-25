@@ -52,11 +52,12 @@ Ruby dependencies (kuso-ruby plugin)
 HTML dependencies
 -----------------
   * tidy
+  * xmlstarlet
 
 CSS dependencies
 ----------------
   * python-cssutils (pip install cssutils)
-
+  * csslint
 
 3. Installation
 ===============
