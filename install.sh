@@ -7,8 +7,8 @@
 
 VERSION=1.0.0
 
-remoteconffile="http://raw.github.com/Karajlug/KusoIDE/1.0/conf/dotkuso"
-remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/1.0/bin/kuso"
+remoteconffile="http://raw.github.com/Karajlug/KusoIDE/master/conf/dotkuso"
+remoteexecutable="http://raw.github.com/Karajlug/KusoIDE/master/bin/kuso"
 
 conffile=conf/dotkuso
 
@@ -77,8 +77,8 @@ while [ "$condition" == "1" ] ; do
     if [ "$standalone" == "" -o "$standalone" == "y" ]
     then
         standalone="y"
-        dotemacs=~/.kuso_dev
-        repo=~/.kuso.d_dev
+        dotemacs=~/.kuso
+        repo=~/.kuso.d
         condition="0"
         executable=kuso
     fi
@@ -116,17 +116,25 @@ if [ -e $conffile ]
 then
     info "Copying init files . . . "
     cp $conffile $dotemacs
-    cp bin/$executable $repo/$executable
+
+    if [ "$standalone" == "y" ]
+    then
+        cp bin/$executable $repo/$executable
+    fi
 else
     info "Downloading init file and executable . . ."
     wget $remoteconffile -q -O $dotemacs
-    wget $remoteexecutable -q -O $repo/$executable
+
+    if [ "$standalone" == "y" ]
+    then
+        wget $remoteexecutable -q -O $repo/$executable
+    fi
 fi
 
 if [ "$standalone" == "" -o "$standalone" == "y" ]
 then
     info "Creating a link in globe PATH . . ."
-    sudo ln -s $repo/$executable /usr/bin/$executable-dev
+    sudo ln -s $repo/$executable /usr/bin/$executable
     chmod +x $repo/$executable
 fi
 
