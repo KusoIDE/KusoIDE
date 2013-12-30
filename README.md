@@ -33,6 +33,7 @@ Kuso IDE required these softwares:
 
 
 * GNU Emacs
+* bzr - A decentralized revision control system
 
 Python dependencies (kuso-python plugin)
 ----------------------------------------
