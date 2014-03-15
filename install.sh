@@ -114,7 +114,7 @@ fi
 
 if [ -e $conffile ]
 then
-    info "Copying init files . . . "
+     info "Copying init files . . . "
     cp $conffile $dotemacs
     cp bin/$executable $repo/$executable
 else
