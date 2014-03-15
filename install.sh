@@ -4,6 +4,11 @@
 # Its a very quick way to install Kuso IDE
 # I now this code is not very nice but who cares it works
 
+echo "  _  __              ___ ___  ___ ";
+echo " | |/ /  _ ___ ___  |_ _|   \| __|";
+echo " | ' < || (_-</ _ \  | || |) | _| ";
+echo " |_|\_\_,_/__/\___/ |___|___/|___|";
+echo "                                  ";
 
 VERSION=1.0.0
 

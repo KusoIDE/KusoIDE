@@ -3,6 +3,13 @@
 . scripts/versioncmp.sh
 . scripts/log.sh
 
+echo "  _  __              ___ ___  ___ ";
+echo " | |/ /  _ ___ ___  |_ _|   \| __|";
+echo " | ' < || (_-</ _ \  | || |) | _| ";
+echo " |_|\_\_,_/__/\___/ |___|___/|___|";
+echo "                                  ";
+
+
 function check_dep() {
     local package=$1
     local hint=$2
