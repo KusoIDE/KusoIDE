@@ -34,6 +34,9 @@ Kuso IDE required these softwares:
 
 
 * GNU Emacs
+* texinfo
+* git
+* bzr
 
 Python dependencies (kuso-python plugin)
 ========================================
