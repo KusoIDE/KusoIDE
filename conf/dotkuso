@@ -19,11 +19,13 @@
     )
   )
 
-(toggle-debug-on-error)
+;; Uncomment this line if you want to debug an error
+;; (toggle-debug-on-error)
 
 (setq kuso:el-get-packages
       '(kuso-base
-        kuso-python)
+        kuso-python
+        kuso-ruby)
       )
 
 (el-get 'sync kuso:el-get-packages)

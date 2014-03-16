@@ -253,3 +253,6 @@ l;; css flymake ----------------------------------------------------------------
 (global-set-key (kbd "C-x p") 'git-gutter:previous-diff)
 (global-set-key (kbd "C-x n") 'git-gutter:next-diff)
 ;;/git-gutter;;
+
+(require 'haml-mode)
+(require 'sass-mode)
