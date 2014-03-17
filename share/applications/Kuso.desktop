@@ -9,5 +9,5 @@ Terminal=false
 Categories=Development;TextEditor;
 StartupWMClass=Kuso
 Exec=--PATH--/kuso %F
-Icon=--PATH--/share/kuso.tiff
+Icon=kuso
 Version=--VERSION--
