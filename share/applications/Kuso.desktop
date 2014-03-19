@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Kuso
+GenericName=Kuso IDE
+Comment=An Emacs base IDE for emacs lovers.
+MimeType=text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-java;application/x-shellscript;text/x-c;text/x-c++;text/x-ruby;text/x-python;
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Kuso
+Exec=--PATH--/kuso %F
+Icon=kuso
+Version=--VERSION--

@@ -119,7 +119,7 @@ fi
 
 if [ -e $conffile ]
 then
-    info "Copying init files . . . "
+     info "Copying init files . . . "
     cp $conffile $dotemacs
 
     if [ "$standalone" == "y" ]
