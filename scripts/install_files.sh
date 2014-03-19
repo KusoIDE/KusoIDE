@@ -13,5 +13,9 @@
 # this program. If not, see http://www.gnu.org/licenses/.
 
 function do_install() {
-    cp .build/share /usr/local/share -rv
+    info "Install files in /usr/local/share"
+    info "If you are not a sudoer just copy ./.build/share to /usr/local/share manually"
+    info "and create a link to ./kuso in your /usr/local/bin/kuso"
+    sudo cp .build/share /usr/local/share -rv
+    sudo ln -f -s `pwd`/kuso /usr/local/bin/kuso
 }

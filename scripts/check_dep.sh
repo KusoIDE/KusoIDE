@@ -15,6 +15,35 @@
 . scripts/versioncmp.sh
 . scripts/log.sh
 
+required_packages=("emacs" "jedi" "epc" "ruby")
+unmet_deps=()
+
+function can_we_continue() {
+    local deps=()
+    local failed="0"
+    for elem in "${required_packages[@]}"
+    do
+        if [[ "${unmet_deps[*]}" == *"$elem"* ]]
+        then
+            deps+=($elem)
+            failed="1"
+        fi
+    done
+
+    if [ $failed == "1" ]
+    then
+        error "Can't continue. There are some requirements are missing:"
+        echo
+        for i in "${deps[@]}"
+        do
+            echo "$i"
+        done
+        echo
+        echo "Install them and retry please."
+        exit 1
+    fi
+}
+
 function check_dep() {
     local package=$1
     local hint=$2
@@ -35,6 +64,7 @@ function check_dep() {
                 then
                     error "$package version $version_to_check required. Yours is $version"
                     info "$hint"
+                    unmet_deps+=($package)
                 else
                     echo "$package version $version is fine. need ($version_to_check)"
 
@@ -46,6 +76,7 @@ function check_dep() {
         else
             error "Can't find '$package'."
             info "$hint"
+            unmet_deps+=($package)
         fi
     else
         error "first argument is empty"
@@ -62,6 +93,7 @@ function py_check_dep() {
     else
         error "Can't find python package '$package'."
         info "$hint"
+        unmet_deps+=($package)
     fi
 
 }
@@ -111,4 +143,6 @@ function do_check() {
         check_dep 'xmlstarlet' 'On Debian you can install xmlstarlet by installing "xmlstarlet" package.'
         check_dep 'csslint' 'For installing csslint you need "nodejs". You can install "csslint" via "npm"'
     fi
+
+    can_we_continue
 }

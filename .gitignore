@@ -1,4 +1,3 @@
-conf/emacs.d/session*
 ./kuso.config.el
 kuso.d/*
 .build/*

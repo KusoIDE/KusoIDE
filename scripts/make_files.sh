@@ -13,30 +13,31 @@
 # this program. If not, see http://www.gnu.org/licenses/.
 
 function pre_make() {
-    rm `find kuso.d -inam "*.elc"`
+    rm `find kuso.d -iname "*.elc"` 2> /dev/null
     if [ -a "`pwd`/.build" ]
     then
-       rm "`pwd`/.build -rf"
+       rm "`pwd`/.build -rf" 2> /dev/null
     fi
 
-    rm ./kuso.config.el
+    rm ./kuso.config.el 2> /dev/null
 
     mkdir -p `pwd`/.build/
-    cp ./share/ .build/share
+    cp ./share/ .build/share -r
+    cp ./conf/ .build/ -r
 }
 
 
 function do_make() {
     pre_make
 
-    files=("conf/kuso.config.el" "share/applications/kuso.desktop")
+    files=("conf/kuso.config.el" "share/applications/Kuso.desktop")
 
     read -p "Enter your full name: " fullname
     read -p "Enter your email address: " mail
     read -p "Where is your workspace directory[~/src/]: " workspace
 
     current_path=`pwd`
-    $plugins_list=$selected_plugins
+    plugins_list=${selected_plugins[@]}
 
     # Validating informations
     if [ "$workspace" == "" ]
@@ -47,19 +48,20 @@ function do_make() {
     for file in "${files[@]}"
     do
         cp $file ".build/$file"
-        sed "s/--EMAIL--/$mail/mg" -i $file
-        sed "s/--FULLNAME--/$fullname/mg" -i $file
-        sed "s,--WORKSPACE--,$workspace,mg" -i $file
-        sed "s,--REPO--,$repo,mg" -i $file
-        sed "s,--PATH--,$current_path,mg" -i $file
-        sed "s,--PLUGINS--,$plugins_list,mg" -i $file
+        sed "s/--EMAIL--/$mail/mg" -i ".build/$file"
+        sed "s/--FULLNAME--/$fullname/mg" -i ".build/$file"
+        sed "s,--WORKSPACE--,$workspace,mg" -i ".build/$file"
+        sed "s,--REPO--,$repo,mg" -i ".build/$file"
+        sed "s,--PATH--,$current_path,mg" -i ".build/$file"
+        sed "s,--PLUGINS--,$plugins_list,mg" -i ".build/$file"
+        sed "s,--VERSION--,$VERSION,mg" -i ".build/$file"
     done
 
     post_make
 }
 
 function post_make() {
-    cp .build/conf/kuso.config.el ./
+    cp .build/conf/kuso.config.el ./ -f
     # Byte compile everything
     emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el
 
