@@ -16,6 +16,6 @@ function do_install() {
     info "Install files in /usr/local/share"
     info "If you are not a sudoer just copy ./.build/share to /usr/local/share manually"
     info "and create a link to ./kuso in your /usr/local/bin/kuso"
-    sudo cp .build/share /usr/local -rv
+    sudo cp .build/share /usr/local/ -rv
     sudo ln -f -s `pwd`/kuso /usr/local/bin/kuso
 }

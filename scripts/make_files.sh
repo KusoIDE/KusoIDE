@@ -14,15 +14,11 @@
 
 function pre_make() {
     rm `find kuso.d -iname "*.elc"` 2> /dev/null
-    if [ -a "`pwd`/.build" ]
-    then
-       rm "`pwd`/.build -rf" 2> /dev/null
-    fi
-
+    rm .build -rf
     rm ./kuso.config.el 2> /dev/null
 
     mkdir -p `pwd`/.build/
-    cp ./share/ .build/share -r
+    cp ./share/ .build/ -r
     cp ./conf/ .build/ -r
 }
 

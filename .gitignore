@@ -1,4 +1,4 @@
-./kuso.config.el
+kuso.config.el
 kuso.d/*
 .build/*
 *~
