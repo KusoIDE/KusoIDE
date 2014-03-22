@@ -16,3 +16,7 @@
 
 * Release
 ** DONE remove '-dev' suffix from executable filename
+** 1.0.0-rc3
+*** mu4e
+*** multiple cursor shortcut keys
+*** flycheck
