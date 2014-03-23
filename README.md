@@ -1,15 +1,58 @@
 Kuso IDE
 ========
-A piece of Shit GNU Emacs based IDE
-Copyright (C) 2010-2013  Sameer Rahmani <lxsameer@gnu.org>
+If you love **GNU/Emacs**, If you love to program in an editor instead of big slow IDE but still enjoy to have a handy code editor then Kuso IDE is the right choice for you.
 
-Contents
-========
-1. License
-2. Dependencies
 
-1. License
-==========
+Dependencies
+============
+Kuso IDE required these softwares:
+
+* GNU Emacs >= 24.3
+* texinfo
+* git (If you want to install or update packages via `el-get`)
+* bzr (If you want to install or update packages via `el-get`)
+
+Python dependencies (kuso-python plugin)
+----------------------------------------
+  * pep8
+  * pyflakes
+  * pychecker
+  * pylint
+  * jedi
+  * epc
+
+Ruby dependencies (kuso-ruby plugin)
+------------------------------------
+  * rb-readline
+  * Rake
+  * Bundle
+  * rbenv
+
+HTML dependencies
+-----------------
+  * tidy
+  * xmlstarlet
+
+CSS dependencies
+----------------
+  * python-cssutils (pip install cssutils)
+  * csslint
+
+Installation
+============
+Just run `install.sh` script in its directory like this:
+
+```bash
+$ ./install.sh
+```
+
+and answer to questions which installer will ask you. That's it.
+
+Enjoy using **Kuso IDE** ;)
+
+
+License
+=======
   Kuso IDE is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
@@ -27,42 +70,4 @@ with this program; if not, write to the Free Software Foundation, Inc.,
   All the documents of Kuso IDE that locate in 'doc' directories release
 under the term of GNU FDL.
 
-2. Dependencies
-===============
-Kuso IDE required these softwares:
-
-
-* GNU Emacs
-* texinfo
-* git
-* bzr
-* bzr - A decentralized revision control system
-
-Python dependencies (kuso-python plugin)
-----------------------------------------
-  * pep8
-  * pyflakes
-  * pychecker
-  * pylint
-  * jedi
-  * epc
-
-Ruby dependencies (kuso-ruby plugin)
-------------------------------------
-  * rb-readline
-  * Rake
-  * Bundle
-
-HTML dependencies
------------------
-  * tidy
-  * xmlstarlet
-
-CSS dependencies
-----------------
-  * python-cssutils (pip install cssutils)
-  * csslint
-
-3. Installation
-===============
-Just run install.sh in its directory and after that run kuso to get extra plugins
+Copyright (C) 2010-2014  Sameer Rahmani <lxsameer@gnu.org>
