@@ -59,6 +59,6 @@ function do_make() {
 function post_make() {
     cp .build/conf/kuso.config.el ./ -f
     # Byte compile everything
-    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el
+    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el > ./build.log
 
 }
