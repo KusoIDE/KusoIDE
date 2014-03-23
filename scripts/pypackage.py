@@ -12,15 +12,19 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
+from __future__ import print_function
 import sys
 
 
 def check_for_package(pkg):
     try:
-        __import__(pkg, globals(), locals(), [], -1)
-        print "1"
+        try:
+            __import__(pkg, globals(), locals(), [], -1)
+        except ValueError:
+            __import__(pkg, globals(), locals(), [], 0)
+        print("1")
     except ImportError:
-        print "0"
+        print("0")
 
 
 if __name__ == "__main__":
