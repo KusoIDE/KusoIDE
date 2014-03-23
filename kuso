@@ -1,2 +1,3 @@
 #! /bin/sh
-emacs -Q --no-splash --name KusoIDE --title KusoIDE -q -l ./kuso.config.el $1
+
+emacs -Q --no-splash --name KusoIDE --title KusoIDE -q -l `dirname $0`/kuso.config.el "$@"
