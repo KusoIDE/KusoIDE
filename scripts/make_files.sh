@@ -20,13 +20,14 @@ function pre_make() {
     mkdir -p `pwd`/.build/
     cp ./share/ .build/ -r
     cp ./conf/ .build/ -r
+    cp ./bin/ .build/ -r
 }
 
 
 function do_make() {
     pre_make
 
-    files=("conf/kuso.config.el" "share/applications/Kuso.desktop")
+    files=("conf/kuso.config.el" "share/applications/Kuso.desktop" "bin/kuso")
 
     read -p "Enter your full name: " fullname
     read -p "Enter your email address: " mail
@@ -58,7 +59,10 @@ function do_make() {
 
 function post_make() {
     cp .build/conf/kuso.config.el ./ -f
+    cp .build/bin/kuso ./ -f
+    chmod +x ./kuso
     # Byte compile everything
-    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el > ./build.log
+    echo "Compiling elisp files ..."
+    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el 2> ./build.log
 
 }
