@@ -141,6 +141,7 @@ function do_check() {
         echo ""
         info "Check for kuso-web dependencies. . ."
         check_dep 'xmlstarlet' 'On Debian you can install xmlstarlet by installing "xmlstarlet" package.'
+        check_dep 'jshint' 'For installing csslint you need "nodejs". You can install "jshint" via "npm"'
         check_dep 'csslint' 'For installing csslint you need "nodejs". You can install "csslint" via "npm"'
     fi
 
