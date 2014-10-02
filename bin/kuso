@@ -1,0 +1,3 @@
+#! /bin/sh
+
+emacs -Q --no-splash --name KusoIDE --title KusoIDE -q -l --PATH--/kuso.config.el "$@"

@@ -14,19 +14,23 @@
 
 function pre_make() {
     rm `find kuso.d -iname "*.elc"` 2> /dev/null
-    rm .build -rf
+    rm -R .build 
     rm ./kuso.config.el 2> /dev/null
 
     mkdir -p `pwd`/.build/
-    cp ./share/ .build/ -r
-    cp ./conf/ .build/ -r
+    mkdir .build/share
+    mkdir .build/conf
+    mkdir .build/bin
+    cp -r ./share/ .build/ 
+    cp -r ./conf/ .build/
+    cp -r ./bin/ .build/ 
 }
 
 
 function do_make() {
     pre_make
-
-    files=("conf/kuso.config.el" "share/applications/Kuso.desktop")
+    #No such place
+   files=("conf/kuso.config.el"  "bin/kuso")
 
     read -p "Enter your full name: " fullname
     read -p "Enter your email address: " mail
@@ -43,22 +47,26 @@ function do_make() {
 
     for file in "${files[@]}"
     do
-        cp $file ".build/$file"
-        sed "s/--EMAIL--/$mail/mg" -i ".build/$file"
-        sed "s/--FULLNAME--/$fullname/mg" -i ".build/$file"
-        sed "s,--WORKSPACE--,$workspace,mg" -i ".build/$file"
-        sed "s,--REPO--,$repo,mg" -i ".build/$file"
-        sed "s,--PATH--,$current_path,mg" -i ".build/$file"
-        sed "s,--PLUGINS--,$plugins_list,mg" -i ".build/$file"
-        sed "s,--VERSION--,$VERSION,mg" -i ".build/$file"
+	
+        cp  $file ".build/$file"
+        sed -i '' -e "s|--EMAIL--|$mail|g"  ".build/$file"
+        sed -i '' -e "s|--FULLNAME--|$fullname|g"  ".build/$file"
+        sed -i '' -e "s|--WORKSPACE--|$workspace|g" ".build/$file"
+        sed -i '' -e "s|--REPO--|$repo|g"  ".build/$file"
+        sed -i '' -e "s|--PATH--|$current_path|g"  ".build/$file"
+        sed -i '' -e "s|--PLUGINS--|$plugins_list|g"  ".build/$file"
+        sed -i '' -e "s|--VERSION--|$VERSION|g"  ".build/$file"
     done
 
     post_make
 }
 
 function post_make() {
-    cp .build/conf/kuso.config.el ./ -f
+    cp -r .build/conf/kuso.config.el ./ 
+    cp -r .build/bin/kuso ./ 
+    chmod +x ./kuso
     # Byte compile everything
-    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el > ./build.log
+    echo "Compiling elisp files ..."
+    emacs --batch --eval "(byte-recompile-directory \"./kuso.d/\" 0)" -Q -l kuso.config.el 2> ./build.log
 
 }

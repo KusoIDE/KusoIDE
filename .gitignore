@@ -2,3 +2,4 @@ kuso.config.el
 kuso.d/*
 .build/*
 *~
+build.log

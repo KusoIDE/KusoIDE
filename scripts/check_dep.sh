@@ -134,6 +134,7 @@ function do_check() {
         check_dep 'ruby' 'You need to install it from your package manager or from source'
         check_dep 'rake' 'Install it using "gem install rake"'
         check_dep 'bundle' 'Install it using "gem install bundler"'
+        check_dep 'rubocop' 'Install it using "gem install rubocop"'
     fi
 
     if [[ "${selected_plugins[*]}" == *"kuso-web"* ]]
