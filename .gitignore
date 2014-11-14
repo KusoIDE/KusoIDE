@@ -3,3 +3,4 @@ kuso.d/*
 .build/*
 *~
 build.log
+.cask/*
