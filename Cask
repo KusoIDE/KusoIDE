@@ -1,8 +1,9 @@
 (source gnu)
 (source melpa)
 
-(if (boundp kuso-debug)
-    (source 'kuso', 'http://repo.kuso.lxsameer.com/packages'))
+(unless (boundp kuso-debug)
+    (source 'kuso' 'http://repo.kuso.lxsameer.com/packages')
+    (source 'kuso-debug' 'http://localhost/kuso/packages/'))
 
 ; TODO: Check these packages
 ;       and move them to related kuso
