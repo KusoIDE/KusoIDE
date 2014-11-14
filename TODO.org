@@ -2,21 +2,8 @@
 ** Workgroups
 *** TODO Add a directory scanning mode. load each workgroup by name only.
 ** TODO Provide a variable (defcustom) which allow user to easily change them from customize menu
-** DONE Add auto-pair mode to kuso-base
-** DONE add markdown and rst plugin
 ** TODO add org-mode support
 *** TODO add support to main todo repository and collect todo form projects repositories
 ** TODO add startup custom buffer for kuso
 ** TODO add per project configuration support
-** Ruby Mode
-*** TODO add rscene2
-* New Plugings
-** DONE Add hs-minor-mode to the plugin mojor mode load hook
-** DONE add the custom snippets path to yasnippet load path
-
 * Release
-** DONE remove '-dev' suffix from executable filename
-** 1.0.0-rc3
-*** mu4e
-*** multiple cursor shortcut keys
-*** flycheck
